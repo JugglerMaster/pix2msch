@@ -18,9 +18,9 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
 
@@ -31,7 +31,7 @@ jobs:
         run: pyinstaller --noconfirm --onefile --windowed --name pix2msch --add-data "background.png;." gui.py
 
       - name: Upload to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ github.event_name == 'push' && github.ref_name || inputs.tag }}
           files: dist/pix2msch.exe
