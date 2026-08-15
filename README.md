@@ -7,7 +7,7 @@ If you're on Windows, you can go to releases, download and run pix2msch.exe. No 
 
 Note: You will need `pyperclip` and `pillow` to run gui.py. You can install them by doing `pip install <package>`
 
-WARNING: Images above 100x100 don't actually seem large, but when converted to a Mindustry schematic, it's actually huge, so I recommend to keep images below 100x100
+Note: Mindustry won't load schematics bigger than 128x128, so images are automatically scaled down to fit that limit while keeping their aspect ratio. Smaller images are left untouched, but keep in mind that even a 100x100 image becomes a large structure in-game.
 
 Here's a screenshot of the gui:
 

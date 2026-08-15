@@ -32,6 +32,9 @@ palette = Image.new("P", (16, 16))
 palette.putpalette(colorarray*16)
 palette.load()
 
+#Mindustry refuses to load schematics larger than this (see Schematics.java)
+max_size = 128
+
 def quantize(img, dither, transparency_treshold):
     #invalid input checking
     try:
@@ -47,8 +50,13 @@ def quantize(img, dither, transparency_treshold):
     elif transparency_treshold < 0:
         raise Exception("Transparency Treshold most not be negative")
     
-    #sphagetti
-    img = img.convert("RGBA") # image 
+    #scale down to fit Mindustry's schematic size limit, keeping the aspect ratio
+    #this must happen before quantization so every pixel still matches the palette exactly
+    img = img.convert("RGBA") # image
+    if max(img.size) > max_size:
+        scale = max_size / max(img.size)
+        img = img.resize((int(img.size[0] * scale), int(img.size[1] * scale)), Image.LANCZOS)
+        print("Scaled image down to {0}x{1} to fit Mindustry's 128x128 schematic limit".format(*img.size))
     imgq = img.convert("RGB") # fully opaque image
     imgq = imgq._new(imgq.im.convert("P", 1 if dither else 0, palette.im)) #where the actual quantization happens
 
@@ -152,12 +160,11 @@ def pix2msch(imgfile               = None,
     
     
     if mode == "path":
-        os.chdir(os.path.expandvars(save_location))
-        file = open(name + ".msch", "wb")
-        file.write(b"msch\x00"+zlib.compress(data.data))
-        file.close()
+        path = os.path.join(os.path.expandvars(save_location), name + ".msch")
+        with open(path, "wb") as file:
+            file.write(b"msch\x00" + zlib.compress(data.data))
 
-        print("Successfully saved {0} ".format(name + ".msch"))
+        print("Successfully saved {0} ".format(path))
         
     else:
         try:
