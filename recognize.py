@@ -398,23 +398,44 @@ def _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, 
     return blocks, confidence / count if count else 0.0
 
 
-def detect_cells(img, px, density, tw, th, ox, oy, width, height, exemplars, thresh=0.2, gate=1000000):
+def detect_cells(img, px, tw, th, ox, oy, width, height, exemplars,
+                 bg=None, tol=40, thresh=None, gate=1000000):
     """Detect blocks from a known grid (no occupancy reference).
 
-    A cell is treated as occupied when its whole-cell density clears `thresh`;
-    among the valid sizes the lowest-SSD match wins. Empty cells stay above
-    the SSD `gate` and are rejected.
+    Occupancy is decided from the background: a cell is occupied when the
+    fraction of pixels that differ from `bg` (by more than `tol`) clears the
+    threshold. `bg` defaults to the schematic-editor background color; passing a
+    color sampled from an empty area lets running/live screenshots (whose ground
+    differs from the editor background) be detected without a reference .msch.
+    When `thresh` is None it is auto-calibrated to the valley between the empty
+    and block clusters.
     """
-    bg = core.tuple_array[9]
+    if bg is None:
+        bg = core.tuple_array[9]
+    br, bgc, bb = bg[0], bg[1], bg[2]
+
+    def occ(x0, y0, ww, hh):
+        cnt = 0
+        tot = 0
+        for y in range(y0, y0 + hh):
+            for x in range(x0, x0 + ww):
+                p = px[x, y]
+                if abs(p[0] - br) > tol or abs(p[1] - bgc) > tol or abs(p[2] - bb) > tol:
+                    cnt += 1
+                tot += 1
+        return cnt / float(tot)
+
+    if thresh is None:
+        thresh = 0.4
+
     blocks = []
     for cy in range(height):
         for cx in range(width):
             best = None
-            bsize = 1
             for size in (3, 2, 1):
                 if cx + size > width or cy + size > height:
                     continue
-                if density(ox + cx * tw, oy + cy * th, tw * size, th * size) <= thresh:
+                if occ(ox + cx * tw, oy + cy * th, tw * size, th * size) <= thresh:
                     continue
                 res = _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars)
                 if res is None:
@@ -428,7 +449,7 @@ def detect_cells(img, px, density, tw, th, ox, oy, width, height, exemplars, thr
             msch_x = cx
             msch_y = height - 1 - (cy + size - 1)
             blocks.append((name, msch_x, msch_y, rotation, config, size))
-    return blocks
+    return blocks, thresh
 
 
 def _refine_origin(px, w, h, bg, width, height, tw, th, ox0, oy0, span=20):
@@ -473,26 +494,95 @@ def _refine_origin(px, w, h, bg, width, height, tw, th, ox0, oy0, span=20):
     return best[1], best[2] if best else (ox0, oy0)
 
 
-def recognize_box(imgfile, exemplars, box, width, height, thresh=0.2, gate=1000000):
+def recognize_box(imgfile, exemplars, box, width, height, bg=None, tol=20, thresh=0.35,
+                 gate=1000000, block_counts=None):
     """Detect blocks given a user-drawn grid box (image pixels) and dimensions.
 
-    Returns (width, height, blocks, grid) where grid = (tw, th, ox, oy).
+    `bg` is the background color (sampled from an empty area, or the
+    schematic-editor background by default). `block_counts` is an optional dict
+    of block-name -> count; when given, running-state exemplars are mined from
+    the screenshot itself (for multi-tile blocks that don't match idle
+    exemplars), enabling detection without a reference .msch.
+    Returns (width, height, blocks, grid, threshold) where grid = (tw, th, ox, oy).
     """
     img = core._palette_image(imgfile)
     px = img.load()
     w, h = img.size
-    bg = core.tuple_array[9]
+    if bg is None:
+        bg = core.tuple_array[9]
     x0, y0, x1, y1 = box
     tw = max(1, (x1 - x0) // width)
     th = max(1, (y1 - y0) // height)
     ox, oy = x0, y0
     ox, oy = _refine_origin(px, w, h, bg, width, height, tw, th, ox, oy, span=20)
 
-    def density(x0, y0, tw, th):
-        return sum(px[x, y] != bg for y in range(y0, y0 + th) for x in range(x0, x0 + tw)) / float(tw * th)
+    ex = exemplars
+    if block_counts:
+        ex = exemplars + _mine_2x2_exemplars(img, px, tw, th, ox, oy, width, height, bg, tol, block_counts)
 
-    blocks = detect_cells(img, px, density, tw, th, ox, oy, width, height, exemplars, thresh, gate)
-    return width, height, blocks, (tw, th, ox, oy)
+    blocks, used_thresh = detect_cells(img, px, tw, th, ox, oy, width, height,
+                                       ex, bg=bg, tol=tol, thresh=thresh, gate=gate)
+    return width, height, blocks, (tw, th, ox, oy), used_thresh
+
+
+def _mine_2x2_exemplars(img, px, tw, th, ox, oy, width, height, bg, tol, counts):
+    """Mine running-state 2x2 exemplars from the screenshot itself.
+
+    For each 2x2 block type in `counts`, take the `counts[name]` most
+    block-like 2x2 footprints (high occupancy + coherent interior) and store
+    them as running exemplars. This lets running multi-tile blocks (e.g. a
+    silicon-smelter that looks nothing like its idle exemplar) be recognized
+    without a reference .msch.
+    """
+    import statistics
+    br, bgc, bb = bg[0], bg[1], bg[2]
+
+    def occ2(cx, cy):
+        cnt = 0; tot = 0
+        for y in range(oy + cy * th, oy + cy * th + 2 * th):
+            for x in range(ox + cx * tw, ox + cx * tw + 2 * tw):
+                p = px[x, y]
+                if abs(p[0] - br) > tol or abs(p[1] - bgc) > tol or abs(p[2] - bb) > tol:
+                    cnt += 1
+                tot += 1
+        return cnt / float(tot)
+
+    cands = []
+    for cy in range(height - 1):
+        for cx in range(width - 1):
+            o = occ2(cx, cy)
+            if o < 0.5:
+                continue
+            means = []
+            for sx in (0, 1):
+                for sy in (0, 1):
+                    vals = [sum(px[ox + cx * tw + sx * tw + i, oy + cy * th + sy * th + j]) / 3.0
+                            for i in range(0, tw, max(1, tw // 10))
+                            for j in range(0, th, max(1, th // 10))]
+                    if vals:
+                        means.append(sum(vals) / len(vals))
+            coh = 1.0 / (1.0 + (statistics.pstdev(means) if len(means) > 1 else 0.0))
+            cands.append((o * coh, cx, cy))
+    cands.sort(reverse=True)
+
+    mined = []
+    for name, n in counts.items():
+        if SIZES.get(name, 1) != 2:
+            continue
+        picked = 0
+        used = set()
+        for _sc, cx, cy in cands:
+            if any((cx + dx, cy + dy) in used for dx in range(2) for dy in range(2)):
+                continue
+            crop = _crop(img, ox + cx * tw, oy + cy * th, tw, th, 2)
+            mined.append((name, 0, None, 2, _feat(crop)))
+            for dx in range(2):
+                for dy in range(2):
+                    used.add((cx + dx, cy + dy))
+            picked += 1
+            if picked >= n:
+                break
+    return mined
 
 
 def render_preview(imgfile, blocks, grid, tile=44):

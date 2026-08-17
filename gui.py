@@ -106,8 +106,8 @@ class GUI():
             res = self.select_grid()
             if res is None:
                 return
-            box, W, H = res
-            w, h, blocks, grid = core.detect_structure(self.file, box, W, H)
+            box, W, H, bg, counts = res
+            w, h, blocks, grid, thr = core.detect_structure(self.file, box, W, H, bg=bg, block_counts=counts)
             if not blocks:
                 messagebox.showerror("oh no", "Detected 0 blocks. Adjust the grid box/dimensions and try again.")
                 return
@@ -159,15 +159,38 @@ class GUI():
         Label(frm, text="Rows:").grid(row=0, column=2)
         rows = Spinbox(frm, from_=1, to=64, width=5)
         rows.grid(row=0, column=3)
+        Label(frm, text="Threshold:").grid(row=1, column=0)
+        thresh_var = Spinbox(frm, from_=0.0, to=1.0, increment=0.05, width=5)
+        thresh_var.delete(0, "end"); thresh_var.insert(0, "0.35")
+        thresh_var.grid(row=1, column=1)
+        Label(frm, text="Block counts:").grid(row=2, column=0)
+        counts_var = Entry(frm, width=42)
+        counts_var.insert(0, "silicon-smelter:6, unloader:5, sorter:5, bridge-conveyor:4, titanium-conveyor:1, item-source:3, item-void:1")
+        counts_var.grid(row=2, column=1, columnspan=3)
 
-        result = {"box": None, "ok": False}
+        result = {"box": None, "ok": False, "bg": None, "counts": None}
 
         rect = {"id": None, "sx": 0, "sy": 0}
+        bg_pick = {"active": False}
 
         def to_actual(x, y):
             return int(x / scale), int(y / scale)
 
         def on_down(e):
+            if bg_pick["active"]:
+                bg_pick["active"] = False
+                ix, iy = to_actual(e.x, e.y)
+                pix = PILImage.open(self.file).convert("RGB").load()
+                iw, ih = pix.size
+                rs = gs = bs = 0; n = 0
+                for dy in range(-12, 13):
+                    for dx in range(-12, 13):
+                        x, y = ix + dx, iy + dy
+                        if 0 <= x < iw and 0 <= y < ih:
+                            p = pix[x, y]; rs += p[0]; gs += p[1]; bs += p[2]; n += 1
+                result["bg"] = (rs // n, gs // n, bs // n)
+                status.configure(text="Background set to %s. Draw the grid box and Detect." % (result["bg"],))
+                return
             rect["sx"], rect["sy"] = e.x, e.y
             if rect["id"]:
                 canvas.delete(rect["id"])
@@ -202,31 +225,55 @@ class GUI():
             ax1, ay1 = to_actual(x1, y1)
             try:
                 W = int(cols.get()); H = int(rows.get())
+                T = float(thresh_var.get())
             except:
-                status.configure(text="Columns/Rows must be numbers.")
+                status.configure(text="Columns/Rows/Threshold must be numbers.")
                 return
+            counts = None
+            cs = counts_var.get().strip()
+            if cs:
+                counts = {}
+                for part in cs.split(","):
+                    if ":" in part:
+                        nm, cv = part.split(":", 1)
+                        nm = nm.strip(); cv = cv.strip()
+                        if nm:
+                            try:
+                                counts[nm] = int(cv)
+                            except ValueError:
+                                pass
+            result["counts"] = counts
             if ax1 <= ax0 or ay1 <= ay0 or W < 1 or H < 1:
                 status.configure(text="Invalid box or dimensions.")
                 return
             try:
-                w, h, blocks, grid = core.detect_structure(self.file, (ax0, ay0, ax1, ay1), W, H)
+                w, h, blocks, grid, thr = core.detect_structure(
+                    self.file, (ax0, ay0, ax1, ay1), W, H, bg=result["bg"], thresh=T, block_counts=counts)
             except Exception as ex:
                 status.configure(text="Detection error: " + str(ex))
                 return
-            status.configure(text="Detected %d blocks. Adjust the box/dimensions if needed, then OK." % len(blocks))
+            status.configure(text="Detected %d blocks (occupancy thr=%.2f). Adjust the box/dimensions if needed, then OK." % (len(blocks), thr))
             canvas.delete("occ")
             plist.delete(0, END)
             for (nm, x, y, rot, cfg, size) in blocks:
                 plist.insert(END, "%-22s (%d,%d) r%d" % (nm, x, y, rot))
-            # overlay occupied cells
+            # overlay occupied cells using the same background + threshold
             tw, th, ox, oy = grid
-            bg = core.tuple_array[9]
+            bg = result["bg"] or core.tuple_array[9]
+            br, bgc, bb = bg[0], bg[1], bg[2]
             pix = PILImage.open(self.file).convert("RGB").load()
-            def dens(x0, y0, tw, th):
-                return sum(pix[x, y] != bg for y in range(y0, y0 + th) for x in range(x0, x0 + tw)) / float(tw * th)
+            def occ(x0, y0, tw, th):
+                cnt = 0; tot = 0
+                for y in range(y0, y0 + th):
+                    for x in range(x0, x0 + tw):
+                        p = pix[x, y]
+                        if abs(p[0] - br) > 40 or abs(p[1] - bgc) > 40 or abs(p[2] - bb) > 40:
+                            cnt += 1
+                        tot += 1
+                return cnt / float(tot)
             for cy in range(h):
                 for cx in range(w):
-                    if dens(ox + cx * tw, oy + cy * th, tw, th) > 0.2:
+                    if occ(ox + cx * tw, oy + cy * th, tw, th) > thr:
                         x0d, y0d = result["box"][0], result["box"][1]
                         dx = x0d + int((ox + cx * tw - ax0) * scale)
                         dy = y0d + int((oy + (h - 1 - cy) * th - ay0) * scale)
@@ -254,21 +301,21 @@ class GUI():
             win.destroy()
 
         Button(win, text="Detect", command=do_detect).pack(side=LEFT, padx=5, pady=5)
+        Button(win, text="Set background", command=lambda: bg_pick.__setitem__("active", True) or status.configure(text="Click an empty area to set the background color.")).pack(side=LEFT, padx=5, pady=5)
         Button(win, text="OK", command=do_ok).pack(side=LEFT, padx=5, pady=5)
         Button(win, text="Cancel", command=do_cancel).pack(side=LEFT, padx=5, pady=5)
 
         note = Label(win,
-                     text="Box-only detection works best for schematic-editor screenshots "
-                          "(flat background, idle blocks). Running/live bases (powered, glowing "
-                          "machines, power lines) are unreliable here - drop a .msch with the same "
-                          "name next to the image for an exact result.",
+                     text="No .msch needed: click 'Set background' on an empty area, enter the "
+                          "block counts (e.g. silicon-smelter:6, unloader:5), tune Threshold, then "
+                          "Detect. The right-hand panel shows results live.",
                      fg="#bbbbbb", wraplength=820, justify=LEFT)
         note.pack(side=BOTTOM, padx=8, pady=(0, 6))
 
         win.wait_window(win)
         if not result["ok"]:
             return None
-        return (result["box"], result["W"], result["H"])
+        return (result["box"], result["W"], result["H"], result["bg"], result["counts"])
 
     # ---- preview window ----
     def show_preview(self):

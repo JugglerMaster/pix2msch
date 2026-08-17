@@ -217,12 +217,17 @@ def pix2msch(imgfile               = None,
     print("Detected and wrote {0} structures".format(len(blocks)))
 
 
-def detect_structure(imgfile, box, width, height):
-    """Detect blocks from a user-drawn grid box (image pixels) + dimensions."""
+def detect_structure(imgfile, box, width, height, bg=None, tol=40, thresh=None, block_counts=None):
+    """Detect blocks from a user-drawn grid box (image pixels) + dimensions.
+
+    `bg` is the background color (sampled from an empty area, or the editor
+    background by default); `thresh`/`tol` control occupancy sensitivity;
+    `block_counts` enables mining running-state exemplars (no reference .msch).
+    """
     import recognize
     corpus_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "examples")
     corpus = recognize.build_corpus(corpus_dir)
-    return recognize.recognize_box(imgfile, corpus, box, width, height)
+    return recognize.recognize_box(imgfile, corpus, box, width, height, bg, tol, thresh, block_counts=block_counts)
 
 
 def render_preview(imgfile, blocks, grid, tile=44):
