@@ -28,7 +28,7 @@ jobs:
         run: pip install pyinstaller pillow pyperclip
 
       - name: Build exe
-        run: pyinstaller --noconfirm --onefile --windowed --name pix2msch --add-data "background.png;." gui.py
+        run: pyinstaller --noconfirm --onefile --windowed --name pix2msch --add-data "background.png;." --add-data "examples;examples" gui.py
 
       - name: Upload to release
         uses: softprops/action-gh-release@v3

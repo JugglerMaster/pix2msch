@@ -1,5 +1,5 @@
 try:
-    import struct, zlib, os, base64
+    import struct, zlib, os, base64, sys
     from PIL import Image
 except Exception as e:
     print("You're missing a package!")
@@ -186,7 +186,18 @@ def pix2msch(imgfile               = None,
         raise Exception("Please enter a name")
     
     import recognize
-    corpus_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "examples")
+    candidates = []
+    if getattr(sys, "frozen", False):
+        candidates.append(getattr(sys, "_MEIPASS", ""))
+        candidates.append(os.path.dirname(sys.executable))
+    candidates.append(os.path.dirname(os.path.abspath(__file__)))
+    corpus_dir = None
+    for base in candidates:
+        if base and os.path.isdir(os.path.join(base, "examples")):
+            corpus_dir = os.path.join(base, "examples")
+            break
+    if corpus_dir is None:
+        raise FileNotFoundError("Could not locate the examples/ directory needed for block detection")
     corpus = recognize.build_corpus(corpus_dir)
     if reference:
         w, h, refblocks = recognize.parse_msch(reference)
