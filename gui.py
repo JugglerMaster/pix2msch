@@ -257,6 +257,14 @@ class GUI():
         Button(win, text="OK", command=do_ok).pack(side=LEFT, padx=5, pady=5)
         Button(win, text="Cancel", command=do_cancel).pack(side=LEFT, padx=5, pady=5)
 
+        note = Label(win,
+                     text="Box-only detection works best for schematic-editor screenshots "
+                          "(flat background, idle blocks). Running/live bases (powered, glowing "
+                          "machines, power lines) are unreliable here - drop a .msch with the same "
+                          "name next to the image for an exact result.",
+                     fg="#bbbbbb", wraplength=820, justify=LEFT)
+        note.pack(side=BOTTOM, padx=8, pady=(0, 6))
+
         win.wait_window(win)
         if not result["ok"]:
             return None
