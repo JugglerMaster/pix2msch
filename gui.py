@@ -108,6 +108,9 @@ class GUI():
                 return
             box, W, H = res
             w, h, blocks, grid = core.detect_structure(self.file, box, W, H)
+            if not blocks:
+                messagebox.showerror("oh no", "Detected 0 blocks. Adjust the grid box/dimensions and try again.")
+                return
             self.struct = (w, h, blocks, grid, box, W, H, mode)
             self.show_preview()
         except Exception as e:
@@ -127,11 +130,23 @@ class GUI():
         win.title("Place the grid over the schematic")
         win.resizable(False, False)
 
-        canvas = Canvas(win, width=dw, height=dh, cursor="cross")
-        canvas.pack()
+        body = Frame(win)
+        body.pack()
+
+        canvas = Canvas(body, width=dw, height=dh, cursor="cross")
+        canvas.pack(side=LEFT)
         photo = ImageTk.PhotoImage(disp)
         canvas.create_image(0, 0, anchor=NW, image=photo)
         canvas.image = photo
+
+        panel = Frame(body)
+        panel.pack(side=LEFT, fill=Y, padx=5)
+        Label(panel, text="Detected blocks").pack()
+        pscroll = Scrollbar(panel, orient=VERTICAL)
+        plist = Listbox(panel, yscrollcommand=pscroll.set, width=34, height=34)
+        pscroll.config(command=plist.yview)
+        plist.pack(side=LEFT, fill=Y)
+        pscroll.pack(side=RIGHT, fill=Y)
 
         status = Label(win, text="Drag a box around the block grid, then set Columns/Rows and press Detect.")
         status.pack()
@@ -199,6 +214,10 @@ class GUI():
                 status.configure(text="Detection error: " + str(ex))
                 return
             status.configure(text="Detected %d blocks. Adjust the box/dimensions if needed, then OK." % len(blocks))
+            canvas.delete("occ")
+            plist.delete(0, END)
+            for (nm, x, y, rot, cfg, size) in blocks:
+                plist.insert(END, "%-22s (%d,%d) r%d" % (nm, x, y, rot))
             # overlay occupied cells
             tw, th, ox, oy = grid
             bg = core.tuple_array[9]
@@ -212,7 +231,7 @@ class GUI():
                         dx = x0d + int((ox + cx * tw - ax0) * scale)
                         dy = y0d + int((oy + (h - 1 - cy) * th - ay0) * scale)
                         canvas.create_rectangle(dx, dy, dx + int(tw * scale), dy + int(th * scale),
-                                               outline="#39d353", width=1)
+                                               outline="#39d353", width=1, tags="occ")
 
         def do_ok():
             if not result["box"]:
@@ -246,6 +265,9 @@ class GUI():
     # ---- preview window ----
     def show_preview(self):
         w, h, blocks, grid, box, W, H, mode = self.struct
+        if not blocks:
+            messagebox.showerror("oh no", "No blocks to preview. Go back and adjust the grid.")
+            return
         prev = core.render_preview(self.file, blocks, grid)
         maxdim = 820
         scale = maxdim / max(prev.size)
