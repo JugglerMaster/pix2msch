@@ -431,6 +431,48 @@ def detect_cells(img, px, density, tw, th, ox, oy, width, height, exemplars, thr
     return blocks
 
 
+def _refine_origin(px, w, h, bg, width, height, tw, th, ox0, oy0, span=20):
+    """Snap the grid origin to the actual block lattice.
+
+    Uses a summed-area table of non-background pixels and maximizes the number
+    of cells that are clearly occupied (density > 0.6) or clearly empty
+    (density < 0.25). This locks the grid onto the blocks even when the
+    user's box is offset by a few pixels, which matters most for multi-tile
+    blocks whose footprint must align exactly.
+    """
+    I = [[0] * (w + 1) for _ in range(h + 1)]
+    for y in range(h):
+        row = 0
+        for x in range(w):
+            row += px[x, y] != bg
+            I[y + 1][x + 1] = I[y][x + 1] + row
+
+    def dens(x0, y0, tw, th):
+        x0 = max(0, min(x0, w)); y0 = max(0, min(y0, h))
+        x1 = max(0, min(x0 + tw, w)); y1 = max(0, min(y0 + th, h))
+        if x1 <= x0 or y1 <= y0:
+            return 0.0
+        s = I[y1][x1] - I[y0][x1] - I[y1][x0] + I[y0][x0]
+        return s / float(tw * th)
+
+    best = None
+    for ox in range(ox0 - span, ox0 + span + 1):
+        if ox < 0 or ox + width * tw > w:
+            continue
+        for oy in range(oy0 - span, oy0 + span + 1):
+            if oy < 0 or oy + height * th > h:
+                continue
+            score = 0
+            for cy in range(height):
+                for cx in range(width):
+                    d = dens(ox + cx * tw, oy + cy * th, tw, th)
+                    if d > 0.6 or d < 0.25:
+                        score += 1
+            if best is None or score > best[0]:
+                best = (score, ox, oy)
+    return best[1], best[2] if best else (ox0, oy0)
+
+
 def recognize_box(imgfile, exemplars, box, width, height, thresh=0.2, gate=1000000):
     """Detect blocks given a user-drawn grid box (image pixels) and dimensions.
 
@@ -438,12 +480,13 @@ def recognize_box(imgfile, exemplars, box, width, height, thresh=0.2, gate=10000
     """
     img = core._palette_image(imgfile)
     px = img.load()
-    W, H = img.size
+    w, h = img.size
     bg = core.tuple_array[9]
     x0, y0, x1, y1 = box
     tw = max(1, (x1 - x0) // width)
     th = max(1, (y1 - y0) // height)
     ox, oy = x0, y0
+    ox, oy = _refine_origin(px, w, h, bg, width, height, tw, th, ox, oy, span=20)
 
     def density(x0, y0, tw, th):
         return sum(px[x, y] != bg for y in range(y0, y0 + th) for x in range(x0, x0 + tw)) / float(tw * th)
