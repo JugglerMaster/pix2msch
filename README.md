@@ -9,6 +9,8 @@ Note: You will need `pyperclip` and `pillow` to run gui.py. You can install them
 
 Note: Mindustry won't load schematics bigger than 128x128, so images are automatically scaled down to fit that limit while keeping their aspect ratio. Smaller images are left untouched, but keep in mind that even a 100x100 image becomes a large structure in-game.
 
+The GUI now enables **Detect Mindustry blocks** by default. This mode is for a screenshot of a Mindustry schematic/base layout: it recognizes the confirmed 3x6 layout, writes real block types and configurations, and produces one schematic block per structure. Uncheck it to use the original pixel-art conversion.
+
 Here's a screenshot of the gui:
 
 ![GUI](https://i.ibb.co/TPfc2MJ/Screenshot-203.png)

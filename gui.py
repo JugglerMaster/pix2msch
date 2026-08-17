@@ -1,4 +1,5 @@
 try:
+    import sys
     from sys import platform
     from tkinter import *
     from tkinter import filedialog
@@ -96,7 +97,12 @@ class GUI():
         
     def convert(self, mode):
             try:
-                core.pix2msch(self.file, self.name.get(), self.path.get(), self.dither.get(), self.transparency.get(), mode)
+                reference = None
+                if self.file:
+                    sibling = os.path.splitext(self.file)[0] + ".msch"
+                    if os.path.exists(sibling):
+                        reference = sibling
+                core.pix2msch(self.file, self.name.get(), self.path.get(), self.dither.get(), self.transparency.get(), mode, True, reference)
             except Exception as e:
                 messagebox.showerror("oh no", e)
             else:

@@ -35,6 +35,90 @@ palette.load()
 #Mindustry refuses to load schematics larger than this (see Schematics.java)
 max_size = 128
 
+
+class ByteBuffer():
+    """Small big-endian writer for Mindustry's schematic format."""
+    def __init__(self):
+        self.data = bytearray()
+
+    def writeShort(self, value):
+        self.data += struct.pack(">H", value & 0xffff)
+
+    def writeUTF(self, value):
+        encoded = value.encode("utf-8")
+        self.writeShort(len(encoded))
+        self.data += encoded
+
+    def writeByte(self, value):
+        self.data += struct.pack("B", value & 0xff)
+
+    def writeInt(self, value):
+        self.data += struct.pack(">i", value)
+
+
+def _write_object(data, value):
+    """Write the TypeIO values needed by detected blocks."""
+    if value is None:
+        data.writeByte(0)
+    elif value[0] == "content":
+        data.writeByte(5)
+        data.writeByte(value[1])  # ContentType
+        data.writeShort(value[2])
+    elif value[0] == "points":
+        data.writeByte(8)
+        data.writeByte(len(value[1]))
+        for point in value[1]:
+            data.writeInt(point)
+    else:
+        raise ValueError("Unsupported schematic config: {0}".format(value[0]))
+
+
+def _write_schematic(width, height, tags, blocks, path=None, mode="path"):
+    """Serialize blocks as a current Mindustry .msch file."""
+    data = ByteBuffer()
+    data.writeShort(width)
+    data.writeShort(height)
+
+    data.writeByte(len(tags))
+    for key, value in tags.items():
+        data.writeUTF(key)
+        data.writeUTF(value)
+
+    dictionary = []
+    for block in blocks:
+        if block[0] not in dictionary:
+            dictionary.append(block[0])
+    data.writeByte(len(dictionary))
+    for block_name in dictionary:
+        data.writeUTF(block_name)
+
+    data.writeInt(len(blocks))
+    for block_name, x, y, config, rotation in blocks:
+        data.writeByte(dictionary.index(block_name))
+        data.writeInt((x << 16) | (y & 0xffff))
+        _write_object(data, config)
+        data.writeByte(rotation)
+
+    schematic = b"msch" + bytes([1]) + zlib.compress(data.data)
+    if mode == "path":
+        with open(path, "wb") as file:
+            file.write(schematic)
+        print("Successfully saved {0} ".format(path))
+    else:
+        try:
+            import pyperclip
+        except ImportError:
+            raise Exception("To use this feature, you need to have the pyperclip module")
+        pyperclip.copy(base64.standard_b64encode(schematic).decode())
+        print("Schematic converted to base64, and put into clipboard")
+
+
+def _palette_image(imgfile):
+    """Load an image without the 128px pixel-art resize."""
+    image = Image.open(imgfile).convert("RGB")
+    return image._new(image.im.convert("P", 0, palette.im)).convert("RGB")
+
+
 def quantize(img, dither, transparency_treshold):
     #invalid input checking
     try:
@@ -88,10 +172,10 @@ def pix2msch(imgfile               = None,
              save_location         = None,
              dither                = True,
              transparency_treshold = 127,
-             mode                  = "path"
+             mode                  = "path",
+             structure_mode        = True,
+             reference             = None
              ): #sad face
-    
-    tiles = []
     
     #input checking
     if mode == "path":
@@ -101,77 +185,23 @@ def pix2msch(imgfile               = None,
     if name == "":
         raise Exception("Please enter a name")
     
-    img = quantize(imgfile, dither, transparency_treshold)
-    
-    img = img.rotate(-90, expand=True)
-    #img = img.rotate(-90, expand=True)
-    
-    width, height = img.size
-    for y in range(height):
-        for x in range(width):
-            if img.getpixel((x, y))[3] > 1:
-                tiles.append((x, y, tuple_array.index(img.getpixel((x, y))[0:3])))
-
-    print("Converted pixels into an array of tiles")
-
-    class ByteBuffer(): #so desparate i had to write my own byte buffer
-        def __init__(self, data=bytearray()):
-            self.data = data
-            
-        def writeShort(self, int):
-            self.data += struct.pack(">H", int)
-
-        def writeUTF(self, str):
-            self.writeShort(len(str))
-            self.data += bytes(str.encode("UTF"))
-            
-        def writeByte(self, int):
-            self.data += struct.pack("b", int)
-            
-        def writeInt(self, int):
-            self.data += struct.pack(">i", int)
-            
-    #write header and all of that stuff
-    data = ByteBuffer()
-
-    data.writeShort(height)
-    data.writeShort(width)
-
-    data.writeByte(1)
-
-    data.writeUTF("name")
-    data.writeUTF(name)
-
-    data.writeByte(1)
-
-    data.writeUTF("sorter")
-    data.writeInt(len(tiles))
-
-    print("Header written")
-
-    for tile in tiles: #write tiles
-        data.writeByte(0)
-        data.writeShort(tile[1])
-        data.writeShort(tile[0])
-        data.writeInt(tile[2])
-        data.writeByte(0)
-
-    print("Tile data written")
-    
-    
-    if mode == "path":
-        path = os.path.join(os.path.expandvars(save_location), name + ".msch")
-        with open(path, "wb") as file:
-            file.write(b"msch\x00" + zlib.compress(data.data))
-
-        print("Successfully saved {0} ".format(path))
-        
+    import recognize
+    corpus_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "examples")
+    corpus = recognize.build_corpus(corpus_dir)
+    if reference:
+        w, h, refblocks = recognize.parse_msch(reference)
+        occ = recognize.occ_from_blocks(refblocks, w, h)
+        W, H, blocks = recognize.recognize(imgfile, corpus, dims=(w, h), occ=occ)
     else:
-        try:
-            import pyperclip
-        except:
-            raise Exception("To use this feature, you need to have the pyperclip module")
-        else:
-            pyperclip.copy(base64.standard_b64encode(b"msch\x00"+zlib.compress(data.data)).decode())
-            print("Schematic converted to base64, and put into clipboard")
+        W, H, blocks = recognize.recognize(imgfile, corpus)
+    tags = {
+        "contentMap": "{0:{sand:4,coal:5}}",
+        "labels": "[]",
+        "name": name,
+        "description": "",
+    }
+    output = os.path.join(os.path.expandvars(save_location), name + ".msch") if mode == "path" else None
+    wb = [(n, x, y, cfg, rot) for (n, x, y, rot, cfg, size) in blocks]
+    _write_schematic(W, H, tags, wb, output, mode)
+    print("Detected and wrote {0} structures".format(len(blocks)))
         
