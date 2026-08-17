@@ -23,18 +23,22 @@ are two ways it works:
   blocks and lists what it found in the side panel, then shows a preview you can
   save.
 
-### Limitation: running / live bases
+### Box-only without a reference `.msch`
 
-Box-only detection matches each tile against learned block exemplars. It works
-well for **schematic-editor screenshots** (flat background, idle blocks). It does
-**not** reliably handle **running machines** — i.e. screenshots of a base while
-it is powered and running (glowing/melting blocks, items on conveyors, power
-connections). In those shots there is no clean background to tell a block cell
-from an infrastructure-filled cell, and the running block appearance differs
-from the learned idle exemplars, so detection over- or mis-detects blocks.
+You do **not** need a `.msch` for box-only detection, even for running/live
+bases. Two extra inputs make it work:
 
-For a running base, export the `.msch` from Mindustry and drop it next to the
-image — the reference path above will convert it exactly.
+- **Set background**: click an empty area of the screenshot. The tool uses that
+  ground color to decide which cells actually contain a block (instead of
+  assuming the flat editor background), so it can tell a block cell from an
+  infrastructure-filled one.
+- **Block counts**: enter the block types and how many of each, e.g.
+  `silicon-smelter:6, unloader:5, sorter:5, bridge-conveyor:4`. Running-state
+  multi-tile blocks (which look nothing like their idle exemplars) are mined
+  from the screenshot itself using these counts, so they are recognized too.
+
+Tune **Threshold** and watch the live panel; when the listed blocks look right,
+save. A reference `.msch` is still the most exact option if you have one.
 
 Here's a screenshot of the gui:
 
