@@ -215,4 +215,18 @@ def pix2msch(imgfile               = None,
     wb = [(n, x, y, cfg, rot) for (n, x, y, rot, cfg, size) in blocks]
     _write_schematic(W, H, tags, wb, output, mode)
     print("Detected and wrote {0} structures".format(len(blocks)))
+
+
+def detect_structure(imgfile, box, width, height):
+    """Detect blocks from a user-drawn grid box (image pixels) + dimensions."""
+    import recognize
+    corpus_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "examples")
+    corpus = recognize.build_corpus(corpus_dir)
+    return recognize.recognize_box(imgfile, corpus, box, width, height)
+
+
+def render_preview(imgfile, blocks, grid, tile=44):
+    """Render the detected schematic the way it appears in-game."""
+    import recognize
+    return recognize.render_preview(imgfile, blocks, grid, tile)
         

@@ -297,7 +297,7 @@ def _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars, can=CANON):
     return best
 
 
-def recognize(imgfile, exemplars, dims=None, occ=None):
+def recognize(imgfile, exemplars, dims=None, occ=None, occ_thresh=0.5):
     """Detect the schematic in `imgfile`.
 
     Returns (width, height, blocks) with blocks = (name, x, y, rotation, config, size).
@@ -329,18 +329,17 @@ def recognize(imgfile, exemplars, dims=None, occ=None):
         _, width, height, tw, th, ox, oy, blocks = best
     else:
         width, height = dims
-        if occ is None:
-            occ = occ_from_blocks([], width, height)
-        tw, th, ox, oy = detect_grid(img, occ, width, height, None)
-        blocks, _ = _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, occ)
+        grid_occ = occ if occ is not None else occ_from_blocks([], width, height)
+        tw, th, ox, oy = detect_grid(img, grid_occ, width, height, None)
+        blocks, _ = _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, occ, occ_thresh)
     return width, height, blocks
 
 
-def _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, occ=None):
+def _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, occ=None, occ_thresh=0.5):
     if occ is not None:
         occupied = [[occ[height - 1 - cy][cx] for cx in range(width)] for cy in range(height)]
     else:
-        occupied = [[density(ox + cx * tw, oy + cy * th, tw, th) > 0.5
+        occupied = [[density(ox + cx * tw, oy + cy * th, tw, th) > occ_thresh
                      for cx in range(width)] for cy in range(height)]
     blocks = []
     confidence = 0.0
@@ -376,3 +375,81 @@ def _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, 
             confidence += 1.0
             count += 1
     return blocks, confidence / count if count else 0.0
+
+
+def detect_cells(img, px, density, tw, th, ox, oy, width, height, exemplars, thresh=0.2, gate=500000):
+    """Detect blocks from a known grid (no occupancy reference).
+
+    A cell is treated as occupied when its whole-cell density clears `thresh`;
+    among the valid sizes the lowest-SSD match wins. Empty cells stay above
+    the SSD `gate` and are rejected.
+    """
+    bg = core.tuple_array[9]
+    blocks = []
+    for cy in range(height):
+        for cx in range(width):
+            best = None
+            bsize = 1
+            for size in (3, 2, 1):
+                if cx + size > width or cy + size > height:
+                    continue
+                if density(ox + cx * tw, oy + cy * th, tw * size, th * size) <= thresh:
+                    continue
+                res = _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars)
+                if res is None:
+                    continue
+                d, name, rotation, config = res
+                if best is None or d < best[0]:
+                    best = (d, name, rotation, config, size)
+            if best is None or best[0] >= gate:
+                continue
+            d, name, rotation, config, size = best
+            msch_x = cx
+            msch_y = height - 1 - (cy + size - 1)
+            blocks.append((name, msch_x, msch_y, rotation, config, size))
+    return blocks
+
+
+def recognize_box(imgfile, exemplars, box, width, height, thresh=0.2, gate=500000):
+    """Detect blocks given a user-drawn grid box (image pixels) and dimensions.
+
+    Returns (width, height, blocks, grid) where grid = (tw, th, ox, oy).
+    """
+    img = core._palette_image(imgfile)
+    px = img.load()
+    W, H = img.size
+    bg = core.tuple_array[9]
+    x0, y0, x1, y1 = box
+    tw = max(1, (x1 - x0) // width)
+    th = max(1, (y1 - y0) // height)
+    ox, oy = x0, y0
+
+    def density(x0, y0, tw, th):
+        return sum(px[x, y] != bg for y in range(y0, y0 + th) for x in range(x0, x0 + tw)) / float(tw * th)
+
+    blocks = detect_cells(img, px, density, tw, th, ox, oy, width, height, exemplars, thresh, gate)
+    return width, height, blocks, (tw, th, ox, oy)
+
+
+def render_preview(imgfile, blocks, grid, tile=44):
+    """Render the detected schematic the way it appears in-game.
+
+    Each block is composited from its screenshot crop into a clean grid so the
+    user can verify the detection before saving.
+    """
+    from PIL import Image
+    img = core._palette_image(imgfile)
+    px = img.load()
+    tw, th, ox, oy = grid
+    maxx = max(b[1] + b[5] - 1 for b in blocks)
+    maxy = max(b[2] + b[5] - 1 for b in blocks)
+    w = maxx + 1
+    h = maxy + 1
+    out = Image.new("RGB", (w * tile, h * tile), (83, 86, 92))
+    if not blocks:
+        return out
+    for (name, x, y, rot, cfg, size) in blocks:
+        crop = _crop(img, ox + x * tw, oy + (h - 1 - (y + size - 1)) * th, tw, th, size)
+        crop = crop.resize((tile * size, tile * size))
+        out.paste(crop, (x * tile, (h - 1 - y) * tile))
+    return out
