@@ -129,6 +129,9 @@ class GUI():
 
         canvas = Canvas(win, width=dw, height=dh, cursor="cross")
         canvas.pack()
+        photo = ImageTk.PhotoImage(disp)
+        canvas.create_image(0, 0, anchor=NW, image=photo)
+        canvas.image = photo
 
         status = Label(win, text="Drag a box around the block grid, then set Columns/Rows and press Detect.")
         status.pack()
@@ -205,8 +208,9 @@ class GUI():
             for cy in range(h):
                 for cx in range(w):
                     if dens(ox + cx * tw, oy + cy * th, tw, th) > 0.2:
-                        dx = int((ox + cx * tw - ax0) * scale)
-                        dy = int((oy + (h - 1 - cy) * th - ay0) * scale)
+                        x0d, y0d = result["box"][0], result["box"][1]
+                        dx = x0d + int((ox + cx * tw - ax0) * scale)
+                        dy = y0d + int((oy + (h - 1 - cy) * th - ay0) * scale)
                         canvas.create_rectangle(dx, dy, dx + int(tw * scale), dy + int(th * scale),
                                                outline="#39d353", width=1)
 
