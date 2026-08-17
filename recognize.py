@@ -10,7 +10,7 @@ import struct
 import zlib
 
 try:
-    from PIL import Image
+    from PIL import Image, ImageFilter
 except Exception as e:  # pragma: no cover
     print("You're missing a package!")
     print(e)
@@ -19,6 +19,7 @@ except Exception as e:  # pragma: no cover
 import core
 
 CANON = 24  # canonical pixels per tile used for template matching
+BLUR = 3    # Gaussian blur radius applied to the matching feature
 
 # Block footprint sizes in tiles.
 SIZES = {
@@ -251,12 +252,29 @@ def _crop(img, x0, y0, tw, th, size, can=CANON):
     )
 
 
+def _feat(img, blur=BLUR):
+    """State-invariant matching feature.
+
+    Convert to grayscale, blur away thin power lines / belt items, then subtract
+    the mean so a uniformly glowing running block is comparable to its idle
+    exemplar. The result is a single-channel (float) image.
+    """
+    g = img.convert("L").filter(ImageFilter.GaussianBlur(radius=blur))
+    f = g.convert("F")
+    data = list(f.getdata())
+    mean = sum(data) / len(data) if data else 0.0
+    return f.point(lambda v: v - mean)
+
+
 def _ssd(a, b):
     pa = a.getdata()
     pb = b.getdata()
     total = 0
-    for (r1, g1, b1), (r2, g2, b2) in zip(pa, pb):
-        total += (r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2
+    for va, vb in zip(pa, pb):
+        if isinstance(va, (tuple, list)):
+            total += sum((x - y) ** 2 for x, y in zip(va, vb))
+        else:
+            total += (va - vb) ** 2
     return total
 
 
@@ -279,19 +297,22 @@ def build_corpus(examples_dir):
             crop = _crop(img, ox + x * tw, oy + top_row * th, tw, th, size)
             if bname in DIRECTIONAL:
                 for k in range(4):
-                    exemplars.append((bname, (rotation + k) % 4, config, size, crop.rotate(-k * 90)))
+                    fex = _feat(crop.rotate(-k * 90))
+                    exemplars.append((bname, (rotation + k) % 4, config, size, fex))
             else:
-                exemplars.append((bname, rotation, config, size, crop))
+                fex = _feat(crop)
+                exemplars.append((bname, rotation, config, size, fex))
     return exemplars
 
 
 def _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars, can=CANON):
     crop = _crop(img, ox + cx * tw, oy + cy * th, tw, th, size, can)
+    fcrop = _feat(crop)
     best = None
-    for (name, rotation, config, esize, ex) in exemplars:
+    for (name, rotation, config, esize, fex) in exemplars:
         if esize != size:
             continue
-        d = _ssd(crop, ex)
+        d = _ssd(fcrop, fex)
         if best is None or d < best[0]:
             best = (d, name, rotation, config)
     return best
@@ -377,7 +398,7 @@ def _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, 
     return blocks, confidence / count if count else 0.0
 
 
-def detect_cells(img, px, density, tw, th, ox, oy, width, height, exemplars, thresh=0.2, gate=500000):
+def detect_cells(img, px, density, tw, th, ox, oy, width, height, exemplars, thresh=0.2, gate=1000000):
     """Detect blocks from a known grid (no occupancy reference).
 
     A cell is treated as occupied when its whole-cell density clears `thresh`;
@@ -410,7 +431,7 @@ def detect_cells(img, px, density, tw, th, ox, oy, width, height, exemplars, thr
     return blocks
 
 
-def recognize_box(imgfile, exemplars, box, width, height, thresh=0.2, gate=500000):
+def recognize_box(imgfile, exemplars, box, width, height, thresh=0.2, gate=1000000):
     """Detect blocks given a user-drawn grid box (image pixels) and dimensions.
 
     Returns (width, height, blocks, grid) where grid = (tw, th, ox, oy).
