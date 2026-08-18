@@ -5,7 +5,7 @@ try:
     from tkinter import filedialog
     from tkinter import messagebox
     from PIL import Image, ImageTk
-    import tkinter.font, os, core
+    import tkinter.font, os, core, recognize
 except Exception as e:
     print("You're missing a package!")
     print()
@@ -112,7 +112,7 @@ class GUI():
                 messagebox.showerror("oh no", "Detected 0 blocks. Adjust the grid box/dimensions and try again.")
                 return
             self.struct = (w, h, blocks, grid, box, W, H, mode)
-            self.show_preview()
+            self.review_window()
         except Exception as e:
             messagebox.showerror("oh no", e)
 
@@ -161,7 +161,7 @@ class GUI():
         rows.grid(row=0, column=3)
         Label(frm, text="Threshold:").grid(row=1, column=0)
         thresh_var = Spinbox(frm, from_=0.0, to=1.0, increment=0.05, width=5)
-        thresh_var.delete(0, "end"); thresh_var.insert(0, "0.35")
+        thresh_var.delete(0, "end"); thresh_var.insert(0, "0.2")
         thresh_var.grid(row=1, column=1)
         Label(frm, text="Block counts:").grid(row=2, column=0)
         counts_var = Entry(frm, width=42)
@@ -317,42 +317,141 @@ class GUI():
             return None
         return (result["box"], result["W"], result["H"], result["bg"], result["counts"])
 
-    # ---- preview window ----
-    def show_preview(self):
+    # ---- review window: overlay + hover inspection + click-to-correct ----
+    def review_window(self):
         w, h, blocks, grid, box, W, H, mode = self.struct
         if not blocks:
-            messagebox.showerror("oh no", "No blocks to preview. Go back and adjust the grid.")
+            messagebox.showerror("oh no", "No blocks to review. Go back and adjust the grid.")
             return
-        prev = core.render_preview(self.file, blocks, grid)
+        tw, th, ox, oy = grid
+        img = Image.open(self.file).convert("RGB")
+        iw, ih = img.size
         maxdim = 820
-        scale = maxdim / max(prev.size)
-        dw, dh = int(prev.size[0] * scale), int(prev.size[1] * scale)
-        disp = prev.resize((dw, dh))
-        photo = ImageTk.PhotoImage(disp)
+        scale = maxdim / max(iw, ih)
+        dw, dh = int(iw * scale), int(ih * scale)
+        disp = img.resize((dw, dh))
+
+        rblocks = [[n, x, y, rot, cfg, sz] for (n, x, y, rot, cfg, sz) in blocks]
+        names = sorted(set(list(recognize.SIZES.keys()) + list(recognize.DIRECTIONAL.keys()) + [b[0] for b in rblocks]))
 
         win = Toplevel(root)
-        win.title("Preview - how it will look in game")
+        win.title("Review detections - click a block to correct, hover to inspect")
         win.resizable(False, False)
-        canvas = Canvas(win, width=dw, height=dh)
+        canvas = Canvas(win, width=dw, height=dh, cursor="hand2")
         canvas.pack()
+        photo = ImageTk.PhotoImage(disp)
         canvas.create_image(0, 0, anchor=NW, image=photo)
-        win.image = photo
-        label = Label(win, text="%d blocks detected (%dx%d). Back to adjust, or Save." % (len(blocks), w, h))
-        label.pack()
+        canvas.image = photo
+
+        ov_imgs = []
+
+        def cell_rect(b):
+            n, x, y, rot, cfg, sz = b
+            cy_top = h - 1 - (y + sz - 1)
+            ix0 = ox + x * tw
+            iy0 = oy + cy_top * th
+            return ix0, iy0, tw * sz, th * sz
+
+        def draw_all():
+            canvas.delete("ov")
+            del ov_imgs[:]
+            for b in rblocks:
+                ix0, iy0, ww, hh = cell_rect(b)
+                dx, dy = ix0 * scale, iy0 * scale
+                dww, dhh = ww * scale, hh * scale
+                region = disp.crop((int(dx), int(dy), int(dx + dww), int(dy + dhh)))
+                crop = img.crop((int(ix0), int(iy0), int(ix0 + ww), int(iy0 + hh))).resize((int(dww), int(dhh)))
+                ghost = Image.blend(crop, region, 0.5)
+                gimg = ImageTk.PhotoImage(ghost)
+                ov_imgs.append(gimg)
+                canvas.create_image(int(dx), int(dy), anchor=NW, image=gimg, tags="ov")
+                canvas.create_rectangle(int(dx), int(dy), int(dx + dww), int(dy + dhh),
+                                       outline="#39d353", width=2, tags="ov")
+                canvas.create_text(int(dx) + 3, int(dy) + 3, text=b[0], fill="#ffe66d",
+                                  font=("Consolas", 10), anchor=NW, tags="ov")
+
+        def block_at(ev):
+            ix, iy = int(ev.x / scale), int(ev.y / scale)
+            for b in rblocks:
+                ix0, iy0, ww, hh = cell_rect(b)
+                if ix0 <= ix < ix0 + ww and iy0 <= iy < iy0 + hh:
+                    return b
+            return None
+
+        hover_img = [None]
+        def on_motion(ev):
+            if hover_img[0] is not None:
+                canvas.delete(hover_img[0]); hover_img[0] = None
+            b = block_at(ev)
+            if b is None:
+                return
+            ix0, iy0, ww, hh = cell_rect(b)
+            dx, dy = ix0 * scale, iy0 * scale
+            dww, dhh = ww * scale, hh * scale
+            crop = img.crop((int(ix0), int(iy0), int(ix0 + ww), int(iy0 + hh))).resize((int(dww), int(dhh)))
+            himg = ImageTk.PhotoImage(crop)
+            hover_img[0] = canvas.create_image(int(dx), int(dy), anchor=NW, image=himg)
+            canvas._hover_ref = himg
+
+        def on_click(ev):
+            b = block_at(ev)
+            if b is not None:
+                open_picker(b)
+
+        canvas.bind("<Motion>", on_motion)
+        canvas.bind("<Button-1>", on_click)
+        draw_all()
+
+        def open_picker(b):
+            pk = Toplevel(win)
+            pk.title("Pick block type")
+            pk.resizable(False, False)
+            Label(pk, text="Search:").grid(row=0, column=0)
+            q = StringVar(); e = Entry(pk, textvariable=q, width=30); e.grid(row=0, column=1); e.focus()
+            lb = Listbox(pk, width=40, height=12); lb.grid(row=1, column=0, columnspan=2)
+            rot = IntVar(value=b[3])
+            Label(pk, text="Rotation:").grid(row=2, column=0)
+            rs = Spinbox(pk, from_=0, to=3, width=4, textvariable=rot); rs.grid(row=2, column=1)
+
+            def refresh(*_):
+                lb.delete(0, END)
+                qv = q.get().lower()
+                for nm in names:
+                    if qv in nm.lower():
+                        lb.insert(END, nm)
+            q.trace("w", refresh); refresh()
+            if b[0] in names:
+                try:
+                    lb.selection_set(names.index(b[0]))
+                except Exception:
+                    pass
+
+            def apply():
+                sel = lb.curselection()
+                if sel:
+                    b[0] = lb.get(sel[0])
+                b[3] = int(rot.get())
+                pk.destroy(); draw_all()
+            def mark_empty():
+                if b in rblocks:
+                    rblocks.remove(b)
+                pk.destroy(); draw_all()
+
+            Button(pk, text="OK", command=apply).grid(row=3, column=0)
+            Button(pk, text="Mark empty", command=mark_empty).grid(row=3, column=1)
+            Button(pk, text="Cancel", command=pk.destroy).grid(row=3, column=2)
 
         def do_save():
             try:
-                tags = {
-                    "contentMap": "{0:{sand:4,coal:5}}",
-                    "labels": "[]",
-                    "name": self.name.get(),
-                    "description": "",
-                }
-                wb = [(n, x, y, cfg, rot) for (n, x, y, rot, cfg, size) in blocks]
-                out = os.path.join(os.path.expandvars(self.path.get()), self.name.get() + ".msch")
+                out_dir = os.path.expandvars(self.path.get())
+                os.makedirs(out_dir, exist_ok=True)
+                out = os.path.join(out_dir, self.name.get() + ".msch")
+                tags = {"contentMap": "{0:{sand:4,coal:5}}", "labels": "[]",
+                        "name": self.name.get(), "description": ""}
+                wb = [(b[0], b[1], b[2], b[4], b[3]) for b in rblocks]
                 core._write_schematic(w, h, tags, wb, out, "path")
-                messagebox.showinfo("Saved", "Wrote " + out)
-                win.destroy()
+                n = self._export_training(rblocks, img, cell_rect)
+                messagebox.showinfo("Saved", "Wrote %s\n(%d cells exported for training)" % (out, n))
             except Exception as e:
                 messagebox.showerror("oh no", e)
 
@@ -360,13 +459,40 @@ class GUI():
             win.destroy()
             res = self.select_grid()
             if res is not None:
-                box, W, H = res
-                nw, nh, nblocks, ngrid = core.detect_structure(self.file, box, W, H)
-                self.struct = (nw, nh, nblocks, ngrid, box, W, H, mode)
-                self.show_preview()
+                box, W2, H2, bg, counts = res
+                r = core.detect_structure(self.file, box, W2, H2, bg=bg, block_counts=counts)
+                nw, nh, nblocks, ngrid, nthr = r
+                self.struct = (nw, nh, nblocks, ngrid, box, W2, H2, mode)
+                self.review_window()
 
         Button(win, text="Save", command=do_save).pack(side=LEFT, padx=5, pady=5)
-        Button(win, text="Back / Adjust", command=do_back).pack(side=LEFT, padx=5, pady=5)
+        Button(win, text="Back", command=do_back).pack(side=LEFT, padx=5, pady=5)
+        win.wait_window(win)
+
+    def _export_training(self, blocks, img, cell_rect):
+        """Persist each corrected cell crop as a labeled training exemplar.
+
+        Written to examples/training/ (images + manifest.jsonl) so the corpus
+        can be improved by folding them in on the next run.
+        """
+        import uuid, json
+        base = os.path.dirname(os.path.abspath(__file__))
+        tdir = os.path.join(base, "examples", "training")
+        idir = os.path.join(tdir, "images")
+        os.makedirs(idir, exist_ok=True)
+        mpath = os.path.join(tdir, "manifest.jsonl")
+        n = 0
+        with open(mpath, "a") as mf:
+            for b in blocks:
+                ix0, iy0, ww, hh = cell_rect(b)
+                crop = img.crop((int(ix0), int(iy0), int(ix0 + ww), int(iy0 + hh)))
+                uid = uuid.uuid4().hex
+                crop.save(os.path.join(idir, uid + ".png"))
+                rec = {"uuid": uid, "name": b[0], "rotation": int(b[3]),
+                       "size": int(b[5]), "source": os.path.basename(self.file)}
+                mf.write(json.dumps(rec) + "\n")
+                n += 1
+        return n
 
     def preview(self):
         try:

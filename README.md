@@ -37,8 +37,21 @@ bases. Two extra inputs make it work:
   multi-tile blocks (which look nothing like their idle exemplars) are mined
   from the screenshot itself using these counts, so they are recognized too.
 
-Tune **Threshold** and watch the live panel; when the listed blocks look right,
-save. A reference `.msch` is still the most exact option if you have one.
+Tune **Threshold** and watch the live panel if you like, but when **Block
+counts** are supplied the tool auto-picks the occupancy threshold that makes the
+detected counts match yours — so running/live screenshots are recognized
+automatically with no manual threshold tuning. A reference `.msch` is still the
+most exact option if you have one.
+
+### Review window & training data
+
+After detection you get a **Review window** overlaying the screenshot: each
+detected block is outlined with its guessed name, the original square appears at
+full strength when you hover it, and clicking a block opens a searchable picker
+to correct the type or rotation (or mark it empty). **Save** writes the `.msch`
+and also exports every corrected cell as a labeled training exemplar to
+`examples/training/` — these are folded back into the detection corpus on the
+next run, so repeated corrections keep improving accuracy.
 
 Here's a screenshot of the gui:
 

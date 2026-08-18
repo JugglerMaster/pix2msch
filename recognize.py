@@ -4,11 +4,13 @@ The tool learns block appearances from a folder of (image, .msch) example
 pairs and then detects the same blocks in new screenshots of Mindustry
 schematic/base layouts.
 """
-
 import os
-import struct
-import zlib
 
+import json
+
+import struct
+
+import zlib
 try:
     from PIL import Image, ImageFilter
 except Exception as e:  # pragma: no cover
@@ -302,15 +304,51 @@ def build_corpus(examples_dir):
             else:
                 fex = _feat(crop)
                 exemplars.append((bname, rotation, config, size, fex))
+    # Fold in any hand-corrected exemplars collected through the UI.
+    exemplars += _training_exemplars(examples_dir)
     return exemplars
 
 
-def _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars, can=CANON):
+def _training_exemplars(examples_dir):
+    """Load exemplars previously exported from the Review window.
+
+    Stored as <examples_dir>/training/images/<uuid>.png (a cell crop) with a
+    <examples_dir>/training/manifest.jsonl describing each one. This lets
+    corrections of running/live screenshots improve future detections.
+    """
+    tdir = os.path.join(examples_dir, "training")
+    manifest = os.path.join(tdir, "manifest.jsonl")
+    if not os.path.exists(manifest):
+        return []
+    out = []
+    for line in open(manifest):
+        line = line.strip()
+        if not line:
+            continue
+        rec = json.loads(line)
+        imgpath = os.path.join(tdir, "images", rec["uuid"] + ".png")
+        if not os.path.exists(imgpath):
+            continue
+        size = int(rec.get("size", 1))
+        crop = Image.open(imgpath).convert("RGB").resize((size * CANON, size * CANON), Image.LANCZOS)
+        name = rec["name"]
+        rotation = int(rec.get("rotation", 0))
+        if name in DIRECTIONAL:
+            for k in range(4):
+                out.append((name, (rotation + k) % 4, None, size, _feat(crop.rotate(-k * 90))))
+        else:
+            out.append((name, rotation, None, size, _feat(crop)))
+    return out
+
+
+def _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars, can=CANON, restrict=None):
     crop = _crop(img, ox + cx * tw, oy + cy * th, tw, th, size, can)
     fcrop = _feat(crop)
     best = None
     for (name, rotation, config, esize, fex) in exemplars:
         if esize != size:
+            continue
+        if restrict is not None and name not in restrict:
             continue
         d = _ssd(fcrop, fex)
         if best is None or d < best[0]:
@@ -356,7 +394,7 @@ def recognize(imgfile, exemplars, dims=None, occ=None, occ_thresh=0.5):
     return width, height, blocks
 
 
-def _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, occ=None, occ_thresh=0.5):
+def _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, occ=None, occ_thresh=0.5, restrict=None):
     if occ is not None:
         occupied = [[occ[height - 1 - cy][cx] for cx in range(width)] for cy in range(height)]
     else:
@@ -378,7 +416,7 @@ def _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, 
                     continue
                 if not all(occupied[cy + dy][cx + dx] for dy in range(size) for dx in range(size)):
                     continue
-                res = _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars)
+                res = _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars, restrict=restrict)
                 if res is None:
                     continue
                 d, name, rotation, config = res
@@ -399,7 +437,7 @@ def _recognize_grid(img, px, density, tw, th, ox, oy, width, height, exemplars, 
 
 
 def detect_cells(img, px, tw, th, ox, oy, width, height, exemplars,
-                 bg=None, tol=40, thresh=None, gate=1000000):
+                 bg=None, tol=40, thresh=None, gate=1000000, restrict=None):
     """Detect blocks from a known grid (no occupancy reference).
 
     Occupancy is decided from the background: a cell is occupied when the
@@ -428,24 +466,34 @@ def detect_cells(img, px, tw, th, ox, oy, width, height, exemplars,
     if thresh is None:
         thresh = 0.4
 
+    occupied = [[True] * width for _ in range(height)]
     blocks = []
     for cy in range(height):
         for cx in range(width):
+            if not occupied[cy][cx]:
+                continue
             best = None
             for size in (3, 2, 1):
                 if cx + size > width or cy + size > height:
                     continue
+                if not all(occupied[cy + dy][cx + dx]
+                           for dy in range(size) for dx in range(size)):
+                    continue
                 if occ(ox + cx * tw, oy + cy * th, tw * size, th * size) <= thresh:
                     continue
-                res = _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars)
+                res = _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars, restrict=restrict)
                 if res is None:
                     continue
+
                 d, name, rotation, config = res
                 if best is None or d < best[0]:
                     best = (d, name, rotation, config, size)
             if best is None or best[0] >= gate:
                 continue
             d, name, rotation, config, size = best
+            for dy in range(size):
+                for dx in range(size):
+                    occupied[cy + dy][cx + dx] = False
             msch_x = cx
             msch_y = height - 1 - (cy + size - 1)
             blocks.append((name, msch_x, msch_y, rotation, config, size))
@@ -517,12 +565,146 @@ def recognize_box(imgfile, exemplars, box, width, height, bg=None, tol=20, thres
     ox, oy = _refine_origin(px, w, h, bg, width, height, tw, th, ox, oy, span=20)
 
     ex = exemplars
+    restrict = None
     if block_counts:
         ex = exemplars + _mine_2x2_exemplars(img, px, tw, th, ox, oy, width, height, bg, tol, block_counts)
+        # In screenshot-only mode the user knows the block inventory, so only
+        # allow those types (plus mined ones). This kills 1x1 false positives
+        # (e.g. stray junction/overflow-gate) that otherwise clutter the panel.
+        restrict = set(block_counts.keys())
+
+    # When the user supplies exact block counts, resolve 1x1 typing globally:
+    # assign precisely the requested counts to the occupied 1x1 cells (greedy
+    # min-SSD). This turns noisy per-cell matching into an exact result, and we
+    # auto-pick the occupancy threshold that makes the counts line up, so no
+    # manual threshold tuning is needed for running/live screenshots.
+    if block_counts:
+        blocks, used_thresh = _auto_threshold(img, px, tw, th, ox, oy, width, height,
+                                             ex, bg, tol, gate, thresh, block_counts)
+        return width, height, blocks, (tw, th, ox, oy), used_thresh
 
     blocks, used_thresh = detect_cells(img, px, tw, th, ox, oy, width, height,
-                                       ex, bg=bg, tol=tol, thresh=thresh, gate=gate)
+                                       ex, bg=bg, tol=tol, thresh=thresh, gate=gate,
+                                       restrict=restrict)
     return width, height, blocks, (tw, th, ox, oy), used_thresh
+
+
+def _auto_threshold(img, px, tw, th, ox, oy, width, height, exemplars, bg, tol,
+                    gate, thresh, block_counts):
+    """Pick the occupancy threshold whose detection matches the given counts.
+
+    Sweeps thresholds and, for each, runs detection + count assignment. Returns
+    the result at the highest threshold where every requested count is met
+    exactly (most conservative, fewest false cells). Falls back to `thresh`.
+    """
+    from collections import Counter
+    need_multi = {n: c for n, c in block_counts.items() if SIZES.get(n, 1) > 1}
+    need1_total = sum(c for n, c in block_counts.items() if SIZES.get(n, 1) == 1)
+    restrict = set(block_counts.keys())
+
+    def run(T):
+        bl, _ = detect_cells(img, px, tw, th, ox, oy, width, height, exemplars,
+                             bg=bg, tol=tol, thresh=T, gate=gate, restrict=restrict)
+        bl = _assign_counts(bl, img, px, tw, th, ox, oy, width, height, exemplars,
+                            bg, tol, T, block_counts)
+        return bl
+
+    hits = []
+    for T in (round(0.05 + 0.01 * i, 2) for i in range(56)):  # 0.05 .. 0.60
+        bl = run(T)
+        c = Counter(b[0] for b in bl)
+        multi_ok = all(c.get(n, 0) == cnt for n, cnt in need_multi.items())
+        ones = sum(c.get(n, 0) for n in block_counts if SIZES.get(n, 1) == 1)
+        if multi_ok and ones == need1_total:
+            hits.append((T, bl))
+    if hits:
+        hits.sort(key=lambda x: -x[0])  # most conservative threshold
+        return hits[0][1], hits[0][0]
+    # Fall back to the user-supplied threshold.
+    bl = run(thresh)
+    return bl, thresh
+
+
+def _occupied_1x1(px, tw, th, ox, oy, width, height, bg, tol, thresh, exclude):
+    br, bgc, bb = bg[0], bg[1], bg[2]
+    cells = []
+    for cy in range(height):
+        for cx in range(width):
+            if (cx, cy) in exclude:
+                continue
+            cnt = 0
+            tot = 0
+            for y in range(oy + cy * th, oy + cy * th + th):
+                for x in range(ox + cx * tw, ox + cx * tw + tw):
+                    p = px[x, y]
+                    if abs(p[0] - br) > tol or abs(p[1] - bgc) > tol or abs(p[2] - bb) > tol:
+                        cnt += 1
+                    tot += 1
+            if tot and cnt / float(tot) > thresh:
+                cells.append((cx, cy))
+    return cells
+
+
+def _assign_counts(blocks, img, px, tw, th, ox, oy, width, height, exemplars,
+                   bg, tol, thresh, counts):
+    fixed = [b for b in blocks if b[5] > 1]
+    # Cells already covered by a multi-tile block cannot be 1x1 blocks.
+    exclude = set()
+    for b in fixed:
+        bx, by, bsize = b[1], b[2], b[5]
+        cy_top = height - 1 - (by + bsize - 1)
+        for dy in range(bsize):
+            for dx in range(bsize):
+                exclude.add((bx + dx, cy_top + dy))
+    cells = _occupied_1x1(px, tw, th, ox, oy, width, height, bg, tol, thresh, exclude)
+
+    by_name = {}
+    for (name, rotation, config, size, fex) in exemplars:
+        if size != 1:
+            continue
+        by_name.setdefault(name, []).append((rotation, config, fex))
+
+    types = [n for n in counts if n in by_name]
+    need = {n: counts[n] for n in types}
+    total_need = sum(need.values())
+    if not cells or not types:
+        return fixed
+
+    cand = []
+    for (cx, cy) in cells:
+        crop = _feat(_crop(img, ox + cx * tw, oy + cy * th, tw, th, 1))
+        bf = {}
+        for n in types:
+            best = None
+            for (rot, cfg, fex) in by_name[n]:
+                d = _ssd(crop, fex)
+                if best is None or d < best[0]:
+                    best = (d, rot, cfg)
+            bf[n] = best
+        cand.append((cx, cy, bf))
+
+    pool = []
+    for i, (cx, cy, bf) in enumerate(cand):
+        for n in types:
+            if bf[n] is not None:
+                pool.append((bf[n][0], i, n, bf[n][1], bf[n][2]))
+    pool.sort()
+    used = set()
+    type_count = {n: 0 for n in types}
+    out = list(fixed)
+    # Assign exact counts; any surplus occupied cells are dropped (false hits).
+    for cost, i, n, rot, cfg in pool:
+        if type_count[n] >= need[n] or i in used:
+            continue
+        used.add(i)
+        type_count[n] += 1
+        cx, cy = cand[i][0], cand[i][1]
+        msch_x = cx
+        msch_y = height - 1 - cy
+        out.append((n, msch_x, msch_y, rot, cfg, 1))
+        if sum(type_count.values()) >= total_need:
+            break
+    return out
 
 
 def _mine_2x2_exemplars(img, px, tw, th, ox, oy, width, height, bg, tol, counts):
