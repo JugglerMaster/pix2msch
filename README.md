@@ -28,10 +28,10 @@ are two ways it works:
 You do **not** need a `.msch` for box-only detection, even for running/live
 bases. Two extra inputs make it work:
 
-- **Set background**: click an empty area of the screenshot. The tool uses that
-  ground color to decide which cells actually contain a block (instead of
-  assuming the flat editor background), so it can tell a block cell from an
-  infrastructure-filled one.
+- **Set background**: click **Set background**, then drag a **yellow box**
+  over an empty area of the screenshot (or just click one spot). The tool
+  averages that region's color and uses it as the ground, so it can tell a block
+  cell from an infrastructure-filled one.
 - **Block counts**: enter the block types and how many of each, e.g.
   `silicon-smelter:6, unloader:5, sorter:5, bridge-conveyor:4`. Running-state
   multi-tile blocks (which look nothing like their idle exemplars) are mined

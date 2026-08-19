@@ -558,6 +558,8 @@ def recognize_box(imgfile, exemplars, box, width, height, bg=None, tol=20, thres
     w, h = img.size
     if bg is None:
         bg = core.tuple_array[9]
+    if not isinstance(thresh, (int, float)):
+        thresh = 0.2
     x0, y0, x1, y1 = box
     tw = max(1, (x1 - x0) // width)
     th = max(1, (y1 - y0) // height)
@@ -593,25 +595,111 @@ def _auto_threshold(img, px, tw, th, ox, oy, width, height, exemplars, bg, tol,
                     gate, thresh, block_counts):
     """Pick the occupancy threshold whose detection matches the given counts.
 
-    Sweeps thresholds and, for each, runs detection + count assignment. Returns
-    the result at the highest threshold where every requested count is met
-    exactly (most conservative, fewest false cells). Falls back to `thresh`.
+    Features are extracted per cell ONCE; the threshold sweep then only toggles
+    occupancy (cheap) and re-runs the count assignment, so sweeping dozens of
+    thresholds is fast. Returns the result at the highest threshold where every
+    requested count is met exactly (most conservative). Falls back to `thresh`.
     """
     from collections import Counter
     need_multi = {n: c for n, c in block_counts.items() if SIZES.get(n, 1) > 1}
     need1_total = sum(c for n, c in block_counts.items() if SIZES.get(n, 1) == 1)
     restrict = set(block_counts.keys())
 
-    def run(T):
-        bl, _ = detect_cells(img, px, tw, th, ox, oy, width, height, exemplars,
-                             bg=bg, tol=tol, thresh=T, gate=gate, restrict=restrict)
-        bl = _assign_counts(bl, img, px, tw, th, ox, oy, width, height, exemplars,
-                            bg, tol, T, block_counts)
-        return bl
+    br, bgc, bb = bg[0], bg[1], bg[2]
+
+    def occ_val(cx, cy, size):
+        cnt = 0; tot = 0
+        for y in range(oy + cy * th, oy + cy * th + size * th):
+            for x in range(ox + cx * tw, ox + cx * tw + size * tw):
+                p = px[x, y]
+                if abs(p[0] - br) > tol or abs(p[1] - bgc) > tol or abs(p[2] - bb) > tol:
+                    cnt += 1
+                tot += 1
+        return cnt / float(tot) if tot else 0.0
+
+    # Precompute per-1x1-cell best match per allowed type (cached once).
+    by_name = {}
+    for (name, rotation, config, size, fex) in exemplars:
+        if size == 1:
+            by_name.setdefault(name, []).append((rotation, config, fex))
+    cell_bf = []  # (cx, cy, {name: (d, rot, cfg)})
+    for cy in range(height):
+        for cx in range(width):
+            crop = _feat(_crop(img, ox + cx * tw, oy + cy * th, tw, th, 1))
+            bf = {}
+            for n in restrict:
+                lst = by_name.get(n)
+                if not lst:
+                    continue
+                best = None
+                for (rot, cfg, fex) in lst:
+                    d = _ssd(crop, fex)
+                    if best is None or d < best[0]:
+                        best = (d, rot, cfg)
+                bf[n] = best
+            cell_bf.append((cx, cy, bf))
+
+    # Precompute per-2x2-cell best match (cached once), restricted to multi types.
+    multi_names = set(need_multi.keys())
+    cell_match2 = {}
+    if multi_names:
+        for cy in range(height - 1):
+            for cx in range(width - 1):
+                res = _classify_cell(img, cx, cy, tw, th, ox, oy, 2, exemplars, restrict=multi_names)
+                if res is not None:
+                    d, name, rot, cfg = res
+                    cell_match2[(cx, cy)] = (name, rot, cfg, d)
+
+    types1 = [n for n in restrict if n in by_name]
+    total_need = need1_total
+
+    def detect_at(T):
+        # multi-tile (2x2) blocks present at this threshold
+        fixed = []
+        exclude = set()
+        for cy in range(height - 1):
+            for cx in range(width - 1):
+                if occ_val(cx, cy, 2) <= T:
+                    continue
+                m = cell_match2.get((cx, cy))
+                if not m or m[3] >= gate:
+                    continue
+                if any((cx + dx, cy + dy) in exclude for dy in range(2) for dx in range(2)):
+                    continue
+                name, rot, cfg, _ = m
+                msch_x = cx
+                msch_y = height - 1 - (cy + 1)
+                fixed.append((name, msch_x, msch_y, rot, cfg, 2))
+                for dy in range(2):
+                    for dx in range(2):
+                        exclude.add((cx + dx, cy + dy))
+        # 1x1 cells occupied at this threshold and not under a multi-tile block
+        cells = [(cx, cy, bf) for (cx, cy, bf) in cell_bf
+                 if (cx, cy) not in exclude and occ_val(cx, cy, 1) > T]
+        # greedy count assignment (min-SSD) over cached per-cell matches
+        pool = []
+        for i, (cx, cy, bf) in enumerate(cells):
+            for n in types1:
+                if bf.get(n) is not None:
+                    pool.append((bf[n][0], i, n, bf[n][1], bf[n][2]))
+        pool.sort()
+        used = set()
+        type_count = {n: 0 for n in types1}
+        out = list(fixed)
+        for cost, i, n, rot, cfg in pool:
+            if type_count[n] >= block_counts[n] or i in used:
+                continue
+            used.add(i)
+            type_count[n] += 1
+            cx, cy = cells[i][0], cells[i][1]
+            out.append((n, cx, height - 1 - cy, rot, cfg, 1))
+            if sum(type_count.values()) >= total_need:
+                break
+        return out
 
     hits = []
     for T in (round(0.05 + 0.01 * i, 2) for i in range(56)):  # 0.05 .. 0.60
-        bl = run(T)
+        bl = detect_at(T)
         c = Counter(b[0] for b in bl)
         multi_ok = all(c.get(n, 0) == cnt for n, cnt in need_multi.items())
         ones = sum(c.get(n, 0) for n in block_counts if SIZES.get(n, 1) == 1)
@@ -621,8 +709,7 @@ def _auto_threshold(img, px, tw, th, ox, oy, width, height, exemplars, bg, tol,
         hits.sort(key=lambda x: -x[0])  # most conservative threshold
         return hits[0][1], hits[0][0]
     # Fall back to the user-supplied threshold.
-    bl = run(thresh)
-    return bl, thresh
+    return detect_at(thresh if isinstance(thresh, (int, float)) else 0.2), (thresh if isinstance(thresh, (int, float)) else 0.2)
 
 
 def _occupied_1x1(px, tw, th, ox, oy, width, height, bg, tol, thresh, exclude):

@@ -5,7 +5,7 @@ try:
     from tkinter import filedialog
     from tkinter import messagebox
     from PIL import Image, ImageTk
-    import tkinter.font, os, core, recognize
+    import tkinter.font, os, core, recognize, threading
 except Exception as e:
     print("You're missing a package!")
     print()
@@ -98,23 +98,71 @@ class GUI():
             self.file = None
         root.update()
 
+    # ---- async detection (keeps the UI responsive, offers Cancel) ----
+    def _detect_async(self, file, box, W, H, bg, thresh, counts, on_done, parent=None):
+        """Run detection in a worker thread so the window never locks up.
+
+        Shows a Cancel dialog; on_done is called on the main thread with either
+        the (w, h, blocks, grid, thr) result, ("err", exception), or ("cancel",).
+        """
+        cancel = [False]
+        prog = Toplevel(parent or root)
+        prog.title("Detecting...")
+        prog.resizable(False, False)
+        Label(prog, text="Detecting blocks...\nPress Cancel to stop.", justify=LEFT).pack(padx=12, pady=10)
+        Button(prog, text="Cancel", command=lambda: _cancel()) .pack(pady=5)
+
+        def _cancel():
+            cancel[0] = True
+            if prog.winfo_exists():
+                prog.destroy()
+
+        def work():
+            try:
+                res = core.detect_structure(file, box, W, H, bg=bg, thresh=thresh, block_counts=counts)
+            except Exception as e:
+                res = ("err", e)
+            (parent or root).after(0, lambda: _done(res))
+
+        threading.Thread(target=work, daemon=True).start()
+
+        def _done(res):
+            if prog.winfo_exists():
+                prog.destroy()
+            if cancel[0]:
+                on_done(("cancel",))
+                return
+            on_done(res)
+
     def convert(self, mode):
         if not self.file:
             messagebox.showerror("oh no", "Open an image first")
             return
-        try:
-            res = self.select_grid()
-            if res is None:
-                return
-            box, W, H, bg, counts = res
-            w, h, blocks, grid, thr = core.detect_structure(self.file, box, W, H, bg=bg, block_counts=counts)
-            if not blocks:
-                messagebox.showerror("oh no", "Detected 0 blocks. Adjust the grid box/dimensions and try again.")
-                return
+        res = self.select_grid()
+        if res is None:
+            return
+        box, W, H, bg, counts = res
+        ld = getattr(self, "_last_detect", None)
+        if ld and ld[0] == self.file and ld[1] == box and ld[2] == W and ld[3] == H \
+                and ld[4] == bg and ld[5] == counts:
+            w, h, blocks, grid, thr = ld[6]
             self.struct = (w, h, blocks, grid, box, W, H, mode)
             self.review_window()
-        except Exception as e:
-            messagebox.showerror("oh no", e)
+            return
+        self._detect_async(self.file, box, W, H, bg, 0.2, counts,
+                           lambda r: self._after_convert(r, mode, box, W, H))
+
+    def _after_convert(self, r, mode, box, W, H):
+        if isinstance(r, tuple) and r and r[0] in ("err", "cancel"):
+            if r[0] == "err":
+                messagebox.showerror("oh no", r[1])
+            return
+        w, h, blocks, grid, thr = r
+        if not blocks:
+            messagebox.showerror("oh no", "Detected 0 blocks. Adjust the grid box/dimensions and try again.")
+            return
+        self.struct = (w, h, blocks, grid, box, W, H, mode)
+        self.review_window()
 
     # ---- grid selection window ----
     def select_grid(self):
@@ -171,25 +219,73 @@ class GUI():
         result = {"box": None, "ok": False, "bg": None, "counts": None}
 
         rect = {"id": None, "sx": 0, "sy": 0}
-        bg_pick = {"active": False}
+        bg_pick = {"active": False, "drawing": False, "id": None}
+        sel = {"idx": None}
 
         def to_actual(x, y):
             return int(x / scale), int(y / scale)
 
+        def block_rect(b):
+            tw, th, ox, oy = result["grid"]
+            x, y, size = b[1], b[2], b[5]
+            cy_top = result["H"] - 1 - (y + size - 1)
+            ax = ox + x * tw
+            ay = oy + cy_top * th
+            return ax * scale, ay * scale, tw * size * scale, th * size * scale
+
+        def redraw_overlay():
+            canvas.delete("occ")
+            blocks = result.get("blocks")
+            if not blocks or not result.get("grid"):
+                return
+            for i, b in enumerate(blocks):
+                dx, dy, dww, dhh = block_rect(b)
+                if i == sel["idx"]:
+                    canvas.create_rectangle(int(dx), int(dy), int(dx + dww), int(dy + dhh),
+                                           outline="#ffd400", width=3, tags="occ")
+                else:
+                    canvas.create_rectangle(int(dx), int(dy), int(dx + dww), int(dy + dhh),
+                                           outline="#39d353", width=1, tags="occ")
+
+        def select_block(i):
+            select_block._busy = True
+            sel["idx"] = i
+            plist.selection_clear(0, END)
+            if i is not None:
+                plist.selection_set(i)
+                plist.see(i)
+            redraw_overlay()
+            if i is not None:
+                status.configure(text="Selected: %s (%d,%d) r%d" % (blocks[i][0], blocks[i][1], blocks[i][2], blocks[i][3]))
+            select_block._busy = False
+
+        def on_canvas_click(e):
+            blocks = result.get("blocks")
+            if not blocks or not result.get("grid"):
+                select_block(None)
+                return
+            fx, fy = e.x, e.y
+            for i, b in enumerate(blocks):
+                dx, dy, dww, dhh = block_rect(b)
+                if dx <= fx < dx + dww and dy <= fy < dy + dhh:
+                    select_block(i)
+                    return
+            select_block(None)
+
+        def on_list_select(ev):
+            if getattr(select_block, "_busy", False):
+                return
+            cur = plist.curselection()
+            if cur:
+                select_block(cur[0])
+
         def on_down(e):
             if bg_pick["active"]:
-                bg_pick["active"] = False
-                ix, iy = to_actual(e.x, e.y)
-                pix = PILImage.open(self.file).convert("RGB").load()
-                iw, ih = pix.size
-                rs = gs = bs = 0; n = 0
-                for dy in range(-12, 13):
-                    for dx in range(-12, 13):
-                        x, y = ix + dx, iy + dy
-                        if 0 <= x < iw and 0 <= y < ih:
-                            p = pix[x, y]; rs += p[0]; gs += p[1]; bs += p[2]; n += 1
-                result["bg"] = (rs // n, gs // n, bs // n)
-                status.configure(text="Background set to %s. Draw the grid box and Detect." % (result["bg"],))
+                bg_pick["drawing"] = True
+                bg_pick["sx"], bg_pick["sy"] = e.x, e.y
+                if bg_pick["id"]:
+                    canvas.delete(bg_pick["id"])
+                bg_pick["id"] = canvas.create_rectangle(e.x, e.y, e.x, e.y, outline="yellow", width=2)
                 return
             rect["sx"], rect["sy"] = e.x, e.y
             if rect["id"]:
@@ -197,14 +293,50 @@ class GUI():
             rect["id"] = canvas.create_rectangle(e.x, e.y, e.x, e.y, outline="red", width=2)
 
         def on_drag(e):
+            if bg_pick.get("drawing"):
+                if bg_pick["id"]:
+                    canvas.delete(bg_pick["id"])
+                bg_pick["id"] = canvas.create_rectangle(bg_pick["sx"], bg_pick["sy"], e.x, e.y, outline="yellow", width=2)
+                return
             if rect["id"]:
                 canvas.delete(rect["id"])
             rect["id"] = canvas.create_rectangle(rect["sx"], rect["sy"], e.x, e.y, outline="red", width=2)
 
         def on_up(e):
+            if bg_pick.get("drawing"):
+                bg_pick["drawing"] = False
+                x0, y0, x1, y1 = bg_pick["sx"], bg_pick["sy"], e.x, e.y
+                if x1 < x0:
+                    x0, x1 = x1, x0
+                if y1 < y0:
+                    y0, y1 = y1, y0
+                # A bare click samples a small region around the point.
+                if x1 - x0 < 4 and y1 - y0 < 4:
+                    m = 10
+                    x0 = max(0, x0 - m); y0 = max(0, y0 - m)
+                    x1 = min(dw, x1 + m); y1 = min(dh, y1 + m)
+                ax0, ay0 = to_actual(x0, y0)
+                ax1, ay1 = to_actual(x1, y1)
+                pix = PILImage.open(self.file).convert("RGB").load()
+                rs = gs = bs = 0; n = 0
+                for y in range(ay0, ay1 + 1):
+                    for x in range(ax0, ax1 + 1):
+                        p = pix[x, y]; rs += p[0]; gs += p[1]; bs += p[2]; n += 1
+                if n:
+                    result["bg"] = (rs // n, gs // n, bs // n)
+                bg_pick["active"] = False
+                if bg_pick["id"]:
+                    canvas.delete(bg_pick["id"]); bg_pick["id"] = None
+                win.config(cursor="")
+                status.configure(text="Background set to %s. Draw the grid box and Detect." % (result["bg"],))
+                return
             if rect["id"]:
                 canvas.delete(rect["id"])
             x0, y0, x1, y1 = rect["sx"], rect["sy"], e.x, e.y
+            # A click (negligible drag) selects a block instead of drawing a box.
+            if max(abs(x1 - x0), abs(y1 - y0)) < 4:
+                on_canvas_click(e)
+                return
             if x1 < x0:
                 x0, x1 = x1, x0
             if y1 < y0:
@@ -215,6 +347,7 @@ class GUI():
         canvas.bind("<ButtonPress-1>", on_down)
         canvas.bind("<B1-Motion>", on_drag)
         canvas.bind("<ButtonRelease-1>", on_up)
+        plist.bind("<<ListboxSelect>>", on_list_select)
 
         def do_detect():
             if not result["box"]:
@@ -246,39 +379,29 @@ class GUI():
             if ax1 <= ax0 or ay1 <= ay0 or W < 1 or H < 1:
                 status.configure(text="Invalid box or dimensions.")
                 return
-            try:
-                w, h, blocks, grid, thr = core.detect_structure(
-                    self.file, (ax0, ay0, ax1, ay1), W, H, bg=result["bg"], thresh=T, block_counts=counts)
-            except Exception as ex:
-                status.configure(text="Detection error: " + str(ex))
+            status.configure(text="Detecting...")
+            self._detect_async(self.file, (ax0, ay0, ax1, ay1), W, H, result["bg"], T, counts,
+                               lambda r: finish_detect(r, (ax0, ay0, ax1, ay1), W, H), parent=win)
+
+        def finish_detect(r, box_actual, W, H):
+            if isinstance(r, tuple) and r and r[0] in ("err", "cancel"):
+                if r[0] == "err":
+                    status.configure(text="Detection error: " + str(r[1]))
+                else:
+                    status.configure(text="Detection cancelled.")
                 return
-            status.configure(text="Detected %d blocks (occupancy thr=%.2f). Adjust the box/dimensions if needed, then OK." % (len(blocks), thr))
-            canvas.delete("occ")
+            w, h, blocks, grid, thr = r
+            result["blocks"] = blocks
+            result["grid"] = grid
+            result["W"] = W
+            result["H"] = H
+            sel["idx"] = None
+            self._last_detect = (self.file, box_actual, W, H, result["bg"], counts, (w, h, blocks, grid, thr))
             plist.delete(0, END)
             for (nm, x, y, rot, cfg, size) in blocks:
                 plist.insert(END, "%-22s (%d,%d) r%d" % (nm, x, y, rot))
-            # overlay occupied cells using the same background + threshold
-            tw, th, ox, oy = grid
-            bg = result["bg"] or core.tuple_array[9]
-            br, bgc, bb = bg[0], bg[1], bg[2]
-            pix = PILImage.open(self.file).convert("RGB").load()
-            def occ(x0, y0, tw, th):
-                cnt = 0; tot = 0
-                for y in range(y0, y0 + th):
-                    for x in range(x0, x0 + tw):
-                        p = pix[x, y]
-                        if abs(p[0] - br) > 40 or abs(p[1] - bgc) > 40 or abs(p[2] - bb) > 40:
-                            cnt += 1
-                        tot += 1
-                return cnt / float(tot)
-            for cy in range(h):
-                for cx in range(w):
-                    if occ(ox + cx * tw, oy + cy * th, tw, th) > thr:
-                        x0d, y0d = result["box"][0], result["box"][1]
-                        dx = x0d + int((ox + cx * tw - ax0) * scale)
-                        dy = y0d + int((oy + (h - 1 - cy) * th - ay0) * scale)
-                        canvas.create_rectangle(dx, dy, dx + int(tw * scale), dy + int(th * scale),
-                                               outline="#39d353", width=1, tags="occ")
+            redraw_overlay()
+            status.configure(text="Detected %d blocks (occupancy thr=%.2f). Click a block to highlight it; OK when done." % (len(blocks), thr))
 
         def do_ok():
             if not result["box"]:
@@ -301,7 +424,12 @@ class GUI():
             win.destroy()
 
         Button(win, text="Detect", command=do_detect).pack(side=LEFT, padx=5, pady=5)
-        Button(win, text="Set background", command=lambda: bg_pick.__setitem__("active", True) or status.configure(text="Click an empty area to set the background color.")).pack(side=LEFT, padx=5, pady=5)
+        def enter_bg():
+            bg_pick["active"] = True
+            win.config(cursor="tcross")
+            status.configure(text="Set background: drag a YELLOW box over an empty area (or just click one).")
+
+        Button(win, text="Set background", command=enter_bg).pack(side=LEFT, padx=5, pady=5)
         Button(win, text="OK", command=do_ok).pack(side=LEFT, padx=5, pady=5)
         Button(win, text="Cancel", command=do_cancel).pack(side=LEFT, padx=5, pady=5)
 
@@ -458,12 +586,27 @@ class GUI():
         def do_back():
             win.destroy()
             res = self.select_grid()
-            if res is not None:
-                box, W2, H2, bg, counts = res
-                r = core.detect_structure(self.file, box, W2, H2, bg=bg, block_counts=counts)
-                nw, nh, nblocks, ngrid, nthr = r
+            if res is None:
+                return
+            box, W2, H2, bg, counts = res
+            ld = getattr(self, "_last_detect", None)
+            if ld and ld[0] == self.file and ld[1] == box and ld[2] == W2 and ld[3] == H2 \
+                    and ld[4] == bg and ld[5] == counts:
+                nw, nh, nblocks, ngrid, nthr = ld[6]
                 self.struct = (nw, nh, nblocks, ngrid, box, W2, H2, mode)
                 self.review_window()
+                return
+            self._detect_async(self.file, box, W2, H2, bg, 0.2, counts,
+                               lambda r: self._after_back(r, box, W2, H2, mode))
+
+    def _after_back(self, r, box, W2, H2, mode):
+        if isinstance(r, tuple) and r and r[0] in ("err", "cancel"):
+            if r[0] == "err":
+                messagebox.showerror("oh no", r[1])
+            return
+        nw, nh, nblocks, ngrid, nthr = r
+        self.struct = (nw, nh, nblocks, ngrid, box, W2, H2, mode)
+        self.review_window()
 
         Button(win, text="Save", command=do_save).pack(side=LEFT, padx=5, pady=5)
         Button(win, text="Back", command=do_back).pack(side=LEFT, padx=5, pady=5)
