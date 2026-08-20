@@ -23,13 +23,20 @@ import core
 CANON = 24  # canonical pixels per tile used for template matching
 BLUR = 3    # Gaussian blur radius applied to the matching feature
 
-# Block footprint sizes in tiles.
-SIZES = {
-    "silicon-smelter": 2,
-    "kiln": 2,
-    "graphite-press": 2,
-    "pyrolysis-generator": 3,
-}
+# Block footprint sizes in tiles — loaded from block_catalog.json.
+def _load_sizes():
+    catalog_path = os.path.join(os.path.dirname(__file__), "block_catalog.json")
+    if os.path.exists(catalog_path):
+        with open(catalog_path) as f:
+            catalog = json.load(f)
+        return {name: info["size"] for name, info in catalog.items()}
+    # Minimal fallback if catalog is missing.
+    return {
+        "silicon-smelter": 2, "kiln": 2, "graphite-press": 2,
+        "pyrolysis-generator": 3,
+    }
+
+SIZES = _load_sizes()
 
 # Blocks whose sprites are rotated by their `rotation` field.
 DIRECTIONAL = {

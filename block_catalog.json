@@ -1,0 +1,1634 @@
+{
+  "additive-reconstructor": {
+    "class": "Reconstructor",
+    "rotates": false,
+    "size": 3,
+    "var": "additiveReconstructor"
+  },
+  "advanced-launch-pad": {
+    "class": "LaunchPad",
+    "rotates": false,
+    "size": 4,
+    "var": "advancedLaunchPad"
+  },
+  "afflict": {
+    "class": "PowerTurret",
+    "rotates": false,
+    "size": 4,
+    "var": "afflict"
+  },
+  "air-factory": {
+    "class": "UnitFactory",
+    "rotates": true,
+    "size": 3,
+    "var": "airFactory"
+  },
+  "arc": {
+    "class": "PowerTurret",
+    "rotates": false,
+    "size": 1,
+    "var": "arc"
+  },
+  "armored-conveyor": {
+    "class": "ArmoredConveyor",
+    "rotates": true,
+    "size": 1,
+    "var": "armoredConveyor"
+  },
+  "armored-duct": {
+    "class": "Duct",
+    "rotates": true,
+    "size": 1,
+    "var": "armoredDuct"
+  },
+  "atmospheric-concentrator": {
+    "class": "HeatCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "atmosphericConcentrator"
+  },
+  "basalt-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "basaltBoulder"
+  },
+  "basic-assembler-module": {
+    "class": "UnitAssemblerModule",
+    "rotates": false,
+    "size": 5,
+    "var": "basicAssemblerModule"
+  },
+  "battery": {
+    "class": "Battery",
+    "rotates": false,
+    "size": 1,
+    "var": "battery"
+  },
+  "battery-large": {
+    "class": "Battery",
+    "rotates": false,
+    "size": 3,
+    "var": "batteryLarge"
+  },
+  "beam-link": {
+    "class": "LongPowerNode",
+    "rotates": false,
+    "size": 3,
+    "var": "beamLink"
+  },
+  "beam-node": {
+    "class": "BeamNode",
+    "rotates": false,
+    "size": 1,
+    "var": "beamNode"
+  },
+  "beam-tower": {
+    "class": "BeamNode",
+    "rotates": false,
+    "size": 3,
+    "var": "beamTower"
+  },
+  "beryllic-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "beryllicBoulder"
+  },
+  "beryllium-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "berylliumWall"
+  },
+  "beryllium-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "berylliumWallLarge"
+  },
+  "blast-door": {
+    "class": "AutoDoor",
+    "rotates": false,
+    "size": 2,
+    "var": "blastDoor"
+  },
+  "blast-drill": {
+    "class": "Drill",
+    "rotates": false,
+    "size": 4,
+    "var": "blastDrill"
+  },
+  "blast-mixer": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "blastMixer"
+  },
+  "boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "boulder"
+  },
+  "breach": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 3,
+    "var": "breach"
+  },
+  "bridge-conduit": {
+    "class": "LiquidBridge",
+    "rotates": false,
+    "size": 1,
+    "var": "bridgeConduit"
+  },
+  "bridge-conveyor": {
+    "class": "BufferedItemBridge",
+    "rotates": false,
+    "size": 1,
+    "var": "itemBridge"
+  },
+  "build-tower": {
+    "class": "BuildTurret",
+    "rotates": false,
+    "size": 3,
+    "var": "buildTower"
+  },
+  "canvas": {
+    "class": "CanvasBlock",
+    "rotates": false,
+    "size": 2,
+    "var": "canvas"
+  },
+  "carbide-crucible": {
+    "class": "HeatCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "carbideCrucible"
+  },
+  "carbide-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "carbideWall"
+  },
+  "carbide-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "carbideWallLarge"
+  },
+  "carbon-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "carbonBoulder"
+  },
+  "chemical-combustion-chamber": {
+    "class": "ConsumeGenerator",
+    "rotates": false,
+    "size": 3,
+    "var": "chemicalCombustionChamber"
+  },
+  "cliff-crusher": {
+    "class": "WallCrafter",
+    "rotates": true,
+    "size": 2,
+    "var": "cliffCrusher"
+  },
+  "coal-centrifuge": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "coalCentrifuge"
+  },
+  "combustion-generator": {
+    "class": "ConsumeGenerator",
+    "rotates": false,
+    "size": 1,
+    "var": "combustionGenerator"
+  },
+  "conduit": {
+    "class": "Conduit",
+    "rotates": true,
+    "size": 1,
+    "var": "conduit"
+  },
+  "constructor": {
+    "class": "Constructor",
+    "rotates": false,
+    "size": 3,
+    "var": "constructor"
+  },
+  "container": {
+    "class": "StorageBlock",
+    "rotates": false,
+    "size": 2,
+    "var": "container"
+  },
+  "conveyor": {
+    "class": "Conveyor",
+    "rotates": true,
+    "size": 1,
+    "var": "conveyor"
+  },
+  "copper-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "copperWall"
+  },
+  "copper-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "copperWallLarge"
+  },
+  "core-acropolis": {
+    "class": "CoreBlock",
+    "rotates": false,
+    "size": 6,
+    "var": "coreAcropolis"
+  },
+  "core-bastion": {
+    "class": "CoreBlock",
+    "rotates": false,
+    "size": 4,
+    "var": "coreBastion"
+  },
+  "core-citadel": {
+    "class": "CoreBlock",
+    "rotates": false,
+    "size": 5,
+    "var": "coreCitadel"
+  },
+  "core-foundation": {
+    "class": "CoreBlock",
+    "rotates": false,
+    "size": 4,
+    "var": "coreFoundation"
+  },
+  "core-nucleus": {
+    "class": "CoreBlock",
+    "rotates": false,
+    "size": 5,
+    "var": "coreNucleus"
+  },
+  "core-shard": {
+    "class": "CoreBlock",
+    "rotates": false,
+    "size": 3,
+    "var": "coreShard"
+  },
+  "cryofluid-mixer": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "cryofluidMixer"
+  },
+  "crystalline-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "crystallineBoulder"
+  },
+  "cultivator": {
+    "class": "AttributeCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "cultivator"
+  },
+  "cyanogen-synthesizer": {
+    "class": "HeatCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "cyanogenSynthesizer"
+  },
+  "cyclone": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 3,
+    "var": "cyclone"
+  },
+  "dacite-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "daciteBoulder"
+  },
+  "deconstructor": {
+    "class": "PayloadDeconstructor",
+    "rotates": false,
+    "size": 5,
+    "var": "deconstructor"
+  },
+  "differential-generator": {
+    "class": "ConsumeGenerator",
+    "rotates": false,
+    "size": 3,
+    "var": "differentialGenerator"
+  },
+  "diffuse": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 3,
+    "var": "diffuse"
+  },
+  "diode": {
+    "class": "PowerDiode",
+    "rotates": true,
+    "size": 1,
+    "var": "diode"
+  },
+  "disassembler": {
+    "class": "Separator",
+    "rotates": false,
+    "size": 3,
+    "var": "disassembler"
+  },
+  "distributor": {
+    "class": "Router",
+    "rotates": false,
+    "size": 2,
+    "var": "distributor"
+  },
+  "door": {
+    "class": "Door",
+    "rotates": false,
+    "size": 1,
+    "var": "door"
+  },
+  "door-large": {
+    "class": "Door",
+    "rotates": false,
+    "size": 2,
+    "var": "doorLarge"
+  },
+  "duct": {
+    "class": "Duct",
+    "rotates": true,
+    "size": 1,
+    "var": "duct"
+  },
+  "duct-bridge": {
+    "class": "DuctBridge",
+    "rotates": false,
+    "size": 1,
+    "var": "ductBridge"
+  },
+  "duct-router": {
+    "class": "DuctRouter",
+    "rotates": true,
+    "size": 1,
+    "var": "ductRouter"
+  },
+  "duct-unloader": {
+    "class": "DirectionalUnloader",
+    "rotates": true,
+    "size": 1,
+    "var": "ductUnloader"
+  },
+  "duo": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 1,
+    "var": "duo"
+  },
+  "electric-heater": {
+    "class": "HeatProducer",
+    "rotates": false,
+    "size": 2,
+    "var": "electricHeater"
+  },
+  "electrolyzer": {
+    "class": "GenericCrafter",
+    "rotates": true,
+    "size": 3,
+    "var": "electrolyzer"
+  },
+  "eruption-drill": {
+    "class": "BurstDrill",
+    "rotates": false,
+    "size": 5,
+    "var": "eruptionDrill"
+  },
+  "exponential-reconstructor": {
+    "class": "Reconstructor",
+    "rotates": false,
+    "size": 7,
+    "var": "exponentialReconstructor"
+  },
+  "ferric-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "ferricBoulder"
+  },
+  "flux-reactor": {
+    "class": "VariableReactor",
+    "rotates": false,
+    "size": 5,
+    "var": "fluxReactor"
+  },
+  "force-projector": {
+    "class": "ForceProjector",
+    "rotates": false,
+    "size": 3,
+    "var": "forceProjector"
+  },
+  "foreshadow": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 4,
+    "var": "foreshadow"
+  },
+  "fuse": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 3,
+    "var": "fuse"
+  },
+  "graphite-press": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "graphitePress"
+  },
+  "ground-factory": {
+    "class": "UnitFactory",
+    "rotates": true,
+    "size": 3,
+    "var": "groundFactory"
+  },
+  "hail": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 1,
+    "var": "hail"
+  },
+  "heat-reactor": {
+    "class": "HeatProducer",
+    "rotates": false,
+    "size": 3,
+    "var": "heatReactor"
+  },
+  "heat-redirector": {
+    "class": "HeatConductor",
+    "rotates": false,
+    "size": 3,
+    "var": "heatRedirector"
+  },
+  "heat-router": {
+    "class": "HeatConductor",
+    "rotates": false,
+    "size": 3,
+    "var": "heatRouter"
+  },
+  "heat-source": {
+    "class": "HeatProducer",
+    "rotates": false,
+    "size": 1,
+    "var": "heatSource"
+  },
+  "hyper-processor": {
+    "class": "LogicBlock",
+    "rotates": false,
+    "size": 3,
+    "var": "hyperProcessor"
+  },
+  "illuminator": {
+    "class": "LightBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "illuminator"
+  },
+  "impact-drill": {
+    "class": "BurstDrill",
+    "rotates": false,
+    "size": 4,
+    "var": "impactDrill"
+  },
+  "impact-reactor": {
+    "class": "ImpactReactor",
+    "rotates": false,
+    "size": 4,
+    "var": "impactReactor"
+  },
+  "impulse-pump": {
+    "class": "Pump",
+    "rotates": false,
+    "size": 3,
+    "var": "impulsePump"
+  },
+  "incinerator": {
+    "class": "Incinerator",
+    "rotates": false,
+    "size": 1,
+    "var": "incinerator"
+  },
+  "interplanetary-accelerator": {
+    "class": "Accelerator",
+    "rotates": false,
+    "size": 7,
+    "var": "interplanetaryAccelerator"
+  },
+  "inverted-sorter": {
+    "class": "Sorter",
+    "rotates": false,
+    "size": 1,
+    "var": "invertedSorter"
+  },
+  "item-source": {
+    "class": "ItemSource",
+    "rotates": false,
+    "size": 1,
+    "var": "itemSource"
+  },
+  "item-void": {
+    "class": "ItemVoid",
+    "rotates": false,
+    "size": 1,
+    "var": "itemVoid"
+  },
+  "junction": {
+    "class": "Junction",
+    "rotates": false,
+    "size": 1,
+    "var": "junction"
+  },
+  "kiln": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "kiln"
+  },
+  "lancer": {
+    "class": "PowerTurret",
+    "rotates": false,
+    "size": 2,
+    "var": "lancer"
+  },
+  "landing-pad": {
+    "class": "LandingPad",
+    "rotates": false,
+    "size": 4,
+    "var": "landingPad"
+  },
+  "large-canvas": {
+    "class": "CanvasBlock",
+    "rotates": false,
+    "size": 3,
+    "var": "largeCanvas"
+  },
+  "large-cliff-crusher": {
+    "class": "WallCrafter",
+    "rotates": true,
+    "size": 3,
+    "var": "largeCliffCrusher"
+  },
+  "large-constructor": {
+    "class": "Constructor",
+    "rotates": false,
+    "size": 5,
+    "var": "largeConstructor"
+  },
+  "large-logic-display": {
+    "class": "LogicDisplay",
+    "rotates": false,
+    "size": 6,
+    "var": "largeLogicDisplay"
+  },
+  "large-payload-mass-driver": {
+    "class": "PayloadMassDriver",
+    "rotates": true,
+    "size": 5,
+    "var": "largePayloadMassDriver"
+  },
+  "large-plasma-bore": {
+    "class": "BeamDrill",
+    "rotates": true,
+    "size": 3,
+    "var": "largePlasmaBore"
+  },
+  "large-shield-projector": {
+    "class": "BaseShield",
+    "rotates": false,
+    "size": 4,
+    "var": "largeShieldProjector"
+  },
+  "laser-drill": {
+    "class": "Drill",
+    "rotates": false,
+    "size": 3,
+    "var": "laserDrill"
+  },
+  "launch-pad": {
+    "class": "LaunchPad",
+    "rotates": false,
+    "size": 3,
+    "var": "launchPad"
+  },
+  "liquid-container": {
+    "class": "LiquidRouter",
+    "rotates": false,
+    "size": 2,
+    "var": "liquidContainer"
+  },
+  "liquid-junction": {
+    "class": "LiquidJunction",
+    "rotates": false,
+    "size": 1,
+    "var": "liquidJunction"
+  },
+  "liquid-router": {
+    "class": "LiquidRouter",
+    "rotates": false,
+    "size": 1,
+    "var": "liquidRouter"
+  },
+  "liquid-source": {
+    "class": "LiquidSource",
+    "rotates": false,
+    "size": 1,
+    "var": "liquidSource"
+  },
+  "liquid-tank": {
+    "class": "LiquidRouter",
+    "rotates": false,
+    "size": 3,
+    "var": "liquidTank"
+  },
+  "liquid-void": {
+    "class": "LiquidVoid",
+    "rotates": false,
+    "size": 1,
+    "var": "liquidVoid"
+  },
+  "logic-display": {
+    "class": "LogicDisplay",
+    "rotates": false,
+    "size": 3,
+    "var": "logicDisplay"
+  },
+  "logic-processor": {
+    "class": "LogicBlock",
+    "rotates": false,
+    "size": 2,
+    "var": "logicProcessor"
+  },
+  "lustre": {
+    "class": "ContinuousTurret",
+    "rotates": false,
+    "size": 4,
+    "var": "lustre"
+  },
+  "mass-driver": {
+    "class": "MassDriver",
+    "rotates": false,
+    "size": 3,
+    "var": "massDriver"
+  },
+  "mech-assembler": {
+    "class": "UnitAssembler",
+    "rotates": false,
+    "size": 5,
+    "var": "mechAssembler"
+  },
+  "mech-fabricator": {
+    "class": "UnitFactory",
+    "rotates": true,
+    "size": 3,
+    "var": "mechFabricator"
+  },
+  "mech-refabricator": {
+    "class": "Reconstructor",
+    "rotates": false,
+    "size": 3,
+    "var": "mechRefabricator"
+  },
+  "mechanical-drill": {
+    "class": "Drill",
+    "rotates": false,
+    "size": 2,
+    "var": "mechanicalDrill"
+  },
+  "mechanical-pump": {
+    "class": "Pump",
+    "rotates": false,
+    "size": 1,
+    "var": "mechanicalPump"
+  },
+  "meltdown": {
+    "class": "LaserTurret",
+    "rotates": false,
+    "size": 4,
+    "var": "meltdown"
+  },
+  "melter": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 1,
+    "var": "melter"
+  },
+  "memory-bank": {
+    "class": "MemoryBlock",
+    "rotates": false,
+    "size": 2,
+    "var": "memoryBank"
+  },
+  "memory-cell": {
+    "class": "MemoryBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "memoryCell"
+  },
+  "mend-projector": {
+    "class": "MendProjector",
+    "rotates": false,
+    "size": 2,
+    "var": "mendProjector"
+  },
+  "mender": {
+    "class": "MendProjector",
+    "rotates": false,
+    "size": 1,
+    "var": "mender"
+  },
+  "message": {
+    "class": "MessageBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "message"
+  },
+  "micro-processor": {
+    "class": "LogicBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "microProcessor"
+  },
+  "multi-press": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "multiPress"
+  },
+  "multiplicative-reconstructor": {
+    "class": "Reconstructor",
+    "rotates": false,
+    "size": 5,
+    "var": "multiplicativeReconstructor"
+  },
+  "naval-factory": {
+    "class": "UnitFactory",
+    "rotates": true,
+    "size": 3,
+    "var": "navalFactory"
+  },
+  "neoplasia-reactor": {
+    "class": "HeaterGenerator",
+    "rotates": false,
+    "size": 5,
+    "var": "neoplasiaReactor"
+  },
+  "oil-extractor": {
+    "class": "Fracker",
+    "rotates": false,
+    "size": 3,
+    "var": "oilExtractor"
+  },
+  "overdrive-dome": {
+    "class": "OverdriveProjector",
+    "rotates": false,
+    "size": 3,
+    "var": "overdriveDome"
+  },
+  "overdrive-projector": {
+    "class": "OverdriveProjector",
+    "rotates": false,
+    "size": 2,
+    "var": "overdriveProjector"
+  },
+  "overflow-duct": {
+    "class": "OverflowDuct",
+    "rotates": true,
+    "size": 1,
+    "var": "overflowDuct"
+  },
+  "overflow-gate": {
+    "class": "OverflowGate",
+    "rotates": false,
+    "size": 1,
+    "var": "overflowGate"
+  },
+  "oxidation-chamber": {
+    "class": "HeatProducer",
+    "rotates": false,
+    "size": 3,
+    "var": "oxidationChamber"
+  },
+  "parallax": {
+    "class": "TractorBeamTurret",
+    "rotates": false,
+    "size": 2,
+    "var": "parallax"
+  },
+  "payload-conveyor": {
+    "class": "PayloadConveyor",
+    "rotates": true,
+    "size": 1,
+    "var": "payloadConveyor"
+  },
+  "payload-loader": {
+    "class": "PayloadLoader",
+    "rotates": true,
+    "size": 3,
+    "var": "payloadLoader"
+  },
+  "payload-mass-driver": {
+    "class": "PayloadMassDriver",
+    "rotates": true,
+    "size": 3,
+    "var": "payloadMassDriver"
+  },
+  "payload-router": {
+    "class": "PayloadRouter",
+    "rotates": true,
+    "size": 1,
+    "var": "payloadRouter"
+  },
+  "payload-source": {
+    "class": "PayloadSource",
+    "rotates": true,
+    "size": 5,
+    "var": "payloadSource"
+  },
+  "payload-unloader": {
+    "class": "PayloadUnloader",
+    "rotates": true,
+    "size": 3,
+    "var": "payloadUnloader"
+  },
+  "payload-void": {
+    "class": "PayloadVoid",
+    "rotates": false,
+    "size": 5,
+    "var": "payloadVoid"
+  },
+  "phase-conduit": {
+    "class": "LiquidBridge",
+    "rotates": false,
+    "size": 1,
+    "var": "phaseConduit"
+  },
+  "phase-conveyor": {
+    "class": "ItemBridge",
+    "rotates": false,
+    "size": 1,
+    "var": "phaseConveyor"
+  },
+  "phase-heater": {
+    "class": "HeatProducer",
+    "rotates": false,
+    "size": 2,
+    "var": "phaseHeater"
+  },
+  "phase-synthesizer": {
+    "class": "HeatCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "phaseSynthesizer"
+  },
+  "phase-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "phaseWall"
+  },
+  "phase-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "phaseWallLarge"
+  },
+  "phase-weaver": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "phaseWeaver"
+  },
+  "plasma-bore": {
+    "class": "BeamDrill",
+    "rotates": true,
+    "size": 2,
+    "var": "plasmaBore"
+  },
+  "plastanium-compressor": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "plastaniumCompressor"
+  },
+  "plastanium-conveyor": {
+    "class": "StackConveyor",
+    "rotates": true,
+    "size": 1,
+    "var": "plastaniumConveyor"
+  },
+  "plastanium-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "plastaniumWall"
+  },
+  "plastanium-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "plastaniumWallLarge"
+  },
+  "plated-conduit": {
+    "class": "ArmoredConduit",
+    "rotates": false,
+    "size": 1,
+    "var": "platedConduit"
+  },
+  "pneumatic-drill": {
+    "class": "Drill",
+    "rotates": false,
+    "size": 2,
+    "var": "pneumaticDrill"
+  },
+  "power-node": {
+    "class": "PowerNode",
+    "rotates": false,
+    "size": 1,
+    "var": "powerNode"
+  },
+  "power-node-large": {
+    "class": "PowerNode",
+    "rotates": false,
+    "size": 2,
+    "var": "powerNodeLarge"
+  },
+  "power-source": {
+    "class": "PowerSource",
+    "rotates": false,
+    "size": 1,
+    "var": "powerSource"
+  },
+  "power-void": {
+    "class": "PowerVoid",
+    "rotates": false,
+    "size": 1,
+    "var": "powerVoid"
+  },
+  "prime-refabricator": {
+    "class": "Reconstructor",
+    "rotates": false,
+    "size": 5,
+    "var": "primeRefabricator"
+  },
+  "pulse-conduit": {
+    "class": "Conduit",
+    "rotates": true,
+    "size": 1,
+    "var": "pulseConduit"
+  },
+  "pulverizer": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 1,
+    "var": "pulverizer"
+  },
+  "pyratite-mixer": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "pyratiteMixer"
+  },
+  "pyrolysis-generator": {
+    "class": "ConsumeGenerator",
+    "rotates": false,
+    "size": 3,
+    "var": "pyrolysisGenerator"
+  },
+  "radar": {
+    "class": "Radar",
+    "rotates": false,
+    "size": 1,
+    "var": "radar"
+  },
+  "red-ice-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "redIceBoulder"
+  },
+  "red-stone-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "redStoneBoulder"
+  },
+  "regen-projector": {
+    "class": "RegenProjector",
+    "rotates": false,
+    "size": 3,
+    "var": "regenProjector"
+  },
+  "reinforced-": {
+    "class": "DrawTurret",
+    "rotates": false,
+    "size": 1,
+    "var": "drawer"
+  },
+  "reinforced-bridge-conduit": {
+    "class": "DirectionLiquidBridge",
+    "rotates": false,
+    "size": 1,
+    "var": "reinforcedBridgeConduit"
+  },
+  "reinforced-conduit": {
+    "class": "ArmoredConduit",
+    "rotates": false,
+    "size": 1,
+    "var": "reinforcedConduit"
+  },
+  "reinforced-container": {
+    "class": "StorageBlock",
+    "rotates": false,
+    "size": 2,
+    "var": "reinforcedContainer"
+  },
+  "reinforced-liquid-container": {
+    "class": "LiquidRouter",
+    "rotates": false,
+    "size": 2,
+    "var": "reinforcedLiquidContainer"
+  },
+  "reinforced-liquid-junction": {
+    "class": "LiquidJunction",
+    "rotates": false,
+    "size": 1,
+    "var": "reinforcedLiquidJunction"
+  },
+  "reinforced-liquid-router": {
+    "class": "LiquidRouter",
+    "rotates": false,
+    "size": 1,
+    "var": "reinforcedLiquidRouter"
+  },
+  "reinforced-liquid-tank": {
+    "class": "LiquidRouter",
+    "rotates": false,
+    "size": 3,
+    "var": "reinforcedLiquidTank"
+  },
+  "reinforced-message": {
+    "class": "MessageBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "reinforcedMessage"
+  },
+  "reinforced-payload-conveyor": {
+    "class": "PayloadConveyor",
+    "rotates": true,
+    "size": 1,
+    "var": "reinforcedPayloadConveyor"
+  },
+  "reinforced-payload-router": {
+    "class": "PayloadRouter",
+    "rotates": true,
+    "size": 1,
+    "var": "reinforcedPayloadRouter"
+  },
+  "reinforced-pump": {
+    "class": "Pump",
+    "rotates": false,
+    "size": 2,
+    "var": "reinforcedPump"
+  },
+  "reinforced-surge-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "reinforcedSurgeWall"
+  },
+  "reinforced-surge-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "reinforcedSurgeWallLarge"
+  },
+  "reinforced-vault": {
+    "class": "StorageBlock",
+    "rotates": false,
+    "size": 3,
+    "var": "reinforcedVault"
+  },
+  "repair-point": {
+    "class": "RepairTurret",
+    "rotates": false,
+    "size": 1,
+    "var": "repairPoint"
+  },
+  "repair-turret": {
+    "class": "RepairTurret",
+    "rotates": false,
+    "size": 2,
+    "var": "repairTurret"
+  },
+  "rhyolite-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "rhyoliteBoulder"
+  },
+  "rotary-pump": {
+    "class": "Pump",
+    "rotates": false,
+    "size": 2,
+    "var": "rotaryPump"
+  },
+  "router": {
+    "class": "Router",
+    "rotates": false,
+    "size": 1,
+    "var": "router"
+  },
+  "rtg-generator": {
+    "class": "ConsumeGenerator",
+    "rotates": false,
+    "size": 2,
+    "var": "rtgGenerator"
+  },
+  "salvo": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 2,
+    "var": "salvo"
+  },
+  "sand-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "sandBoulder"
+  },
+  "scathe-missile": {
+    "class": "MissileUnitType",
+    "rotates": false,
+    "size": 1,
+    "var": "spawnUnit"
+  },
+  "scathe-missile-phase": {
+    "class": "MissileUnitType",
+    "rotates": false,
+    "size": 1,
+    "var": "spawnUnit"
+  },
+  "scathe-missile-surge-split": {
+    "class": "MissileUnitType",
+    "rotates": false,
+    "size": 1,
+    "var": "spawnUnit"
+  },
+  "scatter": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 2,
+    "var": "scatter"
+  },
+  "scorch": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 1,
+    "var": "scorch"
+  },
+  "scrap-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "scrapWall"
+  },
+  "scrap-wall-gigantic": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 4,
+    "var": "scrapWallGigantic"
+  },
+  "scrap-wall-huge": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 3,
+    "var": "scrapWallHuge"
+  },
+  "scrap-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "scrapWallLarge"
+  },
+  "segment": {
+    "class": "PointDefenseTurret",
+    "rotates": false,
+    "size": 2,
+    "var": "segment"
+  },
+  "separator": {
+    "class": "Separator",
+    "rotates": false,
+    "size": 2,
+    "var": "separator"
+  },
+  "shale-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "shaleBoulder"
+  },
+  "shield-projector": {
+    "class": "BaseShield",
+    "rotates": false,
+    "size": 3,
+    "var": "shieldProjector"
+  },
+  "shielded-wall": {
+    "class": "ShieldWall",
+    "rotates": false,
+    "size": 2,
+    "var": "shieldedWall"
+  },
+  "ship-assembler": {
+    "class": "UnitAssembler",
+    "rotates": false,
+    "size": 5,
+    "var": "shipAssembler"
+  },
+  "ship-fabricator": {
+    "class": "UnitFactory",
+    "rotates": true,
+    "size": 3,
+    "var": "shipFabricator"
+  },
+  "ship-refabricator": {
+    "class": "Reconstructor",
+    "rotates": false,
+    "size": 3,
+    "var": "shipRefabricator"
+  },
+  "shock-mine": {
+    "class": "ShockMine",
+    "rotates": false,
+    "size": 1,
+    "var": "shockMine"
+  },
+  "shockwave-tower": {
+    "class": "ShockwaveTower",
+    "rotates": false,
+    "size": 3,
+    "var": "shockwaveTower"
+  },
+  "silicon-arc-furnace": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "siliconArcFurnace"
+  },
+  "silicon-crucible": {
+    "class": "AttributeCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "siliconCrucible"
+  },
+  "silicon-smelter": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "siliconSmelter"
+  },
+  "slag-centrifuge": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "slagCentrifuge"
+  },
+  "slag-heater": {
+    "class": "HeatProducer",
+    "rotates": false,
+    "size": 3,
+    "var": "slagHeater"
+  },
+  "slag-incinerator": {
+    "class": "ItemIncinerator",
+    "rotates": false,
+    "size": 1,
+    "var": "slagIncinerator"
+  },
+  "small-deconstructor": {
+    "class": "PayloadDeconstructor",
+    "rotates": false,
+    "size": 3,
+    "var": "smallDeconstructor"
+  },
+  "small-heat-redirector": {
+    "class": "HeatConductor",
+    "rotates": false,
+    "size": 2,
+    "var": "smallHeatRedirector"
+  },
+  "snow-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "snowBoulder"
+  },
+  "solar-panel": {
+    "class": "SolarGenerator",
+    "rotates": false,
+    "size": 1,
+    "var": "solarPanel"
+  },
+  "solar-panel-large": {
+    "class": "SolarGenerator",
+    "rotates": false,
+    "size": 3,
+    "var": "largeSolarPanel"
+  },
+  "sorter": {
+    "class": "Sorter",
+    "rotates": false,
+    "size": 1,
+    "var": "sorter"
+  },
+  "spectre": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 4,
+    "var": "spectre"
+  },
+  "spore-press": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 2,
+    "var": "sporePress"
+  },
+  "steam-generator": {
+    "class": "ConsumeGenerator",
+    "rotates": false,
+    "size": 2,
+    "var": "steamGenerator"
+  },
+  "sublimate": {
+    "class": "ContinuousLiquidTurret",
+    "rotates": false,
+    "size": 3,
+    "var": "sublimate"
+  },
+  "surge-conveyor": {
+    "class": "StackConveyor",
+    "rotates": true,
+    "size": 1,
+    "var": "surgeConveyor"
+  },
+  "surge-crucible": {
+    "class": "HeatCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "surgeCrucible"
+  },
+  "surge-router": {
+    "class": "StackRouter",
+    "rotates": false,
+    "size": 1,
+    "var": "surgeRouter"
+  },
+  "surge-smelter": {
+    "class": "GenericCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "surgeSmelter"
+  },
+  "surge-tower": {
+    "class": "PowerNode",
+    "rotates": false,
+    "size": 2,
+    "var": "surgeTower"
+  },
+  "surge-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "surgeWall"
+  },
+  "surge-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "surgeWallLarge"
+  },
+  "swarmer": {
+    "class": "ItemTurret",
+    "rotates": false,
+    "size": 2,
+    "var": "swarmer"
+  },
+  "switch": {
+    "class": "SwitchBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "switchBlock"
+  },
+  "tank-assembler": {
+    "class": "UnitAssembler",
+    "rotates": false,
+    "size": 5,
+    "var": "tankAssembler"
+  },
+  "tank-fabricator": {
+    "class": "UnitFactory",
+    "rotates": true,
+    "size": 3,
+    "var": "tankFabricator"
+  },
+  "tank-refabricator": {
+    "class": "Reconstructor",
+    "rotates": false,
+    "size": 3,
+    "var": "tankRefabricator"
+  },
+  "tetrative-reconstructor": {
+    "class": "Reconstructor",
+    "rotates": false,
+    "size": 9,
+    "var": "tetrativeReconstructor"
+  },
+  "thermal-generator": {
+    "class": "ThermalGenerator",
+    "rotates": false,
+    "size": 2,
+    "var": "thermalGenerator"
+  },
+  "thorium-reactor": {
+    "class": "NuclearReactor",
+    "rotates": false,
+    "size": 3,
+    "var": "thoriumReactor"
+  },
+  "thorium-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "thoriumWall"
+  },
+  "thorium-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "thoriumWallLarge"
+  },
+  "thruster": {
+    "class": "Thruster",
+    "rotates": false,
+    "size": 4,
+    "var": "thruster"
+  },
+  "tile-logic-display": {
+    "class": "TileableLogicDisplay",
+    "rotates": false,
+    "size": 1,
+    "var": "tileLogicDisplay"
+  },
+  "titanium-conveyor": {
+    "class": "Conveyor",
+    "rotates": true,
+    "size": 1,
+    "var": "titaniumConveyor"
+  },
+  "titanium-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "titaniumWall"
+  },
+  "titanium-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "titaniumWallLarge"
+  },
+  "tsunami": {
+    "class": "LiquidTurret",
+    "rotates": false,
+    "size": 3,
+    "var": "tsunami"
+  },
+  "tungsten-wall": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 1,
+    "var": "tungstenWall"
+  },
+  "tungsten-wall-large": {
+    "class": "Wall",
+    "rotates": false,
+    "size": 2,
+    "var": "tungstenWallLarge"
+  },
+  "turbine-condenser": {
+    "class": "ThermalGenerator",
+    "rotates": false,
+    "size": 3,
+    "var": "turbineCondenser"
+  },
+  "underflow-duct": {
+    "class": "OverflowDuct",
+    "rotates": true,
+    "size": 1,
+    "var": "underflowDuct"
+  },
+  "underflow-gate": {
+    "class": "OverflowGate",
+    "rotates": false,
+    "size": 1,
+    "var": "underflowGate"
+  },
+  "unit-cargo-loader": {
+    "class": "UnitCargoLoader",
+    "rotates": false,
+    "size": 3,
+    "var": "unitCargoLoader"
+  },
+  "unit-cargo-unload-point": {
+    "class": "UnitCargoUnloadPoint",
+    "rotates": false,
+    "size": 2,
+    "var": "unitCargoUnloadPoint"
+  },
+  "unit-repair-tower": {
+    "class": "RepairTower",
+    "rotates": false,
+    "size": 2,
+    "var": "unitRepairTower"
+  },
+  "unloader": {
+    "class": "Unloader",
+    "rotates": false,
+    "size": 1,
+    "var": "unloader"
+  },
+  "vault": {
+    "class": "StorageBlock",
+    "rotates": false,
+    "size": 3,
+    "var": "vault"
+  },
+  "vent-condenser": {
+    "class": "AttributeCrafter",
+    "rotates": false,
+    "size": 3,
+    "var": "ventCondenser"
+  },
+  "water-extractor": {
+    "class": "SolidPump",
+    "rotates": false,
+    "size": 2,
+    "var": "waterExtractor"
+  },
+  "wave": {
+    "class": "LiquidTurret",
+    "rotates": false,
+    "size": 2,
+    "var": "wave"
+  },
+  "world-cell": {
+    "class": "MemoryBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "worldCell"
+  },
+  "world-message": {
+    "class": "MessageBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "worldMessage"
+  },
+  "world-processor": {
+    "class": "LogicBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "worldProcessor"
+  },
+  "world-switch": {
+    "class": "SwitchBlock",
+    "rotates": false,
+    "size": 1,
+    "var": "worldSwitch"
+  },
+  "yellow-stone-boulder": {
+    "class": "StaticProp",
+    "rotates": false,
+    "size": 1,
+    "var": "yellowStoneBoulder"
+  }
+}
