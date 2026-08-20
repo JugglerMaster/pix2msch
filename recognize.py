@@ -280,9 +280,21 @@ def _ssd(a, b):
     return total
 
 
+_clf = None  # trained RandomForestClassifier (loaded once per session)
+_occ_clf = None  # trained occupancy RandomForestClassifier
+_corpus_hash = None  # hash of the corpus used to train _clf
+
+
 def build_corpus(examples_dir):
-    """Build exemplars from every (image, .msch) pair in examples_dir."""
-    exemplars = []  # (name, rotation, config, size, image)
+    """Build exemplars from every (image, .msch) pair in examples_dir.
+
+    Also trains (or loads a cached) Random Forest classifier so future
+    detections generalise better than brute-force SSD.  Trains a second
+    RF for occupancy detection (foreground vs background).
+    """
+    global _clf, _corpus_hash, _occ_clf
+    exemplars = []  # (name, rotation, config, size, feat_image [, rgb_image])
+    occ_data = []   # (feature_vector, is_occupied) for occupancy training
     for name in sorted(os.listdir(examples_dir)):
         if not name.endswith(".png"):
             continue
@@ -299,13 +311,47 @@ def build_corpus(examples_dir):
             crop = _crop(img, ox + x * tw, oy + top_row * th, tw, th, size)
             if bname in DIRECTIONAL:
                 for k in range(4):
-                    fex = _feat(crop.rotate(-k * 90))
-                    exemplars.append((bname, (rotation + k) % 4, config, size, fex))
+                    rot_crop = crop.rotate(-k * 90) if k else crop
+                    fex = _feat(rot_crop)
+                    exemplars.append((bname, (rotation + k) % 4, config, size, fex, rot_crop))
             else:
                 fex = _feat(crop)
-                exemplars.append((bname, rotation, config, size, fex))
+                exemplars.append((bname, rotation, config, size, fex, crop))
+        # Collect occupancy training data: every cell in the grid.
+        import classifier as _clf_mod
+        for cy in range(height):
+            for cx in range(width):
+                rgb_crop = _crop(img, ox + cx * tw, oy + cy * th, tw, th, 1)
+                feat_crop = _feat(rgb_crop)
+                vec = _clf_mod.feat_vector(rgb_crop, feat_crop)
+                is_occ = bool(occ[height - 1 - cy][cx])
+                occ_data.append((vec, is_occ))
     # Fold in any hand-corrected exemplars collected through the UI.
     exemplars += _training_exemplars(examples_dir)
+
+    # Fold in raw game-sprite exemplars (palette-quantized to match screenshots).
+    import sprite_train
+    exemplars += sprite_train.build_sprite_exemplars(include_empty=False)
+
+    # Train or load the RF classifiers.
+    import classifier
+    ch = classifier._corpus_hash(examples_dir)
+    old_clf, old_hash = classifier.load(examples_dir)
+    if old_clf is not None and old_hash == ch:
+        _clf = old_clf
+        _corpus_hash = ch
+    else:
+        classifier.train(examples_dir, exemplars)
+        _clf, _corpus_hash = classifier.load(examples_dir)
+
+    # Train or load the occupancy classifier.
+    old_occ, occ_hash = classifier.load_occupancy(examples_dir)
+    if old_occ is not None and occ_hash == ch:
+        _occ_clf = old_occ
+    else:
+        classifier.train_occupancy(examples_dir, occ_data)
+        _occ_clf, _ = classifier.load_occupancy(examples_dir)
+
     return exemplars
 
 
@@ -335,17 +381,31 @@ def _training_exemplars(examples_dir):
         rotation = int(rec.get("rotation", 0))
         if name in DIRECTIONAL:
             for k in range(4):
-                out.append((name, (rotation + k) % 4, None, size, _feat(crop.rotate(-k * 90))))
+                rot_crop = crop.rotate(-k * 90) if k else crop
+                out.append((name, (rotation + k) % 4, None, size, _feat(rot_crop), rot_crop))
         else:
-            out.append((name, rotation, None, size, _feat(crop)))
+            out.append((name, rotation, None, size, _feat(crop), crop))
     return out
 
 
 def _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars, can=CANON, restrict=None):
     crop = _crop(img, ox + cx * tw, oy + cy * th, tw, th, size, can)
     fcrop = _feat(crop)
+
+    if size == 1:
+        import classifier
+        cell_exemplars = [e for e in exemplars if e[3] == size
+                          and (restrict is None or e[0] in restrict)]
+        if cell_exemplars:
+            name, rotation, config, src = classifier.classify_with_fallback(
+                _clf, crop, fcrop, cell_exemplars)
+            if src == "rf" and name is not None:
+                return (0, name, rotation, config)
+
+    # SSD template matching for multi-tile blocks and low-confidence 1x1.
     best = None
-    for (name, rotation, config, esize, fex) in exemplars:
+    for ex in exemplars:
+        name, rotation, config, esize, fex = ex[0], ex[1], ex[2], ex[3], ex[4]
         if esize != size:
             continue
         if restrict is not None and name not in restrict:
@@ -440,28 +500,28 @@ def detect_cells(img, px, tw, th, ox, oy, width, height, exemplars,
                  bg=None, tol=40, thresh=None, gate=1000000, restrict=None):
     """Detect blocks from a known grid (no occupancy reference).
 
-    Occupancy is decided from the background: a cell is occupied when the
-    fraction of pixels that differ from `bg` (by more than `tol`) clears the
-    threshold. `bg` defaults to the schematic-editor background color; passing a
-    color sampled from an empty area lets running/live screenshots (whose ground
-    differs from the editor background) be detected without a reference .msch.
-    When `thresh` is None it is auto-calibrated to the valley between the empty
-    and block clusters.
+    Uses the occupancy RF to decide which cells contain blocks.  `thresh`
+    controls the occupancy probability threshold (default 0.4).
     """
-    if bg is None:
-        bg = core.tuple_array[9]
-    br, bgc, bb = bg[0], bg[1], bg[2]
+    import classifier as _clf_mod
 
-    def occ(x0, y0, ww, hh):
-        cnt = 0
-        tot = 0
-        for y in range(y0, y0 + hh):
-            for x in range(x0, x0 + ww):
-                p = px[x, y]
-                if abs(p[0] - br) > tol or abs(p[1] - bgc) > tol or abs(p[2] - bb) > tol:
-                    cnt += 1
-                tot += 1
-        return cnt / float(tot)
+    # Precompute per-cell occupancy score.
+    occ_grid = []  # occ_grid[cy][cx] = score
+    for cy in range(height):
+        row = []
+        for cx in range(width):
+            rgb_crop = _crop(img, ox + cx * tw, oy + cy * th, tw, th, 1)
+            feat_crop = _feat(rgb_crop)
+            row.append(_clf_mod.occ_probability(_occ_clf, rgb_crop, feat_crop))
+        occ_grid.append(row)
+
+    def occ_check(cx, cy, size):
+        """Return True if the cell block at (cx, cy) of given size is occupied."""
+        for dy in range(size):
+            for dx in range(size):
+                if occ_grid[cy + dy][cx + dx] <= thresh:
+                    return False
+        return True
 
     if thresh is None:
         thresh = 0.4
@@ -479,7 +539,7 @@ def detect_cells(img, px, tw, th, ox, oy, width, height, exemplars,
                 if not all(occupied[cy + dy][cx + dx]
                            for dy in range(size) for dx in range(size)):
                     continue
-                if occ(ox + cx * tw, oy + cy * th, tw * size, th * size) <= thresh:
+                if not occ_check(cx, cy, size):
                     continue
                 res = _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars, restrict=restrict)
                 if res is None:
@@ -595,37 +655,30 @@ def _auto_threshold(img, px, tw, th, ox, oy, width, height, exemplars, bg, tol,
                     gate, thresh, block_counts):
     """Pick the occupancy threshold whose detection matches the given counts.
 
-    Features are extracted per cell ONCE; the threshold sweep then only toggles
-    occupancy (cheap) and re-runs the count assignment, so sweeping dozens of
-    thresholds is fast. Returns the result at the highest threshold where every
-    requested count is met exactly (most conservative). Falls back to `thresh`.
+    Uses the occupancy RF for all occupancy decisions.  Features are extracted
+    per cell ONCE; the threshold sweep then only toggles occupancy (cheap) and
+    re-runs the count assignment.  Returns the result at the highest threshold
+    where every requested count is met exactly (most conservative).
     """
     from collections import Counter
     need_multi = {n: c for n, c in block_counts.items() if SIZES.get(n, 1) > 1}
     need1_total = sum(c for n, c in block_counts.items() if SIZES.get(n, 1) == 1)
     restrict = set(block_counts.keys())
 
-    br, bgc, bb = bg[0], bg[1], bg[2]
-
-    def occ_val(cx, cy, size):
-        cnt = 0; tot = 0
-        for y in range(oy + cy * th, oy + cy * th + size * th):
-            for x in range(ox + cx * tw, ox + cx * tw + size * tw):
-                p = px[x, y]
-                if abs(p[0] - br) > tol or abs(p[1] - bgc) > tol or abs(p[2] - bb) > tol:
-                    cnt += 1
-                tot += 1
-        return cnt / float(tot) if tot else 0.0
-
-    # Precompute per-1x1-cell best match per allowed type (cached once).
+    # Precompute per-1x1-cell best match + occupancy score (cached once).
+    import classifier as _clf_mod
     by_name = {}
-    for (name, rotation, config, size, fex) in exemplars:
+    for ex in exemplars:
+        name, rotation, config, size, fex = ex[0], ex[1], ex[2], ex[3], ex[4]
         if size == 1:
             by_name.setdefault(name, []).append((rotation, config, fex))
-    cell_bf = []  # (cx, cy, {name: (d, rot, cfg)})
+    cell_bf = []   # (cx, cy, {name: (d, rot, cfg)})
+    cell_occ = []  # occupancy RF probability per 1x1 cell
     for cy in range(height):
         for cx in range(width):
-            crop = _feat(_crop(img, ox + cx * tw, oy + cy * th, tw, th, 1))
+            rgb_crop = _crop(img, ox + cx * tw, oy + cy * th, tw, th, 1)
+            crop = _feat(rgb_crop)
+            cell_occ.append(_clf_mod.occ_probability(_occ_clf, rgb_crop, crop))
             bf = {}
             for n in restrict:
                 lst = by_name.get(n)
@@ -653,13 +706,20 @@ def _auto_threshold(img, px, tw, th, ox, oy, width, height, exemplars, bg, tol,
     types1 = [n for n in restrict if n in by_name]
     total_need = need1_total
 
+    # Build a map from (cx, cy) to the precomputed occupancy score.
+    occ_lookup = {}
+    for i, (cx, cy, _) in enumerate(cell_bf):
+        occ_lookup[(cx, cy)] = cell_occ[i]
+
     def detect_at(T):
         # multi-tile (2x2) blocks present at this threshold
         fixed = []
         exclude = set()
         for cy in range(height - 1):
             for cx in range(width - 1):
-                if occ_val(cx, cy, 2) <= T:
+                # For 2x2: require all four 1x1 cells above threshold.
+                if not all(occ_lookup.get((cx + dx, cy + dy), 0) > T
+                           for dy in range(2) for dx in range(2)):
                     continue
                 m = cell_match2.get((cx, cy))
                 if not m or m[3] >= gate:
@@ -675,7 +735,7 @@ def _auto_threshold(img, px, tw, th, ox, oy, width, height, exemplars, bg, tol,
                         exclude.add((cx + dx, cy + dy))
         # 1x1 cells occupied at this threshold and not under a multi-tile block
         cells = [(cx, cy, bf) for (cx, cy, bf) in cell_bf
-                 if (cx, cy) not in exclude and occ_val(cx, cy, 1) > T]
+                 if (cx, cy) not in exclude and occ_lookup[(cx, cy)] > T]
         # greedy count assignment (min-SSD) over cached per-cell matches
         pool = []
         for i, (cx, cy, bf) in enumerate(cells):
@@ -712,22 +772,18 @@ def _auto_threshold(img, px, tw, th, ox, oy, width, height, exemplars, bg, tol,
     return detect_at(thresh if isinstance(thresh, (int, float)) else 0.2), (thresh if isinstance(thresh, (int, float)) else 0.2)
 
 
-def _occupied_1x1(px, tw, th, ox, oy, width, height, bg, tol, thresh, exclude):
-    br, bgc, bb = bg[0], bg[1], bg[2]
+def _occupied_1x1(img, tw, th, ox, oy, width, height, thresh, exclude):
+    """Find occupied 1x1 cells using the occupancy RF."""
+    import classifier as _clf_mod
     cells = []
     for cy in range(height):
         for cx in range(width):
             if (cx, cy) in exclude:
                 continue
-            cnt = 0
-            tot = 0
-            for y in range(oy + cy * th, oy + cy * th + th):
-                for x in range(ox + cx * tw, ox + cx * tw + tw):
-                    p = px[x, y]
-                    if abs(p[0] - br) > tol or abs(p[1] - bgc) > tol or abs(p[2] - bb) > tol:
-                        cnt += 1
-                    tot += 1
-            if tot and cnt / float(tot) > thresh:
+            rgb_crop = _crop(img, ox + cx * tw, oy + cy * th, tw, th, 1)
+            feat_crop = _feat(rgb_crop)
+            score = _clf_mod.occ_probability(_occ_clf, rgb_crop, feat_crop)
+            if score > thresh:
                 cells.append((cx, cy))
     return cells
 
@@ -743,10 +799,11 @@ def _assign_counts(blocks, img, px, tw, th, ox, oy, width, height, exemplars,
         for dy in range(bsize):
             for dx in range(bsize):
                 exclude.add((bx + dx, cy_top + dy))
-    cells = _occupied_1x1(px, tw, th, ox, oy, width, height, bg, tol, thresh, exclude)
+    cells = _occupied_1x1(img, tw, th, ox, oy, width, height, thresh, exclude)
 
     by_name = {}
-    for (name, rotation, config, size, fex) in exemplars:
+    for ex in exemplars:
+        name, rotation, config, size, fex = ex[0], ex[1], ex[2], ex[3], ex[4]
         if size != 1:
             continue
         by_name.setdefault(name, []).append((rotation, config, fex))
