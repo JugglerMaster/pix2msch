@@ -290,6 +290,7 @@ def _ssd(a, b):
 _clf = None  # trained RandomForestClassifier (loaded once per session)
 _occ_clf = None  # trained occupancy RandomForestClassifier
 _corpus_hash = None  # hash of the corpus used to train _clf
+_cached_exemplars = None  # exemplars from last build_corpus call
 
 
 def build_corpus(examples_dir):
@@ -299,7 +300,16 @@ def build_corpus(examples_dir):
     detections generalise better than brute-force SSD.  Trains a second
     RF for occupancy detection (foreground vs background).
     """
-    global _clf, _corpus_hash, _occ_clf
+    global _clf, _corpus_hash, _occ_clf, _cached_exemplars
+
+    # Fast path: if classifiers are already loaded and corpus hasn't changed,
+    # skip the expensive exemplar/feature reconstruction.
+    import classifier
+    ch = classifier._corpus_hash(examples_dir)
+    if (_clf is not None and _occ_clf is not None and _corpus_hash == ch
+            and _cached_exemplars is not None):
+        return _cached_exemplars
+
     exemplars = []  # (name, rotation, config, size, feat_image [, rgb_image])
     occ_data = []   # (feature_vector, is_occupied) for occupancy training
     for name in sorted(os.listdir(examples_dir)):
@@ -359,6 +369,7 @@ def build_corpus(examples_dir):
         classifier.train_occupancy(examples_dir, occ_data)
         _occ_clf, _ = classifier.load_occupancy(examples_dir)
 
+    _cached_exemplars = exemplars
     return exemplars
 
 
