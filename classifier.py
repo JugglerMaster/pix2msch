@@ -1,4 +1,4 @@
-"""Random Forest classifiers for Mindustry block recognition.
+"""Classifiers for Mindustry block recognition.
 
 Requires scikit-learn (``pip install scikit-learn``).  Two models are
 trained at startup:
@@ -7,7 +7,8 @@ trained at startup:
      (foreground vs background), replacing the fragile density-threshold check.
 
 Features: grayscale (576d) + palette color histogram (16d) + spatial
-color (64d) = 656 dimensions total.
+color (64d) + Sobel edge magnitude (576d) + LBP texture (256d) + edge
+histogram (16d) = 1504 dimensions total.
 
 Key design choices:
   - If a block's center region is a solid color (>=90% same palette index),
@@ -16,12 +17,16 @@ Key design choices:
     in blocks that have multi-colored centers.
   - Screenshot exemplars are weighted 5x higher than sprite exemplars
     during training, since they match the actual in-game appearance.
+  - All exemplars get data augmentation (color jitter, noise) to
+    improve generalization.
   - A confidence threshold gates RF usage: below it, SSD is used instead.
 """
 import os
 import hashlib
 
 import numpy as np
+from scipy import ndimage
+from skimage.feature import local_binary_pattern
 from sklearn.ensemble import RandomForestClassifier
 import joblib
 
@@ -41,6 +46,15 @@ _SPRITE_ONLY = {
 
 # Fraction of the tile radius that constitutes the "center" to mask.
 CENTER_MASK_FRAC = 0.30
+
+# LBP parameters
+LBP_RADIUS = 2
+LBP_N_POINTS = 8 * LBP_RADIUS
+
+# Augmentation parameters for sprite exemplars
+AUG_JITTER = 0.08       # max relative RGB jitter
+AUG_NOISE_STD = 3.0     # Gaussian noise std in palette-indexed space
+AUG_AUGMENT_PER_EX = 3  # extra augmented copies per sprite exemplar
 
 
 def _model_path(examples_dir):
@@ -113,19 +127,77 @@ def _center_is_solid(rgb_img):
     return dominant / total >= 0.90
 
 
+def _sobel_features(gray_arr):
+    """Compute Sobel edge features from a 2D grayscale array.
+
+    Returns a flattened vector of horizontal + vertical Sobel magnitudes,
+    normalized to [0, 1].
+    """
+    sx = ndimage.sobel(gray_arr, axis=1)
+    sy = ndimage.sobel(gray_arr, axis=0)
+    mag = np.sqrt(sx ** 2 + sy ** 2)
+    if mag.max() > 0:
+        mag /= mag.max()
+    return mag.flatten()
+
+
+def _lbp_features(gray_arr):
+    """Compute LBP (Local Binary Pattern) histogram features.
+
+    Returns a 256-dim normalized histogram of LBP codes.
+    """
+    lbp = local_binary_pattern(gray_arr, LBP_N_POINTS, LBP_RADIUS, method="uniform")
+    # Use max code for histogram bins
+    n_bins = int(lbp.max()) + 1
+    hist, _ = np.histogram(lbp, bins=n_bins, range=(0, n_bins), density=True)
+    # Pad to固定 size if needed
+    if len(hist) < 256:
+        hist = np.pad(hist, (0, 256 - len(hist)))
+    else:
+        hist = hist[:256]
+    return hist
+
+
+def _edge_histogram(flat_gray, w, h):
+    """Compute a 16-bin histogram of edge magnitudes across 4 quadrants."""
+    gray_arr = flat_gray.reshape(h, w)
+    sx = ndimage.sobel(gray_arr, axis=1)
+    sy = ndimage.sobel(gray_arr, axis=0)
+    mag = np.sqrt(sx ** 2 + sy ** 2)
+    edge_hist = np.zeros(16, dtype=np.float64)
+    for qy in range(2):
+        for qx in range(2):
+            region = mag[qy * h // 2:(qy + 1) * h // 2,
+                         qx * w // 2:(qx + 1) * w // 2]
+            # Quantize edge magnitudes into 4 bins
+            for b in range(4):
+                lo = b / 4.0
+                hi = (b + 1) / 4.0
+                count = np.sum((region >= lo) & (region < hi))
+                edge_hist[(qy * 2 + qx) * 4 + b] = count
+    total = edge_hist.sum()
+    if total > 0:
+        edge_hist /= total
+    return edge_hist
+
+
 def feat_vector(rgb_img, feat_img, can=recognize.CANON):
     """Extract a combined feature vector from an RGB crop and its _feat() output.
 
     Features:
-      - Grayscale (flatten _feat output): 576 dims
-      - Palette color histogram:           16 dims
-      - Spatial color (4 quadrants):       64 dims
-    Total: 656 dims.
+      - Grayscale (flatten _feat output):     576 dims
+      - Palette color histogram:               16 dims
+      - Spatial color (4 quadrants):           64 dims
+      - Sobel edge magnitude:                 576 dims
+      - LBP texture histogram:                256 dims
+      - Edge magnitude histogram:              16 dims
+    Total: 1504 dims.
 
     If the center region is a solid color it is masked out so the
     classifier focuses on the border/frame.
     """
-    gray = np.array(feat_img, dtype=np.float64).flatten()
+    gray = np.array(feat_img, dtype=np.float64)
+    flat_gray = gray.flatten()
 
     px = rgb_img.load()
     w, h = rgb_img.size
@@ -158,7 +230,32 @@ def feat_vector(rgb_img, feat_img, can=recognize.CANON):
                 qhist /= qt
             spatial[(qy * 2 + qx) * 16:(qy * 2 + qx + 1) * 16] = qhist
 
-    return np.concatenate([gray, hist, spatial])
+    sobel = _sobel_features(gray)
+    lbp = _lbp_features(gray)
+    edge_hist = _edge_histogram(flat_gray, w, h)
+
+    return np.concatenate([flat_gray, hist, spatial, sobel, lbp, edge_hist])
+
+
+def augment_rgb(rgb_img, rng):
+    """Create an augmented copy of an RGB image.
+
+    Applies color jitter and Gaussian noise to simulate variation.
+    """
+    from PIL import Image
+    arr = np.array(rgb_img, dtype=np.float64)
+
+    # Color jitter: scale each channel independently
+    for c in range(3):
+        factor = 1.0 + rng.uniform(-AUG_JITTER, AUG_JITTER)
+        arr[:, :, c] *= factor
+
+    # Gaussian noise
+    noise = rng.normal(0, AUG_NOISE_STD, arr.shape)
+    arr += noise
+
+    arr = np.clip(arr, 0, 255).astype(np.uint8)
+    return Image.fromarray(arr, "RGB")
 
 
 def _encode_class(name, rotation):
@@ -177,11 +274,13 @@ def _exemplar_weight(name):
 
 
 def train(examples_dir, exemplars):
-    """Train the block-type Random Forest and save the model."""
+    """Train the block-type classifier and save the model."""
     if not exemplars:
         return False
 
     X, y, w = [], [], []
+    rng = np.random.RandomState(42)
+
     for ex in exemplars:
         if len(ex) == 5:
             name, rotation, config, size, fex = ex
@@ -194,12 +293,23 @@ def train(examples_dir, exemplars):
             continue
         if name.startswith("__"):
             continue
-        if rgb is not None:
-            X.append(feat_vector(rgb, fex))
-        else:
-            continue  # need RGB crop for feature extraction
+        if rgb is None:
+            continue
+
+        wt = _exemplar_weight(name)
+        X.append(feat_vector(rgb, fex))
         y.append(_encode_class(name, rotation))
-        w.append(_exemplar_weight(name))
+        w.append(wt)
+
+        # Augment all exemplars to improve generalization
+        for _ in range(AUG_AUGMENT_PER_EX):
+            aug = augment_rgb(rgb, rng)
+            from PIL import ImageFilter
+            aug_feat = aug.convert("L").filter(
+                ImageFilter.GaussianBlur(radius=recognize.BLUR))
+            X.append(feat_vector(aug, aug_feat))
+            y.append(_encode_class(name, rotation))
+            w.append(wt)
 
     classes = set(y)
     if len(classes) < 2:
@@ -209,16 +319,33 @@ def train(examples_dir, exemplars):
     y = np.array(y)
     w = np.array(w, dtype=np.float64)
 
-    clf = RandomForestClassifier(
-        n_estimators=200,
-        max_depth=None,
-        min_samples_split=2,
-        min_samples_leaf=1,
-        class_weight="balanced",
-        n_jobs=-1,
-        random_state=42,
-    )
-    clf.fit(X, y, sample_weight=w)
+    # Try XGBoost first, fall back to Random Forest.
+    try:
+        from xgboost import XGBClassifier
+        clf = XGBClassifier(
+            n_estimators=300,
+            max_depth=8,
+            learning_rate=0.1,
+            subsample=0.8,
+            colsample_bytree=0.8,
+            min_child_weight=2,
+            eval_metric="mlogloss",
+            n_jobs=-1,
+            random_state=42,
+        )
+        # XGBoost uses sample_weight in fit
+        clf.fit(X, y, sample_weight=w)
+    except Exception:
+        clf = RandomForestClassifier(
+            n_estimators=200,
+            max_depth=None,
+            min_samples_split=2,
+            min_samples_leaf=1,
+            class_weight="balanced",
+            n_jobs=-1,
+            random_state=42,
+        )
+        clf.fit(X, y, sample_weight=w)
 
     ch = _corpus_hash(examples_dir)
     joblib.dump((clf, ch), _model_path(examples_dir))
@@ -282,7 +409,7 @@ def _occ_model_path(examples_dir):
 
 
 def train_occupancy(examples_dir, occ_data):
-    """Train a binary occupancy RF and save it.
+    """Train a binary occupancy classifier and save it.
 
     ``occ_data`` is a list of ``(feature_vector, is_occupied)`` tuples.
     """
@@ -291,16 +418,31 @@ def train_occupancy(examples_dir, occ_data):
     X = np.array([d[0] for d in occ_data])
     y = np.array([1 if d[1] else 0 for d in occ_data], dtype=np.int32)
 
-    clf = RandomForestClassifier(
-        n_estimators=150,
-        max_depth=None,
-        min_samples_split=2,
-        min_samples_leaf=1,
-        class_weight="balanced",
-        n_jobs=-1,
-        random_state=42,
-    )
-    clf.fit(X, y)
+    # Try XGBoost first, fall back to Random Forest.
+    try:
+        from xgboost import XGBClassifier
+        clf = XGBClassifier(
+            n_estimators=200,
+            max_depth=6,
+            learning_rate=0.1,
+            subsample=0.8,
+            colsample_bytree=0.8,
+            eval_metric="logloss",
+            n_jobs=-1,
+            random_state=42,
+        )
+        clf.fit(X, y)
+    except Exception:
+        clf = RandomForestClassifier(
+            n_estimators=150,
+            max_depth=None,
+            min_samples_split=2,
+            min_samples_leaf=1,
+            class_weight="balanced",
+            n_jobs=-1,
+            random_state=42,
+        )
+        clf.fit(X, y)
 
     ch = _corpus_hash(examples_dir)
     joblib.dump((clf, ch), _occ_model_path(examples_dir))
