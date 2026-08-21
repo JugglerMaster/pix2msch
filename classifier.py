@@ -32,6 +32,7 @@ import joblib
 
 import core
 import recognize
+from PIL import Image
 
 
 # Confidence threshold: if the RF's top prediction is below this,
@@ -55,6 +56,13 @@ LBP_N_POINTS = 8 * LBP_RADIUS
 AUG_JITTER = 0.08       # max relative RGB jitter
 AUG_NOISE_STD = 3.0     # Gaussian noise std in palette-indexed space
 AUG_AUGMENT_PER_EX = 3  # extra augmented copies per sprite exemplar
+
+# Context: how many tiles in each direction around the cell to include.
+# 1 means the cell + 1 tile ring = 3x3 tile area.
+CTX_RADIUS = 1
+# Context features require enough training data to avoid overfitting.
+# Enable once more exemplars are available.
+USE_CONTEXT = False
 
 
 def _model_path(examples_dir):
@@ -127,6 +135,34 @@ def _center_is_solid(rgb_img):
     return dominant / total >= 0.90
 
 
+def extract_context(full_img, cx, cy, tw, th, ox, oy, can=recognize.CANON):
+    """Extract a context crop around cell (cx, cy) covering CTX_RADIUS neighbors.
+
+    Returns (ctx_rgb, ctx_feat) — a CANON×CANON RGB image and its _feat()
+    output, or (None, None) if the context area is fully out of bounds.
+    """
+    r = CTX_RADIUS
+    img_w, img_h = full_img.size
+    x0 = ox + (cx - r) * tw
+    y0 = oy + (cy - r) * th
+    size = 1 + 2 * r  # e.g. 3
+
+    # Clamp to image bounds.
+    x1 = x0 + size * tw
+    y1 = y0 + size * th
+    if x1 <= 0 or y1 <= 0 or x0 >= img_w or y0 >= img_h:
+        return None, None
+    x0c = max(x0, 0)
+    y0c = max(y0, 0)
+    x1c = min(x1, img_w)
+    y1c = min(y1, img_h)
+
+    crop = full_img.crop((x0c, y0c, x1c, y1c)).resize(
+        (can, can), Image.LANCZOS)
+    ctx_feat = recognize._feat(crop)
+    return crop, ctx_feat
+
+
 def _sobel_features(gray_arr):
     """Compute Sobel edge features from a 2D grayscale array.
 
@@ -181,21 +217,41 @@ def _edge_histogram(flat_gray, w, h):
     return edge_hist
 
 
-def feat_vector(rgb_img, feat_img, can=recognize.CANON):
+def feat_vector(rgb_img, feat_img, can=recognize.CANON,
+                ctx_rgb=None, ctx_feat=None):
     """Extract a combined feature vector from an RGB crop and its _feat() output.
 
-    Features:
+    Cell features (1504d):
       - Grayscale (flatten _feat output):     576 dims
       - Palette color histogram:               16 dims
       - Spatial color (4 quadrants):           64 dims
       - Sobel edge magnitude:                 576 dims
       - LBP texture histogram:                256 dims
       - Edge magnitude histogram:              16 dims
-    Total: 1504 dims.
+
+    Context features (128d): lightweight summary of the 3×3-tile neighborhood.
+      - Grayscale downscaled:                  64 dims  (8×8)
+      - Spatial color (4 quadrants):           64 dims
+    Total: 1632 dims (1504 cell + 128 context) when USE_CONTEXT is True,
+    else 1504 dims.
 
     If the center region is a solid color it is masked out so the
     classifier focuses on the border/frame.
     """
+    cell_vec = _crop_features(rgb_img, feat_img)
+
+    if USE_CONTEXT:
+        if ctx_rgb is not None and ctx_feat is not None:
+            ctx_vec = _ctx_features(ctx_rgb, ctx_feat)
+        else:
+            ctx_vec = np.zeros(_CTX_DIMS, dtype=np.float64)
+        return np.concatenate([cell_vec, ctx_vec])
+
+    return cell_vec
+
+
+def _crop_features(rgb_img, feat_img):
+    """Compute 1504-dim feature vector from a single RGB crop + _feat output."""
     gray = np.array(feat_img, dtype=np.float64)
     flat_gray = gray.flatten()
 
@@ -235,6 +291,44 @@ def feat_vector(rgb_img, feat_img, can=recognize.CANON):
     edge_hist = _edge_histogram(flat_gray, w, h)
 
     return np.concatenate([flat_gray, hist, spatial, sobel, lbp, edge_hist])
+
+
+_CTX_DIMS = 128  # 64 grayscale + 64 spatial color
+
+
+def _ctx_features(ctx_rgb, ctx_feat):
+    """Lightweight 128-dim context features from the neighborhood crop.
+
+    Uses a smaller representation than _crop_features to avoid
+    overfitting when training data is limited.
+    """
+    # Downscale grayscale to 8x8 = 64 dims
+    gray_small = np.array(ctx_feat, dtype=np.float64)
+    from PIL import Image as _Img
+    small = _Img.fromarray(gray_small.astype(np.float32)).resize(
+        (8, 8), _Img.LANCZOS)
+    gray64 = np.array(small, dtype=np.float64).flatten()
+    gmax = np.abs(gray64).max()
+    if gmax > 0:
+        gray64 /= gmax
+
+    # Spatial color histogram (4 quadrants x 16 palette bins = 64 dims)
+    px = ctx_rgb.load()
+    w, h = ctx_rgb.size
+    spatial = np.zeros(64, dtype=np.float64)
+    for qy in range(2):
+        for qx in range(2):
+            qhist = np.zeros(16, dtype=np.float64)
+            qt = 0
+            for py in range(qy * h // 2, (qy + 1) * h // 2):
+                for pxx in range(qx * w // 2, (qx + 1) * w // 2):
+                    qhist[_closest_palette(px[pxx, py])] += 1
+                    qt += 1
+            if qt > 0:
+                qhist /= qt
+            spatial[(qy * 2 + qx) * 16:(qy * 2 + qx + 1) * 16] = qhist
+
+    return np.concatenate([gray64, spatial])
 
 
 def augment_rgb(rgb_img, rng):
@@ -282,11 +376,15 @@ def train(examples_dir, exemplars):
     rng = np.random.RandomState(42)
 
     for ex in exemplars:
-        if len(ex) == 5:
-            name, rotation, config, size, fex = ex
-            rgb = None
+        if len(ex) >= 8:
+            name, rotation, config, size, fex, rgb, ctx_rgb, ctx_feat = ex[:8]
         elif len(ex) == 6:
             name, rotation, config, size, fex, rgb = ex
+            ctx_rgb, ctx_feat = None, None
+        elif len(ex) == 5:
+            name, rotation, config, size, fex = ex
+            rgb = None
+            ctx_rgb, ctx_feat = None, None
         else:
             continue
         if size != 1:
@@ -297,7 +395,7 @@ def train(examples_dir, exemplars):
             continue
 
         wt = _exemplar_weight(name)
-        X.append(feat_vector(rgb, fex))
+        X.append(feat_vector(rgb, fex, ctx_rgb=ctx_rgb, ctx_feat=ctx_feat))
         y.append(_encode_class(name, rotation))
         w.append(wt)
 
@@ -307,7 +405,8 @@ def train(examples_dir, exemplars):
             from PIL import ImageFilter
             aug_feat = aug.convert("L").filter(
                 ImageFilter.GaussianBlur(radius=recognize.BLUR))
-            X.append(feat_vector(aug, aug_feat))
+            # Context doesn't change with augmentation — reuse original
+            X.append(feat_vector(aug, aug_feat, ctx_rgb=ctx_rgb, ctx_feat=ctx_feat))
             y.append(_encode_class(name, rotation))
             w.append(wt)
 
@@ -361,9 +460,9 @@ def load(examples_dir):
     return clf, ch
 
 
-def classify(clf, rgb_img, feat_img):
+def classify(clf, rgb_img, feat_img, ctx_rgb=None, ctx_feat=None):
     """Predict (name, rotation, confidence) from an RGB crop + _feat output."""
-    vec = feat_vector(rgb_img, feat_img).reshape(1, -1)
+    vec = feat_vector(rgb_img, feat_img, ctx_rgb=ctx_rgb, ctx_feat=ctx_feat).reshape(1, -1)
     cls = clf.predict(vec)[0]
     proba = clf.predict_proba(vec)
     classes = clf.classes_
@@ -373,13 +472,15 @@ def classify(clf, rgb_img, feat_img):
     return name, rotation, confidence
 
 
-def classify_with_fallback(clf, rgb_img, feat_img, exemplars):
+def classify_with_fallback(clf, rgb_img, feat_img, exemplars,
+                           ctx_rgb=None, ctx_feat=None):
     """Classify using the RF model; fall back to SSD if the RF confidence
     is below CONFIDENCE_THRESHOLD.
 
     Returns (name, rotation, config, source) where source is 'rf' or 'ssd'.
     """
-    name, rotation, confidence = classify(clf, rgb_img, feat_img)
+    name, rotation, confidence = classify(
+        clf, rgb_img, feat_img, ctx_rgb=ctx_rgb, ctx_feat=ctx_feat)
     if confidence >= CONFIDENCE_THRESHOLD:
         config = None
         for ex in exemplars:

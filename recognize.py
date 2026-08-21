@@ -333,7 +333,14 @@ def build_corpus(examples_dir):
                     exemplars.append((bname, (rotation + k) % 4, config, size, fex, rot_crop))
             else:
                 fex = _feat(crop)
-                exemplars.append((bname, rotation, config, size, fex, crop))
+                if size == 1:
+                    import classifier as _clf_mod
+                    ctx_rgb, ctx_feat = _clf_mod.extract_context(
+                        img, x, y, tw, th, ox, oy)
+                    exemplars.append((bname, rotation, config, size, fex, crop,
+                                      ctx_rgb, ctx_feat))
+                else:
+                    exemplars.append((bname, rotation, config, size, fex, crop))
         # Collect occupancy training data: every cell in the grid.
         import classifier as _clf_mod
         for cy in range(height):
@@ -415,8 +422,11 @@ def _classify_cell(img, cx, cy, tw, th, ox, oy, size, exemplars, can=CANON, rest
         cell_exemplars = [e for e in exemplars if e[3] == size
                           and (restrict is None or e[0] in restrict)]
         if cell_exemplars:
+            ctx_rgb, ctx_feat = classifier.extract_context(
+                img, cx, cy, tw, th, ox, oy)
             name, rotation, config, src = classifier.classify_with_fallback(
-                _clf, crop, fcrop, cell_exemplars)
+                _clf, crop, fcrop, cell_exemplars,
+                ctx_rgb=ctx_rgb, ctx_feat=ctx_feat)
             if src == "rf" and name is not None:
                 return (0, name, rotation, config)
 
