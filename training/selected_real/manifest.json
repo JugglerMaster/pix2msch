@@ -1,0 +1,2162 @@
+{
+ "000_1116624589347364877-Mindustry_Final_Boss": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1116624589347364877-Mindustry_Final_Boss.msch",
+  "blocks": 34,
+  "planet": "erekir",
+  "types": [
+   "breach",
+   "build-tower",
+   "item-source",
+   "liquid-source",
+   "power-source",
+   "regen-projector",
+   "reinforced-surge-wall",
+   "reinforced-surge-wall-large",
+   "shockwave-tower"
+  ]
+ },
+ "001_1131220845331751034-ultimate_enemy_base": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1131220845331751034-ultimate_enemy_base.msch",
+  "blocks": 7,
+  "planet": "erekir",
+  "types": [
+   "core-bastion",
+   "large-shield-projector",
+   "power-node-large",
+   "solar-panel-large"
+  ]
+ },
+ "002_1116598140422864979-Slag_Flux_bomb_1-2_min_timer": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1116598140422864979-Slag_Flux_bomb_1-2_min_timer.msch",
+  "blocks": 164,
+  "planet": "erekir",
+  "types": [
+   "build-tower",
+   "carbide-wall",
+   "carbide-wall-large",
+   "cyanogen-synthesizer",
+   "flux-reactor",
+   "item-source",
+   "liquid-source",
+   "power-source",
+   "regen-projector",
+   "reinforced-conduit",
+   "reinforced-liquid-junction",
+   "reinforced-liquid-router",
+   "reinforced-liquid-tank",
+   "slag-heater"
+  ]
+ },
+ "003_1127237907699220644-router_attack": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1127237907699220644-router_attack.msch",
+  "blocks": 141,
+  "planet": "erekir",
+  "types": [
+   "beryllium-wall",
+   "carbide-wall",
+   "force-projector",
+   "fuse",
+   "item-source",
+   "liquid-router",
+   "liquid-source",
+   "mend-projector",
+   "mender",
+   "overdrive-dome",
+   "overflow-gate",
+   "power-node",
+   "power-source",
+   "router",
+   "shielded-wall",
+   "surge-wall",
+   "underflow-gate"
+  ]
+ },
+ "004_1206130851163799555-Skibidyphus": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1206130851163799555-Skibidyphus.msch",
+  "blocks": 42,
+  "planet": "erekir",
+  "types": [
+   "constructor",
+   "payload-conveyor",
+   "payload-router",
+   "power-source",
+   "scrap-wall-huge",
+   "small-deconstructor"
+  ]
+ },
+ "005_1220651069202239540-T2__6x_Mech": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1220651069202239540-T2__6x_Mech.msch",
+  "blocks": 101,
+  "planet": "erekir",
+  "types": [
+   "beam-node",
+   "duct",
+   "duct-bridge",
+   "duct-router",
+   "duct-unloader",
+   "item-source",
+   "liquid-source",
+   "mech-fabricator",
+   "mech-refabricator",
+   "payload-mass-driver",
+   "power-source",
+   "reinforced-bridge-conduit",
+   "reinforced-conduit",
+   "reinforced-liquid-router",
+   "reinforced-message",
+   "reinforced-payload-conveyor",
+   "silicon-arc-furnace"
+  ]
+ },
+ "006_794621270615916574-Frontline_funnel": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/794621270615916574-Frontline_funnel.msch",
+  "blocks": 120,
+  "planet": "serpulo",
+  "types": [
+   "arc",
+   "armored-conveyor",
+   "battery",
+   "copper-wall",
+   "door",
+   "lancer",
+   "surge-wall",
+   "surge-wall-large"
+  ]
+ },
+ "007_1039567592215560304-Lustre_2": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1039567592215560304-Lustre_2.msch",
+  "blocks": 14,
+  "planet": "erekir",
+  "types": [
+   "atmospheric-concentrator",
+   "beam-node",
+   "electric-heater",
+   "heat-redirector",
+   "lustre"
+  ]
+ },
+ "008_1126635207932514458-water": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1126635207932514458-water.msch",
+  "blocks": 59,
+  "planet": "serpulo",
+  "types": [
+   "cultivator",
+   "impulse-pump",
+   "liquid-router",
+   "liquid-tank",
+   "pulse-conduit",
+   "steam-generator"
+  ]
+ },
+ "009_927390523474460724-open": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/927390523474460724-open.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "door-large"
+  ]
+ },
+ "010_1196425126237970454-World_Switch": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1196425126237970454-World_Switch.msch",
+  "blocks": 1,
+  "planet": "unknown",
+  "types": [
+   "world-switch"
+  ]
+ },
+ "011_1096129266204295262-The_Chokeholder": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1096129266204295262-The_Chokeholder.msch",
+  "blocks": 40,
+  "planet": "erekir",
+  "types": [
+   "afflict",
+   "beam-node",
+   "electric-heater",
+   "electrolyzer",
+   "liquid-source",
+   "pyrolysis-generator",
+   "regen-projector",
+   "reinforced-bridge-conduit",
+   "reinforced-conduit",
+   "reinforced-liquid-container",
+   "sublimate"
+  ]
+ },
+ "012_1178210497787600980-duo": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1178210497787600980-duo.msch",
+  "blocks": 143,
+  "planet": "erekir",
+  "types": [
+   "copper-wall",
+   "copper-wall-large",
+   "duo",
+   "phase-wall",
+   "scrap-wall",
+   "scrap-wall-large",
+   "sorter",
+   "tungsten-wall",
+   "tungsten-wall-large"
+  ]
+ },
+ "013_988667925009403916-the": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/988667925009403916-the.msch",
+  "blocks": 21,
+  "planet": "erekir",
+  "types": [
+   "cliff-crusher",
+   "core-acropolis",
+   "plasma-bore",
+   "power-source"
+  ]
+ },
+ "014_1046790628970877021-grn": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1046790628970877021-grn.msch",
+  "blocks": 47,
+  "planet": "erekir",
+  "types": [
+   "beam-node",
+   "liquid-source",
+   "payload-loader",
+   "payload-mass-driver",
+   "payload-unloader",
+   "power-source",
+   "pyrolysis-generator",
+   "reinforced-conduit",
+   "reinforced-liquid-junction",
+   "reinforced-liquid-router",
+   "reinforced-pump"
+  ]
+ },
+ "015_1189053369562705973-water_to_fizzle_matter": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1189053369562705973-water_to_fizzle_matter.msch",
+  "blocks": 22,
+  "planet": "erekir",
+  "types": [
+   "armored-duct",
+   "atmospheric-concentrator",
+   "beam-node",
+   "electrolyzer",
+   "eruption-drill",
+   "heat-reactor",
+   "liquid-source",
+   "power-source",
+   "reinforced-conduit"
+  ]
+ },
+ "016_1005859860874788866-MDES_Console_1.0.0.0": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1005859860874788866-MDES_Console_1.0.0.0.msch",
+  "blocks": 125,
+  "planet": "serpulo",
+  "types": [
+   "large-logic-display",
+   "liquid-junction",
+   "liquid-source",
+   "logic-display",
+   "surge-wall"
+  ]
+ },
+ "017_1052702399241928756-T3_Erekir_4": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1052702399241928756-T3_Erekir_4.msch",
+  "blocks": 97,
+  "planet": "erekir",
+  "types": [
+   "beam-node",
+   "duct",
+   "duct-bridge",
+   "duct-router",
+   "duct-unloader",
+   "item-source",
+   "liquid-source",
+   "mech-fabricator",
+   "mech-refabricator",
+   "power-source",
+   "prime-refabricator",
+   "reinforced-bridge-conduit",
+   "reinforced-conduit",
+   "reinforced-liquid-container",
+   "reinforced-liquid-router",
+   "reinforced-payload-conveyor",
+   "reinforced-payload-router",
+   "reinforced-vault"
+  ]
+ },
+ "018_1163139886681948205-loading_dock": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1163139886681948205-loading_dock.msch",
+  "blocks": 4,
+  "planet": "serpulo",
+  "types": [
+   "liquid-source",
+   "memory-cell",
+   "switch"
+  ]
+ },
+ "019_1039170321183420443-proof_that_humans_exists_in_Mindustry": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1039170321183420443-proof_that_humans_exists_in_Mindustry.msch",
+  "blocks": 32,
+  "planet": "serpulo",
+  "types": [
+   "battery",
+   "cultivator",
+   "heat-source",
+   "liquid-container",
+   "liquid-router",
+   "liquid-source",
+   "liquid-tank",
+   "mender",
+   "power-node",
+   "surge-wall",
+   "surge-wall-large",
+   "thermal-generator"
+  ]
+ },
+ "020_1205894637080813631-sisyphus-BIG": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1205894637080813631-sisyphus-BIG.msch",
+  "blocks": 2,
+  "planet": "erekir",
+  "types": [
+   "deconstructor",
+   "large-constructor"
+  ]
+ },
+ "021_1220567020752605276-shitpost_mk5": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1220567020752605276-shitpost_mk5.msch",
+  "blocks": 56,
+  "planet": "erekir",
+  "types": [
+   "beam-node",
+   "beryllium-wall",
+   "beryllium-wall-large",
+   "cyanogen-synthesizer",
+   "duct",
+   "duct-bridge",
+   "duct-router",
+   "duct-unloader",
+   "electric-heater",
+   "item-source",
+   "liquid-source",
+   "payload-mass-driver",
+   "phase-heater",
+   "phase-synthesizer",
+   "reinforced-conduit",
+   "reinforced-payload-conveyor",
+   "router",
+   "silicon-arc-furnace",
+   "tank-assembler",
+   "tank-fabricator"
+  ]
+ },
+ "022_1185699625366208514-Repair_erik": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1185699625366208514-Repair_erik.msch",
+  "blocks": 11,
+  "planet": "erekir",
+  "types": [
+   "beam-node",
+   "electrolyzer",
+   "regen-projector",
+   "reinforced-liquid-router",
+   "turbine-condenser",
+   "unit-repair-tower"
+  ]
+ },
+ "023_928380260976844823-oh_god": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/928380260976844823-oh_god.msch",
+  "blocks": 96,
+  "planet": "serpulo",
+  "types": [
+   "fuse",
+   "item-source",
+   "liquid-source",
+   "meltdown",
+   "payload-conveyor",
+   "power-source",
+   "segment",
+   "thruster"
+  ]
+ },
+ "024_1206117022317154316-cicyphus": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1206117022317154316-cicyphus.msch",
+  "blocks": 2,
+  "planet": "unknown",
+  "types": [
+   "payload-source",
+   "payload-void"
+  ]
+ },
+ "025_834058943889408000-Omura": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/834058943889408000-Omura.msch",
+  "blocks": 55,
+  "planet": "serpulo",
+  "types": [
+   "air-factory",
+   "foreshadow",
+   "item-source",
+   "power-source",
+   "scrap-wall",
+   "scrap-wall-gigantic",
+   "scrap-wall-large"
+  ]
+ },
+ "026_1004477822909300800-Starship_Troopers": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1004477822909300800-Starship_Troopers.msch",
+  "blocks": 3,
+  "planet": "serpulo",
+  "types": [
+   "arc",
+   "logic-processor",
+   "switch"
+  ]
+ },
+ "027_916100263100678148-a_diode_that_could..._": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/916100263100678148-a_diode_that_could..._.msch",
+  "blocks": 14,
+  "planet": "serpulo",
+  "types": [
+   "battery",
+   "diode",
+   "impact-reactor",
+   "item-source",
+   "liquid-source",
+   "power-source",
+   "power-void"
+  ]
+ },
+ "028_1007648774660820994-truly_amazing": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1007648774660820994-truly_amazing.msch",
+  "blocks": 23,
+  "planet": "serpulo",
+  "types": [
+   "air-factory",
+   "ground-factory",
+   "interplanetary-accelerator",
+   "naval-factory"
+  ]
+ },
+ "029_1164332696856690690-neoplasm_phase": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1164332696856690690-neoplasm_phase.msch",
+  "blocks": 59,
+  "planet": "erekir",
+  "types": [
+   "armored-duct",
+   "atmospheric-concentrator",
+   "beam-node",
+   "duct-bridge",
+   "duct-unloader",
+   "liquid-junction",
+   "liquid-source",
+   "liquid-void",
+   "neoplasia-reactor",
+   "overflow-duct",
+   "phase-synthesizer",
+   "reinforced-bridge-conduit",
+   "reinforced-liquid-container",
+   "reinforced-liquid-junction",
+   "underflow-duct",
+   "unit-cargo-loader",
+   "unit-cargo-unload-point"
+  ]
+ },
+ "030_830747987403079710-Unit-Crawler": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/830747987403079710-Unit-Crawler.msch",
+  "blocks": 61,
+  "planet": "serpulo",
+  "types": [
+   "blast-drill",
+   "coal-centrifuge",
+   "liquid-router",
+   "message",
+   "oil-extractor",
+   "overdrive-projector",
+   "plated-conduit",
+   "pneumatic-drill",
+   "power-node",
+   "pulse-conduit",
+   "solar-panel",
+   "titanium-conveyor",
+   "water-extractor"
+  ]
+ },
+ "031_1009680431324614758-New_Block": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1009680431324614758-New_Block.msch",
+  "blocks": 1,
+  "planet": "erekir",
+  "types": [
+   "slag-centrifuge"
+  ]
+ },
+ "032_857704997704564828-another_schematic_for_hell_v2": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/857704997704564828-another_schematic_for_hell_v2.msch",
+  "blocks": 176,
+  "planet": "serpulo",
+  "types": [
+   "core-nucleus",
+   "fuse",
+   "item-source",
+   "liquid-source",
+   "meltdown",
+   "mender",
+   "parallax",
+   "plastanium-wall-large",
+   "power-node",
+   "power-source",
+   "repair-turret",
+   "segment",
+   "surge-wall-large"
+  ]
+ },
+ "033_1185651417088790570-hybrid_ph_if_someone_can_fox_this_big_hole": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1185651417088790570-hybrid_ph_if_someone_can_fox_this_big_hole.msch",
+  "blocks": 140,
+  "planet": "erekir",
+  "types": [
+   "armored-duct",
+   "blast-drill",
+   "bridge-conduit",
+   "bridge-conveyor",
+   "duct",
+   "heat-redirector",
+   "heat-router",
+   "inverted-sorter",
+   "phase-heater",
+   "phase-synthesizer",
+   "power-node",
+   "reinforced-conduit",
+   "reinforced-liquid-router",
+   "sorter",
+   "surge-conveyor",
+   "surge-router",
+   "underflow-duct",
+   "unloader",
+   "water-extractor"
+  ]
+ },
+ "034_856429284428218388-loss_but_its_also_dumb": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/856429284428218388-loss_but_its_also_dumb.msch",
+  "blocks": 173,
+  "planet": "serpulo",
+  "types": [
+   "battery",
+   "coal-centrifuge",
+   "cultivator",
+   "graphite-press",
+   "power-node-large",
+   "salvo",
+   "shock-mine",
+   "solar-panel",
+   "spore-press",
+   "steam-generator",
+   "titanium-wall-large",
+   "water-extractor"
+  ]
+ },
+ "035_988316467458093109-T5": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/988316467458093109-T5.msch",
+  "blocks": 91,
+  "planet": "erekir",
+  "types": [
+   "armored-duct",
+   "basic-assembler-module",
+   "beam-node",
+   "carbide-crucible",
+   "constructor",
+   "cyanogen-synthesizer",
+   "duct",
+   "duct-bridge",
+   "duct-router",
+   "duct-unloader",
+   "electric-heater",
+   "electrolyzer",
+   "phase-heater",
+   "phase-synthesizer",
+   "reinforced-bridge-conduit",
+   "reinforced-container",
+   "reinforced-liquid-router",
+   "ship-assembler",
+   "ship-fabricator",
+   "ship-refabricator",
+   "silicon-arc-furnace"
+  ]
+ },
+ "036_887903207349714974-sili_no_thor_launcher": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/887903207349714974-sili_no_thor_launcher.msch",
+  "blocks": 74,
+  "planet": "serpulo",
+  "types": [
+   "battery",
+   "bridge-conduit",
+   "bridge-conveyor",
+   "coal-centrifuge",
+   "cultivator",
+   "laser-drill",
+   "launch-pad",
+   "liquid-router",
+   "overdrive-projector",
+   "overflow-gate",
+   "power-node",
+   "silicon-smelter",
+   "spore-press",
+   "water-extractor"
+  ]
+ },
+ "037_941924747850158082-2da52ccce458e49d": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/941924747850158082-2da52ccce458e49d.msch",
+  "blocks": 2,
+  "planet": "serpulo",
+  "types": [
+   "micro-processor",
+   "switch"
+  ]
+ },
+ "038_799180396533252096-Ultra_Defense_-Mk.1": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/799180396533252096-Ultra_Defense_-Mk.1.msch",
+  "blocks": 156,
+  "planet": "serpulo",
+  "types": [
+   "foreshadow",
+   "inverted-sorter",
+   "item-source",
+   "liquid-router",
+   "liquid-source",
+   "liquid-tank",
+   "meltdown",
+   "mend-projector",
+   "overdrive-projector",
+   "parallax",
+   "phase-conduit",
+   "phase-conveyor",
+   "phase-wall-large",
+   "plastanium-wall",
+   "plastanium-wall-large",
+   "power-node",
+   "pulse-conduit",
+   "repair-point",
+   "router",
+   "spectre",
+   "surge-wall-large",
+   "titanium-conveyor",
+   "unloader",
+   "vault",
+   "wave"
+  ]
+ },
+ "039_1159241730818838621-Lpb2": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1159241730818838621-Lpb2.msch",
+  "blocks": 32,
+  "planet": "erekir",
+  "types": [
+   "atmospheric-concentrator",
+   "beam-node",
+   "duct-bridge",
+   "electrolyzer",
+   "item-source",
+   "item-void",
+   "large-plasma-bore",
+   "liquid-source",
+   "oxidation-chamber",
+   "reinforced-bridge-conduit",
+   "reinforced-conduit",
+   "reinforced-liquid-junction",
+   "reinforced-liquid-router"
+  ]
+ },
+ "040_804007467997724722-sacrifice_5.0": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/804007467997724722-sacrifice_5.0.msch",
+  "blocks": 161,
+  "planet": "serpulo",
+  "types": [
+   "arc",
+   "armored-conveyor",
+   "battery",
+   "bridge-conveyor",
+   "copper-wall",
+   "diode",
+   "duo",
+   "hail",
+   "phase-wall",
+   "plastanium-wall",
+   "power-node",
+   "repair-point",
+   "scorch",
+   "solar-panel-large",
+   "surge-wall",
+   "thorium-wall",
+   "titanium-conveyor",
+   "titanium-wall"
+  ]
+ },
+ "041_1192595571018575906-blast_scrap_power": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1192595571018575906-blast_scrap_power.msch",
+  "blocks": 205,
+  "planet": "serpulo",
+  "types": [
+   "armored-conveyor",
+   "battery",
+   "blast-drill",
+   "blast-mixer",
+   "bridge-conduit",
+   "bridge-conveyor",
+   "coal-centrifuge",
+   "container",
+   "cryofluid-mixer",
+   "cultivator",
+   "illuminator",
+   "impact-reactor",
+   "inverted-sorter",
+   "junction",
+   "liquid-container",
+   "liquid-router",
+   "melter",
+   "overdrive-projector",
+   "overflow-gate",
+   "phase-conduit",
+   "phase-conveyor",
+   "plastanium-conveyor",
+   "plated-conduit",
+   "power-node",
+   "pulse-conduit",
+   "pulverizer",
+   "pyratite-mixer",
+   "separator",
+   "spore-press",
+   "surge-tower",
+   "titanium-conveyor",
+   "underflow-gate",
+   "unloader",
+   "vault",
+   "water-extractor"
+  ]
+ },
+ "042_793243613680762890-AttackSector": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/793243613680762890-AttackSector.msch",
+  "blocks": 89,
+  "planet": "serpulo",
+  "types": [
+   "air-factory",
+   "armored-conveyor",
+   "core-foundation",
+   "ground-factory",
+   "junction",
+   "mender",
+   "power-node",
+   "rtg-generator",
+   "scatter",
+   "thorium-wall",
+   "thorium-wall-large",
+   "titanium-conveyor",
+   "unloader"
+  ]
+ },
+ "043_879986303540793365-combo": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/879986303540793365-combo.msch",
+  "blocks": 81,
+  "planet": "serpulo",
+  "types": [
+   "armored-conveyor",
+   "bridge-conduit",
+   "cyclone",
+   "distributor",
+   "liquid-router",
+   "liquid-tank",
+   "plastanium-wall",
+   "plastanium-wall-large",
+   "pulse-conduit",
+   "router",
+   "surge-wall",
+   "surge-wall-large",
+   "swarmer",
+   "tsunami",
+   "underflow-gate"
+  ]
+ },
+ "044_1041231113730932758-chemical_comBUSTion_chamber": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1041231113730932758-chemical_comBUSTion_chamber.msch",
+  "blocks": 34,
+  "planet": "erekir",
+  "types": [
+   "beam-node",
+   "chemical-combustion-chamber",
+   "electrolyzer",
+   "liquid-source",
+   "reinforced-bridge-conduit",
+   "reinforced-liquid-container",
+   "reinforced-liquid-junction",
+   "reinforced-liquid-router",
+   "vent-condenser"
+  ]
+ },
+ "045_1156774343745998871-Slag_to_everything_": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1156774343745998871-Slag_to_everything_.msch",
+  "blocks": 70,
+  "planet": "serpulo",
+  "types": [
+   "blast-mixer",
+   "coal-centrifuge",
+   "cultivator",
+   "disassembler",
+   "item-source",
+   "kiln",
+   "liquid-router",
+   "melter",
+   "phase-weaver",
+   "plastanium-compressor",
+   "power-node-large",
+   "pulse-conduit",
+   "pyratite-mixer",
+   "router",
+   "separator",
+   "silicon-smelter",
+   "spore-press",
+   "surge-smelter",
+   "titanium-conveyor",
+   "underflow-gate",
+   "unloader",
+   "vault",
+   "water-extractor"
+  ]
+ },
+ "046_823121844831125537-t5_in_core": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/823121844831125537-t5_in_core.msch",
+  "blocks": 239,
+  "planet": "serpulo",
+  "types": [
+   "additive-reconstructor",
+   "battery",
+   "battery-large",
+   "bridge-conduit",
+   "bridge-conveyor",
+   "conduit",
+   "core-shard",
+   "cryofluid-mixer",
+   "exponential-reconstructor",
+   "inverted-sorter",
+   "junction",
+   "liquid-tank",
+   "multiplicative-reconstructor",
+   "overdrive-dome",
+   "overflow-gate",
+   "phase-conveyor",
+   "power-node",
+   "pulse-conduit",
+   "sorter",
+   "tetrative-reconstructor",
+   "titanium-conveyor",
+   "underflow-gate",
+   "unloader",
+   "vault",
+   "water-extractor"
+  ]
+ },
+ "047_1086974361149386814-re-crapped": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1086974361149386814-re-crapped.msch",
+  "blocks": 20,
+  "planet": "erekir",
+  "types": [
+   "beam-node",
+   "duct",
+   "duct-bridge",
+   "duct-router",
+   "duct-unloader",
+   "electrolyzer",
+   "item-source",
+   "reinforced-liquid-router",
+   "silicon-arc-furnace",
+   "tank-fabricator",
+   "tank-refabricator",
+   "turbine-condenser"
+  ]
+ },
+ "048_1058488457044971542-surge_stackable": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1058488457044971542-surge_stackable.msch",
+  "blocks": 21,
+  "planet": "erekir",
+  "types": [
+   "beam-node",
+   "duct",
+   "duct-bridge",
+   "duct-router",
+   "duct-unloader",
+   "phase-heater",
+   "reinforced-liquid-container",
+   "reinforced-liquid-junction",
+   "surge-conveyor",
+   "surge-crucible",
+   "surge-router"
+  ]
+ },
+ "049_986197669225578558-t4_spooder": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/986197669225578558-t4_spooder.msch",
+  "blocks": 32,
+  "planet": "erekir",
+  "types": [
+   "beam-node",
+   "constructor",
+   "cyanogen-synthesizer",
+   "duct",
+   "duct-bridge",
+   "duct-router",
+   "electric-heater",
+   "heat-redirector",
+   "mech-assembler",
+   "mech-fabricator",
+   "reinforced-bridge-conduit",
+   "reinforced-conduit",
+   "reinforced-liquid-container"
+  ]
+ },
+ "050_777765251956473877-map_PLASTANIUM": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/777765251956473877-map_PLASTANIUM.msch",
+  "blocks": 369,
+  "planet": "serpulo",
+  "types": [
+   "battery",
+   "blast-drill",
+   "inverted-sorter",
+   "laser-drill",
+   "liquid-junction",
+   "liquid-router",
+   "liquid-tank",
+   "mass-driver",
+   "mechanical-pump",
+   "overdrive-projector",
+   "overflow-gate",
+   "phase-conveyor",
+   "plastanium-compressor",
+   "power-node",
+   "power-node-large",
+   "pulse-conduit",
+   "rotary-pump",
+   "titanium-conveyor",
+   "unloader"
+  ]
+ },
+ "051_941034455387238402-1.__": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/941034455387238402-1.__.msch",
+  "blocks": 22,
+  "planet": "serpulo",
+  "types": [
+   "bridge-conduit",
+   "bridge-conveyor",
+   "combustion-generator",
+   "liquid-junction",
+   "liquid-router",
+   "mechanical-drill",
+   "multi-press",
+   "pneumatic-drill",
+   "power-node"
+  ]
+ },
+ "052_779397206339354674-The_Sick_2.0": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/779397206339354674-The_Sick_2.0.msch",
+  "blocks": 146,
+  "planet": "serpulo",
+  "types": [
+   "armored-conveyor",
+   "battery",
+   "bridge-conveyor",
+   "coal-centrifuge",
+   "cryofluid-mixer",
+   "cultivator",
+   "differential-generator",
+   "disassembler",
+   "incinerator",
+   "inverted-sorter",
+   "liquid-router",
+   "melter",
+   "phase-conduit",
+   "plated-conduit",
+   "power-node",
+   "pulse-conduit",
+   "pyratite-mixer",
+   "separator",
+   "spore-press",
+   "thorium-reactor",
+   "titanium-conveyor",
+   "underflow-gate",
+   "unloader",
+   "vault",
+   "water-extractor"
+  ]
+ },
+ "053_876069607692185600-for_above_one": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/876069607692185600-for_above_one.msch",
+  "blocks": 16,
+  "planet": "serpulo",
+  "types": [
+   "bridge-conveyor",
+   "conveyor",
+   "overflow-gate",
+   "power-node",
+   "pyratite-mixer",
+   "silicon-crucible",
+   "sorter",
+   "titanium-conveyor"
+  ]
+ },
+ "054_990682460515885148-h": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/990682460515885148-h.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "055_985125936959725630-lancer": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/985125936959725630-lancer.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "lancer"
+  ]
+ },
+ "056_983825078695370784-b": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/983825078695370784-b.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "057_983824526213271685-b": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/983824526213271685-b.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "058_982631553848999938-coNvEYOR": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/982631553848999938-coNvEYOR.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "059_981921393874714696-plas": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/981921393874714696-plas.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "plastanium-compressor"
+  ]
+ },
+ "060_980512691464568834-Arc": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/980512691464568834-Arc.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "arc"
+  ]
+ },
+ "061_980331674439147532-flan_summoning_altar": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/980331674439147532-flan_summoning_altar.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "tetrative-reconstructor"
+  ]
+ },
+ "062_972280010570366988-thor_no_boom_machine": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/972280010570366988-thor_no_boom_machine.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "cryofluid-mixer"
+  ]
+ },
+ "063_970492422951960648-mine_schematic": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/970492422951960648-mine_schematic.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "shock-mine"
+  ]
+ },
+ "064_970265026193653782-titan_conveyor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/970265026193653782-titan_conveyor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "065_967897132558327820-d97d6305f2ace3a7": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/967897132558327820-d97d6305f2ace3a7.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "core-shard"
+  ]
+ },
+ "066_962755481871474692-ohno": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/962755481871474692-ohno.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "067_962755215130509424-does_this_work": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/962755215130509424-does_this_work.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "068_957781652166311989-core": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/957781652166311989-core.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "core-nucleus"
+  ]
+ },
+ "069_957342588669661227-Hail": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/957342588669661227-Hail.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "hail"
+  ]
+ },
+ "070_953309467896856599-Segment": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/953309467896856599-Segment.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "segment"
+  ]
+ },
+ "071_951489638848151596-Hail": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/951489638848151596-Hail.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "hail"
+  ]
+ },
+ "072_939009812669280308-router597473918277648385": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/939009812669280308-router597473918277648385.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "073_938993617010311220-4k": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/938993617010311220-4k.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "large-logic-display"
+  ]
+ },
+ "074_937426821371265116-HOW_ITS_BROKEN_SCHEMATICC": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/937426821371265116-HOW_ITS_BROKEN_SCHEMATICC.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "075_934639959804117034-conveyor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/934639959804117034-conveyor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "076_928227422405529663-converter": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/928227422405529663-converter.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "077_927908445963845684-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/927908445963845684-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "078_924562629660397641-ROUTER_": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/924562629660397641-ROUTER_.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "079_924457490152828971-join_the_router_club": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/924457490152828971-join_the_router_club.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "080_924336420745793548-oh_god_help_me_": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/924336420745793548-oh_god_help_me_.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "duo"
+  ]
+ },
+ "081_923748830057480245-conveyor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/923748830057480245-conveyor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "082_922235487912083489-literally_a_single_conveyor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/922235487912083489-literally_a_single_conveyor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "083_921052779206828115-Dirium_Wall": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/921052779206828115-Dirium_Wall.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "plastanium-wall"
+  ]
+ },
+ "084_921020343508938764-better_conveyor_1.1": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/921020343508938764-better_conveyor_1.1.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "085_920988423832109068-better_conveyor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/920988423832109068-better_conveyor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "086_920980782758121544-conveyor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/920980782758121544-conveyor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "087_920656751202803785-no_one": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/920656751202803785-no_one.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "hail"
+  ]
+ },
+ "088_917791491970183181-Where_router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/917791491970183181-Where_router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "089_914528932622114838-Distributor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/914528932622114838-Distributor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "distributor"
+  ]
+ },
+ "090_913197388020199457-Router_End_Game": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/913197388020199457-Router_End_Game.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "091_913196864965328990-Router_End_Game": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/913196864965328990-Router_End_Game.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "092_912324825291309069-Conveyor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/912324825291309069-Conveyor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "093_912174662061006870-Incinerator": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/912174662061006870-Incinerator.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "incinerator"
+  ]
+ },
+ "094_911245020659585074-Schem_above_actually_belongs_to_curated-schematics": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/911245020659585074-Schem_above_actually_belongs_to_curated-schematics.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "095_910558882613571626-super_compact_selfstart_module": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/910558882613571626-super_compact_selfstart_module.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "solar-panel"
+  ]
+ },
+ "096_910204287911616534-Sexy_routatio": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/910204287911616534-Sexy_routatio.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "distributor"
+  ]
+ },
+ "097_910176346494345218-c": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/910176346494345218-c.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "surge-wall-large"
+  ]
+ },
+ "098_910081448994816002-c": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/910081448994816002-c.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "core-nucleus"
+  ]
+ },
+ "099_909302157336018996-definitely_not_smol_router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/909302157336018996-definitely_not_smol_router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "100_909301468115386390-router_but_zoomed_out_3_tiles": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/909301468115386390-router_but_zoomed_out_3_tiles.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "101_907720398492299276-Router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/907720398492299276-Router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "102_906309792665067605-troll": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/906309792665067605-troll.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "water-extractor"
+  ]
+ },
+ "103_905091786110824510-very": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/905091786110824510-very.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "distributor"
+  ]
+ },
+ "104_903741270273429526-last_change": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/903741270273429526-last_change.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "inverted-sorter"
+  ]
+ },
+ "105_903649115748061308-Uncompact_battery": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/903649115748061308-Uncompact_battery.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "battery"
+  ]
+ },
+ "106_903300886175055975-repair_turret": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/903300886175055975-repair_turret.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "repair-turret"
+  ]
+ },
+ "107_902863507865862176-hail": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/902863507865862176-hail.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "hail"
+  ]
+ },
+ "108_899586842108780574-copper_to_copper": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/899586842108780574-copper_to_copper.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "109_897521916087255040-Copper_Wall": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/897521916087255040-Copper_Wall.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "copper-wall"
+  ]
+ },
+ "110_895525191487209483-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/895525191487209483-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "111_889153500657905675-Silicon": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/889153500657905675-Silicon.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "silicon-smelter"
+  ]
+ },
+ "112_889073885306318888-kiln": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/889073885306318888-kiln.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "kiln"
+  ]
+ },
+ "113_887171576938774558-Router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/887171576938774558-Router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "114_884038109816307732-test": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/884038109816307732-test.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "water-extractor"
+  ]
+ },
+ "115_882239425499791400-spore_outbreak": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/882239425499791400-spore_outbreak.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "message"
+  ]
+ },
+ "116_882239367744204820-blank_map": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/882239367744204820-blank_map.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "message"
+  ]
+ },
+ "117_880208090052583474-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/880208090052583474-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "118_878864772743966770-duo": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/878864772743966770-duo.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "duo"
+  ]
+ },
+ "119_878745331003703367-conveyor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/878745331003703367-conveyor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "120_878605774815903774-container": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/878605774815903774-container.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "container"
+  ]
+ },
+ "121_876803888731291668-upsidedown_amogus": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/876803888731291668-upsidedown_amogus.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "repair-point"
+  ]
+ },
+ "122_869284136366526507-https__cdn.discordapp.com_attachments_391020510269669378_869280093577576448_unknown.png": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/869284136366526507-https__cdn.discordapp.com_attachments_391020510269669378_869280093577576448_unknown.png.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "copper-wall"
+  ]
+ },
+ "123_869283394629038091-core_bot_test_2": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/869283394629038091-core_bot_test_2.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "copper-wall"
+  ]
+ },
+ "124_869283291130376243-SPOILER_core_bot_test_1": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/869283291130376243-SPOILER_core_bot_test_1.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "copper-wall"
+  ]
+ },
+ "125_869010550435246140-me_system": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/869010550435246140-me_system.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "core-nucleus"
+  ]
+ },
+ "126_869010333094793216-soap_maker": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/869010333094793216-soap_maker.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "plastanium-compressor"
+  ]
+ },
+ "127_867892957138649089-Double_turret": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/867892957138649089-Double_turret.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "duo"
+  ]
+ },
+ "128_867239060497104916-compact_rtg": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/867239060497104916-compact_rtg.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "rtg-generator"
+  ]
+ },
+ "129_867198759804993567-Flares_mama_XD": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/867198759804993567-Flares_mama_XD.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "air-factory"
+  ]
+ },
+ "130_867198395482505216-the_brother_of_the_router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/867198395482505216-the_brother_of_the_router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "liquid-router"
+  ]
+ },
+ "131_867177253233754223-Anti_quasar_def": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/867177253233754223-Anti_quasar_def.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "shock-mine"
+  ]
+ },
+ "132_866813441015808020-Green": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/866813441015808020-Green.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "plastanium-wall-large"
+  ]
+ },
+ "133_865557288046297088-E": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/865557288046297088-E.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "surge-wall"
+  ]
+ },
+ "134_865536068682383370-THE_MORE_ULTIMATE_EPIC_PROETOR": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/865536068682383370-THE_MORE_ULTIMATE_EPIC_PROETOR.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "phase-wall"
+  ]
+ },
+ "135_865531665669554196-The_More_Ultimate_Protector": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/865531665669554196-The_More_Ultimate_Protector.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "plastanium-wall"
+  ]
+ },
+ "136_865509462857089034-The_More_Ultimate_Epic_Protector": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/865509462857089034-The_More_Ultimate_Epic_Protector.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "thorium-wall"
+  ]
+ },
+ "137_865498505250734081-The_Cooler_Ultimate_protector_": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/865498505250734081-The_Cooler_Ultimate_protector_.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-wall"
+  ]
+ },
+ "138_865496251213807626-The_Ultimate_Protector": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/865496251213807626-The_Ultimate_Protector.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "copper-wall"
+  ]
+ },
+ "139_864890137624576061-multi-functional_static_nodule_flux_generator": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/864890137624576061-multi-functional_static_nodule_flux_generator.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "combustion-generator"
+  ]
+ },
+ "140_864409089648099338-Cheaper_Mining_design": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/864409089648099338-Cheaper_Mining_design.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "mechanical-drill"
+  ]
+ },
+ "141_864216394606575636-Mining_design": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/864216394606575636-Mining_design.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "pneumatic-drill"
+  ]
+ },
+ "142_863773257358245888-core": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/863773257358245888-core.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "core-nucleus"
+  ]
+ },
+ "143_862604425662169088-B_E_H_O_L_D": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/862604425662169088-B_E_H_O_L_D.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "diode"
+  ]
+ },
+ "144_861729350034653184-Anarchy": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/861729350034653184-Anarchy.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "145_861726694138445824-Anarchy": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/861726694138445824-Anarchy.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "146_859754452236238859-INFINITY_ORE": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/859754452236238859-INFINITY_ORE.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "mechanical-drill"
+  ]
+ },
+ "147_855423661762805770-Duct_ROUTER": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/855423661762805770-Duct_ROUTER.msch",
+  "blocks": 1,
+  "planet": "erekir",
+  "types": [
+   "duct-router"
+  ]
+ },
+ "148_855418126496563260-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/855418126496563260-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "149_854380232782118912-Mindustry_logo": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/854380232782118912-Mindustry_logo.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "duo"
+  ]
+ },
+ "150_854338843472691230-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/854338843472691230-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "151_854108251432288266-Core_Shard_2": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/854108251432288266-Core_Shard_2.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "core-shard"
+  ]
+ },
+ "152_851444933255757844-duct": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/851444933255757844-duct.msch",
+  "blocks": 1,
+  "planet": "erekir",
+  "types": [
+   "duct"
+  ]
+ },
+ "153_1223172556555685981-Payload_Router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1223172556555685981-Payload_Router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "payload-router"
+  ]
+ },
+ "154_1219646107328581683-cyanrouredtar": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1219646107328581683-cyanrouredtar.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "155_1219448855112974409-the_wall_ru_do": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1219448855112974409-the_wall_ru_do.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "copper-wall-large"
+  ]
+ },
+ "156_1205376127632412776-scrap_to_thorium": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1205376127632412776-scrap_to_thorium.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "disassembler"
+  ]
+ },
+ "157_1199150114258817137-STEAM_TILEABLE_RICHHHH": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1199150114258817137-STEAM_TILEABLE_RICHHHH.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "steam-generator"
+  ]
+ },
+ "158_1183258327329800204-best_defense_in_mindustry_": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1183258327329800204-best_defense_in_mindustry_.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "duo"
+  ]
+ },
+ "159_1173662801861034149-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1173662801861034149-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "160_1161157178657357854-use_overflow": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1161157178657357854-use_overflow.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "overflow-gate"
+  ]
+ },
+ "161_1153440458077388923-literally_a_single_conveyor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1153440458077388923-literally_a_single_conveyor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "162_1152271295308898407-LG_Tv_6022_eminem_edition": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1152271295308898407-LG_Tv_6022_eminem_edition.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "logic-display"
+  ]
+ },
+ "163_1148305968795484182-the_routerchain_v1": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1148305968795484182-the_routerchain_v1.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "164_1129055338876907534-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1129055338876907534-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "165_1121871021515997258-Drill": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1121871021515997258-Drill.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "mechanical-drill"
+  ]
+ },
+ "166_1118964058859769960-Foreshadow": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1118964058859769960-Foreshadow.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "duo"
+  ]
+ },
+ "167_1117082627518763121-No": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1117082627518763121-No.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "graphite-press"
+  ]
+ },
+ "168_1114656018945814530-Router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1114656018945814530-Router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "169_1111382274458525729-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1111382274458525729-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "170_1110540263631376447-Lancer": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1110540263631376447-Lancer.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "salvo"
+  ]
+ },
+ "171_1099108514418405376-OOPS": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1099108514418405376-OOPS.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "172_1094256511733219333-coal_condensers_go_next_to": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1094256511733219333-coal_condensers_go_next_to.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "173_1094256443391225999-For_the_EGP_you_need_": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1094256443391225999-For_the_EGP_you_need_.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "174_1094256370410340486-coal_condensers_go_next_to": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1094256370410340486-coal_condensers_go_next_to.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "175_1094256328941256727-coal_condensers_go_next_to": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1094256328941256727-coal_condensers_go_next_to.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "176_1094256280765468794-spore_presses": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1094256280765468794-spore_presses.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "177_1076542751497269441-energyyy": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1076542751497269441-energyyy.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "solar-panel"
+  ]
+ },
+ "178_1061352167220457536-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1061352167220457536-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "179_1008426372328341626-4e6171bbf7e6335f": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1008426372328341626-4e6171bbf7e6335f.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "180_1007004480069447710-power_monitor": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V7/1007004480069447710-power_monitor.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "power-node"
+  ]
+ },
+ "181_849590146424242186-Double_turret": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/849590146424242186-Double_turret.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "duo"
+  ]
+ },
+ "182_847637895330529320-MagmaTilePowercube": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/847637895330529320-MagmaTilePowercube.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "thermal-generator"
+  ]
+ },
+ "183_847363355198226472-Meow_3": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/847363355198226472-Meow_3.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "184_845077525439971409-Copper_to_copper": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/845077525439971409-Copper_to_copper.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "titanium-conveyor"
+  ]
+ },
+ "185_843397474239774730-Duo": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/843397474239774730-Duo.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "duo"
+  ]
+ },
+ "186_840947161377669121-Liquid_Junction": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/840947161377669121-Liquid_Junction.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "liquid-junction"
+  ]
+ },
+ "187_839474692321706054-nucleus": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/839474692321706054-nucleus.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "core-nucleus"
+  ]
+ },
+ "188_837726348658344014-Copper_ore_to_copper_ingot": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/837726348658344014-Copper_ore_to_copper_ingot.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "mechanical-drill"
+  ]
+ },
+ "189_835341860981309450-Inf_power": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/835341860981309450-Inf_power.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "solar-panel"
+  ]
+ },
+ "190_834941903215919134-wtf": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/834941903215919134-wtf.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "switch"
+  ]
+ },
+ "191_833718534638010438-sessesesesses": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/833718534638010438-sessesesesses.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "conveyor"
+  ]
+ },
+ "192_832066384010936371-schematic": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/832066384010936371-schematic.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "193_831768347422097409-test": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/831768347422097409-test.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "194_826669419975409694-SuperGraphite3000": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/826669419975409694-SuperGraphite3000.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "sorter"
+  ]
+ },
+ "195_826101393395417129-LoL": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/826101393395417129-LoL.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "fuse"
+  ]
+ },
+ "196_825713901840367616-0ac98b34656d0d42": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/825713901840367616-0ac98b34656d0d42.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "mechanical-drill"
+  ]
+ },
+ "197_825713887328469022-OwO": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/825713887328469022-OwO.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "cyclone"
+  ]
+ },
+ "198_825036230231326730-router": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/825036230231326730-router.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "router"
+  ]
+ },
+ "199_824990994352832523-notes": {
+  "source": "/tmp/opencode/community-schematics/schematics/OfficialDiscordSchematic/V6/824990994352832523-notes.msch",
+  "blocks": 1,
+  "planet": "serpulo",
+  "types": [
+   "copper-wall"
+  ]
+ }
+}

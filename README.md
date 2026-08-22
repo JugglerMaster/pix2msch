@@ -53,6 +53,26 @@ and also exports every corrected cell as a labeled training exemplar to
 `examples/training/` — these are folded back into the detection corpus on the
 next run, so repeated corrections keep improving accuracy.
 
+### Automated training data (no game needed)
+
+Hand-correcting screenshots is slow; getting ~1k labeled cells by hand is a
+tall order. `gen_synth_sheets.py` produces training material fully offline:
+
+    python gen_synth_sheets.py [--sheets 60] [--seed 0] [--out examples]
+
+It renders random schematics from the real game sprites (auto-discovered for
+every block in `sprite_train.py`), composites them onto editor-gray / striped /
+floored backgrounds with drop shadows and light capture-style augmentation,
+palette-quantizes the result like a real screenshot, and writes a matching
+`.msch` next to each `.png`. Because pairs land in `examples/`, `build_corpus`
+consumes them unchanged — grid fitting, cell-crop exemplars, occupancy data
+and the classifier all train on them exactly like real screenshots.
+
+The sprite list is no longer hand-maintained: `sprite_train` fetches the game's
+raw-asset tree once (cached) and resolves any catalog block by name, so every
+placeable block gets coverage. Run `gen_synth_sheets.py --start N --sheets M`
+to append more batches without clobbering earlier ones.
+
 Here's a screenshot of the gui:
 
 ![GUI](https://i.ibb.co/TPfc2MJ/Screenshot-203.png)

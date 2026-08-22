@@ -1,0 +1,2847 @@
+{
+ "coverage-serpulo-01": [
+  {
+   "name": "additive-reconstructor",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "advanced-launch-pad",
+   "rot": 0,
+   "x": 4,
+   "y": 0,
+   "size": 4
+  },
+  {
+   "name": "air-factory",
+   "rot": 0,
+   "x": 9,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "air-factory",
+   "rot": 1,
+   "x": 13,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "air-factory",
+   "rot": 2,
+   "x": 17,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "air-factory",
+   "rot": 3,
+   "x": 21,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "arc",
+   "rot": 0,
+   "x": 0,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "armored-conveyor",
+   "rot": 0,
+   "x": 2,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "armored-conveyor",
+   "rot": 1,
+   "x": 4,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "armored-conveyor",
+   "rot": 2,
+   "x": 6,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "armored-conveyor",
+   "rot": 3,
+   "x": 8,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "battery",
+   "rot": 0,
+   "x": 10,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "battery-large",
+   "rot": 0,
+   "x": 12,
+   "y": 5,
+   "size": 3
+  },
+  {
+   "name": "blast-drill",
+   "rot": 0,
+   "x": 16,
+   "y": 5,
+   "size": 4
+  },
+  {
+   "name": "blast-mixer",
+   "rot": 0,
+   "x": 21,
+   "y": 5,
+   "size": 2
+  },
+  {
+   "name": "bridge-conduit",
+   "rot": 0,
+   "x": 0,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "bridge-conveyor",
+   "rot": 0,
+   "x": 2,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "coal-centrifuge",
+   "rot": 0,
+   "x": 4,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "combustion-generator",
+   "rot": 0,
+   "x": 7,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "conduit",
+   "rot": 0,
+   "x": 9,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "conduit",
+   "rot": 1,
+   "x": 11,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "conduit",
+   "rot": 2,
+   "x": 13,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "conduit",
+   "rot": 3,
+   "x": 15,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "container",
+   "rot": 0,
+   "x": 17,
+   "y": 10,
+   "size": 2
+  }
+ ],
+ "coverage-serpulo-02": [
+  {
+   "name": "conveyor",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "rot": 1,
+   "x": 2,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "rot": 2,
+   "x": 4,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "rot": 3,
+   "x": 6,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "copper-wall",
+   "rot": 0,
+   "x": 8,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "copper-wall-large",
+   "rot": 0,
+   "x": 10,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "core-foundation",
+   "rot": 0,
+   "x": 13,
+   "y": 0,
+   "size": 4
+  },
+  {
+   "name": "core-nucleus",
+   "rot": 0,
+   "x": 18,
+   "y": 0,
+   "size": 5
+  },
+  {
+   "name": "core-shard",
+   "rot": 0,
+   "x": 0,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "cryofluid-mixer",
+   "rot": 0,
+   "x": 4,
+   "y": 6,
+   "size": 2
+  },
+  {
+   "name": "cultivator",
+   "rot": 0,
+   "x": 7,
+   "y": 6,
+   "size": 2
+  },
+  {
+   "name": "cyclone",
+   "rot": 0,
+   "x": 10,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "differential-generator",
+   "rot": 0,
+   "x": 14,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "diode",
+   "rot": 0,
+   "x": 18,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "diode",
+   "rot": 1,
+   "x": 20,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "diode",
+   "rot": 2,
+   "x": 22,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "diode",
+   "rot": 3,
+   "x": 0,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "disassembler",
+   "rot": 0,
+   "x": 2,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "distributor",
+   "rot": 0,
+   "x": 6,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "door",
+   "rot": 0,
+   "x": 9,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "door-large",
+   "rot": 0,
+   "x": 11,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "duo",
+   "rot": 0,
+   "x": 14,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "exponential-reconstructor",
+   "rot": 0,
+   "x": 16,
+   "y": 10,
+   "size": 7
+  },
+  {
+   "name": "force-projector",
+   "rot": 0,
+   "x": 0,
+   "y": 18,
+   "size": 3
+  }
+ ],
+ "coverage-serpulo-03": [
+  {
+   "name": "foreshadow",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 4
+  },
+  {
+   "name": "fuse",
+   "rot": 0,
+   "x": 5,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "graphite-press",
+   "rot": 0,
+   "x": 9,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "ground-factory",
+   "rot": 0,
+   "x": 12,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "ground-factory",
+   "rot": 1,
+   "x": 16,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "ground-factory",
+   "rot": 2,
+   "x": 20,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "ground-factory",
+   "rot": 3,
+   "x": 0,
+   "y": 5,
+   "size": 3
+  },
+  {
+   "name": "hail",
+   "rot": 0,
+   "x": 4,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "hyper-processor",
+   "rot": 0,
+   "x": 6,
+   "y": 5,
+   "size": 3
+  },
+  {
+   "name": "illuminator",
+   "rot": 0,
+   "x": 10,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "impact-reactor",
+   "rot": 0,
+   "x": 12,
+   "y": 5,
+   "size": 4
+  },
+  {
+   "name": "incinerator",
+   "rot": 0,
+   "x": 17,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "interplanetary-accelerator",
+   "rot": 0,
+   "x": 0,
+   "y": 10,
+   "size": 7
+  },
+  {
+   "name": "inverted-sorter",
+   "rot": 0,
+   "x": 8,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "junction",
+   "rot": 0,
+   "x": 10,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "kiln",
+   "rot": 0,
+   "x": 12,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "lancer",
+   "rot": 0,
+   "x": 15,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "landing-pad",
+   "rot": 0,
+   "x": 18,
+   "y": 10,
+   "size": 4
+  },
+  {
+   "name": "large-logic-display",
+   "rot": 0,
+   "x": 0,
+   "y": 18,
+   "size": 6
+  }
+ ],
+ "coverage-serpulo-04": [
+  {
+   "name": "large-shield-projector",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 4
+  },
+  {
+   "name": "laser-drill",
+   "rot": 0,
+   "x": 5,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "launch-pad",
+   "rot": 0,
+   "x": 9,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "liquid-container",
+   "rot": 0,
+   "x": 13,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "liquid-junction",
+   "rot": 0,
+   "x": 16,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "liquid-router",
+   "rot": 0,
+   "x": 18,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "liquid-tank",
+   "rot": 0,
+   "x": 20,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "logic-display",
+   "rot": 0,
+   "x": 0,
+   "y": 5,
+   "size": 3
+  },
+  {
+   "name": "logic-processor",
+   "rot": 0,
+   "x": 4,
+   "y": 5,
+   "size": 2
+  },
+  {
+   "name": "mass-driver",
+   "rot": 0,
+   "x": 7,
+   "y": 5,
+   "size": 3
+  },
+  {
+   "name": "mechanical-drill",
+   "rot": 0,
+   "x": 11,
+   "y": 5,
+   "size": 2
+  },
+  {
+   "name": "meltdown",
+   "rot": 0,
+   "x": 14,
+   "y": 5,
+   "size": 4
+  },
+  {
+   "name": "melter",
+   "rot": 0,
+   "x": 19,
+   "y": 5,
+   "size": 1
+  },
+  {
+   "name": "memory-bank",
+   "rot": 0,
+   "x": 21,
+   "y": 5,
+   "size": 2
+  },
+  {
+   "name": "memory-cell",
+   "rot": 0,
+   "x": 0,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "mend-projector",
+   "rot": 0,
+   "x": 2,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "mender",
+   "rot": 0,
+   "x": 5,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "message",
+   "rot": 0,
+   "x": 7,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "micro-processor",
+   "rot": 0,
+   "x": 9,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "multi-press",
+   "rot": 0,
+   "x": 11,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "multiplicative-reconstructor",
+   "rot": 0,
+   "x": 15,
+   "y": 10,
+   "size": 5
+  },
+  {
+   "name": "naval-factory",
+   "rot": 0,
+   "x": 21,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "naval-factory",
+   "rot": 1,
+   "x": 0,
+   "y": 16,
+   "size": 3
+  },
+  {
+   "name": "naval-factory",
+   "rot": 2,
+   "x": 4,
+   "y": 16,
+   "size": 3
+  }
+ ],
+ "coverage-serpulo-05": [
+  {
+   "name": "naval-factory",
+   "rot": 3,
+   "x": 0,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "oil-extractor",
+   "rot": 0,
+   "x": 4,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "overdrive-dome",
+   "rot": 0,
+   "x": 8,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "overdrive-projector",
+   "rot": 0,
+   "x": 12,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "overflow-gate",
+   "rot": 0,
+   "x": 15,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "parallax",
+   "rot": 0,
+   "x": 17,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "payload-conveyor",
+   "rot": 0,
+   "x": 20,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "payload-conveyor",
+   "rot": 1,
+   "x": 22,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "payload-conveyor",
+   "rot": 2,
+   "x": 0,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "payload-conveyor",
+   "rot": 3,
+   "x": 2,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "payload-router",
+   "rot": 0,
+   "x": 4,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "payload-router",
+   "rot": 1,
+   "x": 6,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "payload-router",
+   "rot": 2,
+   "x": 8,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "payload-router",
+   "rot": 3,
+   "x": 10,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "phase-conduit",
+   "rot": 0,
+   "x": 12,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "phase-conveyor",
+   "rot": 0,
+   "x": 14,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "phase-wall",
+   "rot": 0,
+   "x": 16,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "phase-wall-large",
+   "rot": 0,
+   "x": 18,
+   "y": 4,
+   "size": 2
+  },
+  {
+   "name": "phase-weaver",
+   "rot": 0,
+   "x": 21,
+   "y": 4,
+   "size": 2
+  },
+  {
+   "name": "plastanium-compressor",
+   "rot": 0,
+   "x": 0,
+   "y": 7,
+   "size": 2
+  },
+  {
+   "name": "plastanium-conveyor",
+   "rot": 0,
+   "x": 3,
+   "y": 7,
+   "size": 1
+  },
+  {
+   "name": "plastanium-conveyor",
+   "rot": 1,
+   "x": 5,
+   "y": 7,
+   "size": 1
+  },
+  {
+   "name": "plastanium-conveyor",
+   "rot": 2,
+   "x": 7,
+   "y": 7,
+   "size": 1
+  },
+  {
+   "name": "plastanium-conveyor",
+   "rot": 3,
+   "x": 9,
+   "y": 7,
+   "size": 1
+  }
+ ],
+ "coverage-serpulo-06": [
+  {
+   "name": "plastanium-wall",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "plastanium-wall-large",
+   "rot": 0,
+   "x": 2,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "plated-conduit",
+   "rot": 0,
+   "x": 5,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "pneumatic-drill",
+   "rot": 0,
+   "x": 7,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "power-node",
+   "rot": 0,
+   "x": 10,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "power-node-large",
+   "rot": 0,
+   "x": 12,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "pulse-conduit",
+   "rot": 0,
+   "x": 15,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "pulse-conduit",
+   "rot": 1,
+   "x": 17,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "pulse-conduit",
+   "rot": 2,
+   "x": 19,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "pulse-conduit",
+   "rot": 3,
+   "x": 21,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "pulverizer",
+   "rot": 0,
+   "x": 23,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "pyratite-mixer",
+   "rot": 0,
+   "x": 0,
+   "y": 3,
+   "size": 2
+  },
+  {
+   "name": "repair-point",
+   "rot": 0,
+   "x": 3,
+   "y": 3,
+   "size": 1
+  },
+  {
+   "name": "repair-turret",
+   "rot": 0,
+   "x": 5,
+   "y": 3,
+   "size": 2
+  },
+  {
+   "name": "router",
+   "rot": 0,
+   "x": 8,
+   "y": 3,
+   "size": 1
+  },
+  {
+   "name": "rtg-generator",
+   "rot": 0,
+   "x": 10,
+   "y": 3,
+   "size": 2
+  },
+  {
+   "name": "salvo",
+   "rot": 0,
+   "x": 13,
+   "y": 3,
+   "size": 2
+  },
+  {
+   "name": "scatter",
+   "rot": 0,
+   "x": 16,
+   "y": 3,
+   "size": 2
+  },
+  {
+   "name": "scorch",
+   "rot": 0,
+   "x": 19,
+   "y": 3,
+   "size": 1
+  },
+  {
+   "name": "scrap-wall",
+   "rot": 0,
+   "x": 21,
+   "y": 3,
+   "size": 1
+  },
+  {
+   "name": "scrap-wall-gigantic",
+   "rot": 0,
+   "x": 0,
+   "y": 6,
+   "size": 4
+  },
+  {
+   "name": "scrap-wall-huge",
+   "rot": 0,
+   "x": 5,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "scrap-wall-large",
+   "rot": 0,
+   "x": 9,
+   "y": 6,
+   "size": 2
+  },
+  {
+   "name": "segment",
+   "rot": 0,
+   "x": 12,
+   "y": 6,
+   "size": 2
+  }
+ ],
+ "coverage-serpulo-07": [
+  {
+   "name": "separator",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "shield-projector",
+   "rot": 0,
+   "x": 3,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "shock-mine",
+   "rot": 0,
+   "x": 7,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "silicon-crucible",
+   "rot": 0,
+   "x": 9,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "silicon-smelter",
+   "rot": 0,
+   "x": 13,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "solar-panel",
+   "rot": 0,
+   "x": 16,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "solar-panel-large",
+   "rot": 0,
+   "x": 18,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "sorter",
+   "rot": 0,
+   "x": 22,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "spectre",
+   "rot": 0,
+   "x": 0,
+   "y": 4,
+   "size": 4
+  },
+  {
+   "name": "spore-press",
+   "rot": 0,
+   "x": 5,
+   "y": 4,
+   "size": 2
+  },
+  {
+   "name": "steam-generator",
+   "rot": 0,
+   "x": 8,
+   "y": 4,
+   "size": 2
+  },
+  {
+   "name": "surge-smelter",
+   "rot": 0,
+   "x": 11,
+   "y": 4,
+   "size": 3
+  },
+  {
+   "name": "surge-tower",
+   "rot": 0,
+   "x": 15,
+   "y": 4,
+   "size": 2
+  },
+  {
+   "name": "surge-wall",
+   "rot": 0,
+   "x": 18,
+   "y": 4,
+   "size": 1
+  },
+  {
+   "name": "surge-wall-large",
+   "rot": 0,
+   "x": 20,
+   "y": 4,
+   "size": 2
+  },
+  {
+   "name": "swarmer",
+   "rot": 0,
+   "x": 0,
+   "y": 9,
+   "size": 2
+  },
+  {
+   "name": "switch",
+   "rot": 0,
+   "x": 3,
+   "y": 9,
+   "size": 1
+  },
+  {
+   "name": "tetrative-reconstructor",
+   "rot": 0,
+   "x": 5,
+   "y": 9,
+   "size": 9
+  },
+  {
+   "name": "thorium-reactor",
+   "rot": 0,
+   "x": 15,
+   "y": 9,
+   "size": 3
+  },
+  {
+   "name": "thorium-wall",
+   "rot": 0,
+   "x": 19,
+   "y": 9,
+   "size": 1
+  },
+  {
+   "name": "thorium-wall-large",
+   "rot": 0,
+   "x": 21,
+   "y": 9,
+   "size": 2
+  },
+  {
+   "name": "tile-logic-display",
+   "rot": 0,
+   "x": 0,
+   "y": 19,
+   "size": 1
+  },
+  {
+   "name": "titanium-conveyor",
+   "rot": 0,
+   "x": 2,
+   "y": 19,
+   "size": 1
+  },
+  {
+   "name": "titanium-conveyor",
+   "rot": 1,
+   "x": 4,
+   "y": 19,
+   "size": 1
+  }
+ ],
+ "coverage-serpulo-08": [
+  {
+   "name": "titanium-conveyor",
+   "rot": 2,
+   "x": 0,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "titanium-conveyor",
+   "rot": 3,
+   "x": 2,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "titanium-wall",
+   "rot": 0,
+   "x": 4,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "titanium-wall-large",
+   "rot": 0,
+   "x": 6,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "tsunami",
+   "rot": 0,
+   "x": 9,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "underflow-gate",
+   "rot": 0,
+   "x": 13,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "unloader",
+   "rot": 0,
+   "x": 15,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "vault",
+   "rot": 0,
+   "x": 17,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "wave",
+   "rot": 0,
+   "x": 21,
+   "y": 0,
+   "size": 2
+  }
+ ],
+ "coverage-special-serpulo-01": [
+  {
+   "name": "impulse-pump",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "mechanical-pump",
+   "rot": 0,
+   "x": 4,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "rotary-pump",
+   "rot": 0,
+   "x": 6,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "thermal-generator",
+   "rot": 0,
+   "x": 9,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "water-extractor",
+   "rot": 0,
+   "x": 12,
+   "y": 0,
+   "size": 2
+  }
+ ],
+ "coverage-erekir-01": [
+  {
+   "name": "afflict",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 4
+  },
+  {
+   "name": "armored-duct",
+   "rot": 0,
+   "x": 5,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "armored-duct",
+   "rot": 1,
+   "x": 7,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "armored-duct",
+   "rot": 2,
+   "x": 9,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "armored-duct",
+   "rot": 3,
+   "x": 11,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "atmospheric-concentrator",
+   "rot": 0,
+   "x": 13,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "basic-assembler-module",
+   "rot": 0,
+   "x": 17,
+   "y": 0,
+   "size": 5
+  },
+  {
+   "name": "beam-link",
+   "rot": 0,
+   "x": 0,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "beam-node",
+   "rot": 0,
+   "x": 4,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "beam-tower",
+   "rot": 0,
+   "x": 6,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "beryllium-wall",
+   "rot": 0,
+   "x": 10,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "beryllium-wall-large",
+   "rot": 0,
+   "x": 12,
+   "y": 6,
+   "size": 2
+  },
+  {
+   "name": "blast-door",
+   "rot": 0,
+   "x": 15,
+   "y": 6,
+   "size": 2
+  },
+  {
+   "name": "breach",
+   "rot": 0,
+   "x": 18,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "build-tower",
+   "rot": 0,
+   "x": 0,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "canvas",
+   "rot": 0,
+   "x": 4,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "carbide-crucible",
+   "rot": 0,
+   "x": 7,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "carbide-wall",
+   "rot": 0,
+   "x": 11,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "carbide-wall-large",
+   "rot": 0,
+   "x": 13,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "chemical-combustion-chamber",
+   "rot": 0,
+   "x": 16,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "constructor",
+   "rot": 0,
+   "x": 20,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "core-acropolis",
+   "rot": 0,
+   "x": 0,
+   "y": 14,
+   "size": 6
+  },
+  {
+   "name": "core-bastion",
+   "rot": 0,
+   "x": 7,
+   "y": 14,
+   "size": 4
+  },
+  {
+   "name": "core-citadel",
+   "rot": 0,
+   "x": 12,
+   "y": 14,
+   "size": 5
+  }
+ ],
+ "coverage-erekir-02": [
+  {
+   "name": "cyanogen-synthesizer",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "deconstructor",
+   "rot": 0,
+   "x": 4,
+   "y": 0,
+   "size": 5
+  },
+  {
+   "name": "diffuse",
+   "rot": 0,
+   "x": 10,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "duct",
+   "rot": 0,
+   "x": 14,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "duct",
+   "rot": 1,
+   "x": 16,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "duct",
+   "rot": 2,
+   "x": 18,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "duct",
+   "rot": 3,
+   "x": 20,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "duct-bridge",
+   "rot": 0,
+   "x": 22,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "duct-router",
+   "rot": 0,
+   "x": 0,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "duct-router",
+   "rot": 1,
+   "x": 2,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "duct-router",
+   "rot": 2,
+   "x": 4,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "duct-router",
+   "rot": 3,
+   "x": 6,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "duct-unloader",
+   "rot": 0,
+   "x": 8,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "duct-unloader",
+   "rot": 1,
+   "x": 10,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "duct-unloader",
+   "rot": 2,
+   "x": 12,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "duct-unloader",
+   "rot": 3,
+   "x": 14,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "electric-heater",
+   "rot": 0,
+   "x": 16,
+   "y": 6,
+   "size": 2
+  },
+  {
+   "name": "electrolyzer",
+   "rot": 0,
+   "x": 19,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "electrolyzer",
+   "rot": 1,
+   "x": 0,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "electrolyzer",
+   "rot": 2,
+   "x": 4,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "electrolyzer",
+   "rot": 3,
+   "x": 8,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "eruption-drill",
+   "rot": 0,
+   "x": 12,
+   "y": 10,
+   "size": 5
+  },
+  {
+   "name": "flux-reactor",
+   "rot": 0,
+   "x": 18,
+   "y": 10,
+   "size": 5
+  },
+  {
+   "name": "heat-reactor",
+   "rot": 0,
+   "x": 0,
+   "y": 16,
+   "size": 3
+  }
+ ],
+ "coverage-erekir-03": [
+  {
+   "name": "heat-redirector",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "heat-router",
+   "rot": 0,
+   "x": 4,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "impact-drill",
+   "rot": 0,
+   "x": 8,
+   "y": 0,
+   "size": 4
+  },
+  {
+   "name": "large-canvas",
+   "rot": 0,
+   "x": 13,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "large-constructor",
+   "rot": 0,
+   "x": 17,
+   "y": 0,
+   "size": 5
+  },
+  {
+   "name": "large-payload-mass-driver",
+   "rot": 0,
+   "x": 0,
+   "y": 6,
+   "size": 5
+  },
+  {
+   "name": "large-payload-mass-driver",
+   "rot": 1,
+   "x": 6,
+   "y": 6,
+   "size": 5
+  },
+  {
+   "name": "large-payload-mass-driver",
+   "rot": 2,
+   "x": 12,
+   "y": 6,
+   "size": 5
+  },
+  {
+   "name": "large-payload-mass-driver",
+   "rot": 3,
+   "x": 18,
+   "y": 6,
+   "size": 5
+  },
+  {
+   "name": "large-plasma-bore",
+   "rot": 0,
+   "x": 0,
+   "y": 12,
+   "size": 3
+  },
+  {
+   "name": "large-plasma-bore",
+   "rot": 1,
+   "x": 4,
+   "y": 12,
+   "size": 3
+  },
+  {
+   "name": "large-plasma-bore",
+   "rot": 2,
+   "x": 8,
+   "y": 12,
+   "size": 3
+  },
+  {
+   "name": "large-plasma-bore",
+   "rot": 3,
+   "x": 12,
+   "y": 12,
+   "size": 3
+  },
+  {
+   "name": "lustre",
+   "rot": 0,
+   "x": 16,
+   "y": 12,
+   "size": 4
+  },
+  {
+   "name": "mech-assembler",
+   "rot": 0,
+   "x": 0,
+   "y": 17,
+   "size": 5
+  },
+  {
+   "name": "mech-fabricator",
+   "rot": 0,
+   "x": 6,
+   "y": 17,
+   "size": 3
+  },
+  {
+   "name": "mech-fabricator",
+   "rot": 1,
+   "x": 10,
+   "y": 17,
+   "size": 3
+  },
+  {
+   "name": "mech-fabricator",
+   "rot": 2,
+   "x": 14,
+   "y": 17,
+   "size": 3
+  },
+  {
+   "name": "mech-fabricator",
+   "rot": 3,
+   "x": 18,
+   "y": 17,
+   "size": 3
+  },
+  {
+   "name": "mech-refabricator",
+   "rot": 0,
+   "x": 0,
+   "y": 23,
+   "size": 3
+  }
+ ],
+ "coverage-erekir-04": [
+  {
+   "name": "neoplasia-reactor",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 5
+  },
+  {
+   "name": "overflow-duct",
+   "rot": 0,
+   "x": 6,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "overflow-duct",
+   "rot": 1,
+   "x": 8,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "overflow-duct",
+   "rot": 2,
+   "x": 10,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "overflow-duct",
+   "rot": 3,
+   "x": 12,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "oxidation-chamber",
+   "rot": 0,
+   "x": 14,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "payload-loader",
+   "rot": 0,
+   "x": 18,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "payload-loader",
+   "rot": 1,
+   "x": 0,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "payload-loader",
+   "rot": 2,
+   "x": 4,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "payload-loader",
+   "rot": 3,
+   "x": 8,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "payload-mass-driver",
+   "rot": 0,
+   "x": 12,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "payload-mass-driver",
+   "rot": 1,
+   "x": 16,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "payload-mass-driver",
+   "rot": 2,
+   "x": 20,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "payload-mass-driver",
+   "rot": 3,
+   "x": 0,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "payload-unloader",
+   "rot": 0,
+   "x": 4,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "payload-unloader",
+   "rot": 1,
+   "x": 8,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "payload-unloader",
+   "rot": 2,
+   "x": 12,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "payload-unloader",
+   "rot": 3,
+   "x": 16,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "phase-heater",
+   "rot": 0,
+   "x": 20,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "phase-synthesizer",
+   "rot": 0,
+   "x": 0,
+   "y": 14,
+   "size": 3
+  },
+  {
+   "name": "plasma-bore",
+   "rot": 0,
+   "x": 4,
+   "y": 14,
+   "size": 2
+  },
+  {
+   "name": "plasma-bore",
+   "rot": 1,
+   "x": 7,
+   "y": 14,
+   "size": 2
+  },
+  {
+   "name": "plasma-bore",
+   "rot": 2,
+   "x": 10,
+   "y": 14,
+   "size": 2
+  },
+  {
+   "name": "plasma-bore",
+   "rot": 3,
+   "x": 13,
+   "y": 14,
+   "size": 2
+  }
+ ],
+ "coverage-erekir-05": [
+  {
+   "name": "prime-refabricator",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 5
+  },
+  {
+   "name": "pyrolysis-generator",
+   "rot": 0,
+   "x": 6,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "radar",
+   "rot": 0,
+   "x": 10,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "regen-projector",
+   "rot": 0,
+   "x": 12,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "reinforced-bridge-conduit",
+   "rot": 0,
+   "x": 16,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "reinforced-conduit",
+   "rot": 0,
+   "x": 18,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "reinforced-container",
+   "rot": 0,
+   "x": 20,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "reinforced-liquid-container",
+   "rot": 0,
+   "x": 0,
+   "y": 6,
+   "size": 2
+  },
+  {
+   "name": "reinforced-liquid-junction",
+   "rot": 0,
+   "x": 3,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-liquid-router",
+   "rot": 0,
+   "x": 5,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-liquid-tank",
+   "rot": 0,
+   "x": 7,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "reinforced-message",
+   "rot": 0,
+   "x": 11,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-payload-conveyor",
+   "rot": 0,
+   "x": 13,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-payload-conveyor",
+   "rot": 1,
+   "x": 15,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-payload-conveyor",
+   "rot": 2,
+   "x": 17,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-payload-conveyor",
+   "rot": 3,
+   "x": 19,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-payload-router",
+   "rot": 0,
+   "x": 21,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-payload-router",
+   "rot": 1,
+   "x": 23,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-payload-router",
+   "rot": 2,
+   "x": 0,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "reinforced-payload-router",
+   "rot": 3,
+   "x": 2,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "reinforced-surge-wall",
+   "rot": 0,
+   "x": 4,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "reinforced-surge-wall-large",
+   "rot": 0,
+   "x": 6,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "reinforced-vault",
+   "rot": 0,
+   "x": 9,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "shielded-wall",
+   "rot": 0,
+   "x": 13,
+   "y": 10,
+   "size": 2
+  }
+ ],
+ "coverage-erekir-06": [
+  {
+   "name": "ship-assembler",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 5
+  },
+  {
+   "name": "ship-fabricator",
+   "rot": 0,
+   "x": 6,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "ship-fabricator",
+   "rot": 1,
+   "x": 10,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "ship-fabricator",
+   "rot": 2,
+   "x": 14,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "ship-fabricator",
+   "rot": 3,
+   "x": 18,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "ship-refabricator",
+   "rot": 0,
+   "x": 0,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "shockwave-tower",
+   "rot": 0,
+   "x": 4,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "silicon-arc-furnace",
+   "rot": 0,
+   "x": 8,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "slag-centrifuge",
+   "rot": 0,
+   "x": 12,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "slag-heater",
+   "rot": 0,
+   "x": 16,
+   "y": 6,
+   "size": 3
+  },
+  {
+   "name": "slag-incinerator",
+   "rot": 0,
+   "x": 20,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "small-deconstructor",
+   "rot": 0,
+   "x": 0,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "small-heat-redirector",
+   "rot": 0,
+   "x": 4,
+   "y": 10,
+   "size": 2
+  },
+  {
+   "name": "sublimate",
+   "rot": 0,
+   "x": 7,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "surge-conveyor",
+   "rot": 0,
+   "x": 11,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "surge-conveyor",
+   "rot": 1,
+   "x": 13,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "surge-conveyor",
+   "rot": 2,
+   "x": 15,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "surge-conveyor",
+   "rot": 3,
+   "x": 17,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "surge-crucible",
+   "rot": 0,
+   "x": 19,
+   "y": 10,
+   "size": 3
+  },
+  {
+   "name": "surge-router",
+   "rot": 0,
+   "x": 23,
+   "y": 10,
+   "size": 1
+  },
+  {
+   "name": "tank-assembler",
+   "rot": 0,
+   "x": 0,
+   "y": 14,
+   "size": 5
+  },
+  {
+   "name": "tank-fabricator",
+   "rot": 0,
+   "x": 6,
+   "y": 14,
+   "size": 3
+  },
+  {
+   "name": "tank-fabricator",
+   "rot": 1,
+   "x": 10,
+   "y": 14,
+   "size": 3
+  },
+  {
+   "name": "tank-fabricator",
+   "rot": 2,
+   "x": 14,
+   "y": 14,
+   "size": 3
+  }
+ ],
+ "coverage-erekir-07": [
+  {
+   "name": "tank-fabricator",
+   "rot": 3,
+   "x": 0,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "tank-refabricator",
+   "rot": 0,
+   "x": 4,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "tungsten-wall",
+   "rot": 0,
+   "x": 8,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "tungsten-wall-large",
+   "rot": 0,
+   "x": 10,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "underflow-duct",
+   "rot": 0,
+   "x": 13,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "underflow-duct",
+   "rot": 1,
+   "x": 15,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "underflow-duct",
+   "rot": 2,
+   "x": 17,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "underflow-duct",
+   "rot": 3,
+   "x": 19,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "unit-cargo-loader",
+   "rot": 0,
+   "x": 21,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "unit-cargo-unload-point",
+   "rot": 0,
+   "x": 0,
+   "y": 4,
+   "size": 2
+  },
+  {
+   "name": "unit-repair-tower",
+   "rot": 0,
+   "x": 3,
+   "y": 4,
+   "size": 2
+  }
+ ],
+ "coverage-special-erekir-01": [
+  {
+   "name": "cliff-crusher",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "cliff-crusher",
+   "rot": 1,
+   "x": 3,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "cliff-crusher",
+   "rot": 2,
+   "x": 6,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "cliff-crusher",
+   "rot": 3,
+   "x": 9,
+   "y": 0,
+   "size": 2
+  },
+  {
+   "name": "large-cliff-crusher",
+   "rot": 0,
+   "x": 12,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "large-cliff-crusher",
+   "rot": 1,
+   "x": 16,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "large-cliff-crusher",
+   "rot": 2,
+   "x": 20,
+   "y": 0,
+   "size": 3
+  },
+  {
+   "name": "large-cliff-crusher",
+   "rot": 3,
+   "x": 0,
+   "y": 4,
+   "size": 3
+  },
+  {
+   "name": "reinforced-pump",
+   "rot": 0,
+   "x": 4,
+   "y": 4,
+   "size": 2
+  },
+  {
+   "name": "turbine-condenser",
+   "rot": 0,
+   "x": 7,
+   "y": 4,
+   "size": 3
+  },
+  {
+   "name": "vent-condenser",
+   "rot": 0,
+   "x": 11,
+   "y": 4,
+   "size": 3
+  }
+ ],
+ "coverage-editor-01": [
+  {
+   "name": "heat-source",
+   "rot": 0,
+   "x": 0,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "item-source",
+   "rot": 0,
+   "x": 2,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "item-void",
+   "rot": 0,
+   "x": 4,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "liquid-source",
+   "rot": 0,
+   "x": 6,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "liquid-void",
+   "rot": 0,
+   "x": 8,
+   "y": 0,
+   "size": 1
+  },
+  {
+   "name": "payload-source",
+   "rot": 0,
+   "x": 10,
+   "y": 0,
+   "size": 5
+  },
+  {
+   "name": "payload-source",
+   "rot": 1,
+   "x": 16,
+   "y": 0,
+   "size": 5
+  },
+  {
+   "name": "payload-source",
+   "rot": 2,
+   "x": 0,
+   "y": 6,
+   "size": 5
+  },
+  {
+   "name": "payload-source",
+   "rot": 3,
+   "x": 6,
+   "y": 6,
+   "size": 5
+  },
+  {
+   "name": "payload-void",
+   "rot": 0,
+   "x": 12,
+   "y": 6,
+   "size": 5
+  },
+  {
+   "name": "power-source",
+   "rot": 0,
+   "x": 18,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "power-void",
+   "rot": 0,
+   "x": 20,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "reinforced-",
+   "rot": 0,
+   "x": 22,
+   "y": 6,
+   "size": 1
+  },
+  {
+   "name": "scathe-missile",
+   "rot": 0,
+   "x": 0,
+   "y": 12,
+   "size": 1
+  },
+  {
+   "name": "scathe-missile-phase",
+   "rot": 0,
+   "x": 2,
+   "y": 12,
+   "size": 1
+  },
+  {
+   "name": "scathe-missile-surge-split",
+   "rot": 0,
+   "x": 4,
+   "y": 12,
+   "size": 1
+  },
+  {
+   "name": "thruster",
+   "rot": 0,
+   "x": 6,
+   "y": 12,
+   "size": 4
+  },
+  {
+   "name": "world-cell",
+   "rot": 0,
+   "x": 11,
+   "y": 12,
+   "size": 1
+  },
+  {
+   "name": "world-message",
+   "rot": 0,
+   "x": 13,
+   "y": 12,
+   "size": 1
+  },
+  {
+   "name": "world-processor",
+   "rot": 0,
+   "x": 15,
+   "y": 12,
+   "size": 1
+  },
+  {
+   "name": "world-switch",
+   "rot": 0,
+   "x": 17,
+   "y": 12,
+   "size": 1
+  }
+ ],
+ "cluster-demo": [
+  {
+   "name": "silicon-smelter",
+   "x": 8,
+   "y": 2,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "kiln",
+   "x": 8,
+   "y": 7,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "graphite-press",
+   "x": 8,
+   "y": 12,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "pulverizer",
+   "x": 8,
+   "y": 17,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "coal-centrifuge",
+   "x": 8,
+   "y": 21,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "pyratite-mixer",
+   "x": 8,
+   "y": 26,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "conveyor",
+   "x": 4,
+   "y": 3,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 5,
+   "y": 3,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "sorter",
+   "x": 6,
+   "y": 3,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "junction",
+   "x": 7,
+   "y": 3,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 4,
+   "y": 8,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 5,
+   "y": 8,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "sorter",
+   "x": 6,
+   "y": 8,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "junction",
+   "x": 7,
+   "y": 8,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 4,
+   "y": 13,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 5,
+   "y": 13,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "sorter",
+   "x": 6,
+   "y": 13,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "junction",
+   "x": 7,
+   "y": 13,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 4,
+   "y": 17,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 5,
+   "y": 17,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "sorter",
+   "x": 6,
+   "y": 17,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "junction",
+   "x": 7,
+   "y": 17,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 4,
+   "y": 22,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 5,
+   "y": 22,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "sorter",
+   "x": 6,
+   "y": 22,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "junction",
+   "x": 7,
+   "y": 22,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 4,
+   "y": 27,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "conveyor",
+   "x": 5,
+   "y": 27,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "sorter",
+   "x": 6,
+   "y": 27,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "junction",
+   "x": 7,
+   "y": 27,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "power-node-large",
+   "x": 16,
+   "y": 2,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "power-node-large",
+   "x": 16,
+   "y": 8,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "power-node-large",
+   "x": 16,
+   "y": 14,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "power-node-large",
+   "x": 16,
+   "y": 20,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "power-node-large",
+   "x": 16,
+   "y": 26,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "vault",
+   "x": 4,
+   "y": 32,
+   "rot": 0,
+   "size": 3
+  },
+  {
+   "name": "container",
+   "x": 10,
+   "y": 32,
+   "rot": 0,
+   "size": 2
+  },
+  {
+   "name": "unloader",
+   "x": 9,
+   "y": 33,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "router",
+   "x": 12,
+   "y": 33,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "overflow-gate",
+   "x": 13,
+   "y": 33,
+   "rot": 0,
+   "size": 1
+  },
+  {
+   "name": "bridge-conveyor",
+   "x": 14,
+   "y": 33,
+   "rot": 0,
+   "size": 1
+  }
+ ]
+}

@@ -32,6 +32,7 @@ import joblib
 
 import core
 import recognize
+import sprite_train
 from PIL import Image
 
 
@@ -72,6 +73,16 @@ def _model_path(examples_dir):
 def _corpus_hash(examples_dir):
     """Hash all exemplar sources so we retrain when data changes."""
     h = hashlib.md5()
+    # Bump when exemplar-extraction logic changes (grid fitting, crops, ...).
+    h.update(b"extraction-v3")
+    # Sprite exemplar config + downloaded sprite files participate: changing
+    # BG_VARIANTS or BLOCK_SPRITES must invalidate cached classifiers.
+    h.update(repr(sprite_train.BG_VARIANTS).encode())
+    sdir = os.path.join(examples_dir, "_sprites")
+    if os.path.isdir(sdir):
+        for name in sorted(os.listdir(sdir)):
+            h.update(name.encode())
+            h.update(open(os.path.join(sdir, name), "rb").read())
     for name in sorted(os.listdir(examples_dir)):
         if name.endswith(".png"):
             h.update(open(os.path.join(examples_dir, name), "rb").read())
@@ -143,8 +154,10 @@ def extract_context(full_img, cx, cy, tw, th, ox, oy, can=recognize.CANON):
     """
     r = CTX_RADIUS
     img_w, img_h = full_img.size
-    x0 = ox + (cx - r) * tw
-    y0 = oy + (cy - r) * th
+    tw = int(round(tw))
+    th = int(round(th))
+    x0 = int(round(ox + (cx - r) * tw))
+    y0 = int(round(oy + (cy - r) * th))
     size = 1 + 2 * r  # e.g. 3
 
     # Clamp to image bounds.
